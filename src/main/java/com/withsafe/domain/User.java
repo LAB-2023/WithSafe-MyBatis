@@ -24,7 +24,7 @@ public class User {
     private double weight;
 
     @Enumerated(value = EnumType.STRING)
-    private String sex;
+    private Sex sex;
 
     //FK
     private Long department;
