@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.awt.*;
 
 @Entity
@@ -14,7 +12,8 @@ import java.awt.*;
 @Setter
 @RequiredArgsConstructor
 public class RestrictArea {
-    @Id
+    @Id @GeneratedValue
+    @Column(name = "restrict_area_id")
     private Long id;
 
     private String name;

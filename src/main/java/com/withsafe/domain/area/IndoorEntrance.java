@@ -18,6 +18,7 @@ public class IndoorEntrance {
 
     @Id
     @GeneratedValue
+    @Column(name = "indoor_entrance_id")
     private Long id;
 
     private LocalDateTime exit_time;
@@ -25,8 +26,10 @@ public class IndoorEntrance {
     private LocalDateTime enter_time;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "beacon_id")
     private Beacon beacon;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "watch_id")
     private Watch watch;
 }

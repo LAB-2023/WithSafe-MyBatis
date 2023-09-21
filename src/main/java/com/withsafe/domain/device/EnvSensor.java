@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 public class EnvSensor {
 
     @Id @GeneratedValue
+    @Column(name = "env_sensor_id")
     private Long id;
 
     private Point coordinate;

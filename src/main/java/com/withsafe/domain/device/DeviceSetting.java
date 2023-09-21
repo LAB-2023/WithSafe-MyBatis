@@ -1,5 +1,6 @@
 package com.withsafe.domain.device;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class DeviceSetting {
     @Id @GeneratedValue
+    @Column(name = "device_setting_id")
     private Long id;
     private int heart_rate_min;
     private int heart_rate_max;

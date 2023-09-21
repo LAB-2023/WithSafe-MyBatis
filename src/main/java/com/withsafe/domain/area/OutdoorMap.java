@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +16,9 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class OutdoorMap {
-    @Id
+
+    @Id @GeneratedValue
+    @Column(name = "outdoor_map_id")
     private Long id;
 
     private String name;

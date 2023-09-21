@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class Solve {
 
     @Id @GeneratedValue
+    @Column(name = "solve_id")
     private Long id;
 
     private String content;

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter @Setter
@@ -16,6 +13,7 @@ import javax.persistence.OneToOne;
 public class IndoorMap {
 
     @Id @GeneratedValue
+    @Column(name = "indoor_map_id")
     private Long id;
 
     private String name;
