@@ -12,15 +12,15 @@ public class EnvSensorData {
 
     private LocalDateTime reg_dt;
 
-    private Double PM10;
-    private Double PM25;
-    private Double PM40;
+    private Double PM010;
+    private Double PM025;
+    private Double PM040;
     private Double PM100;
-    private Double Co2;
-    private Double Tvoc;
-    private Double No2;
-    private Double So2;
-    private Double Co;
+    private Double Cㅒ2;
+    private Double TVOC;
+    private Double NO2;
+    private Double SO2;
+    private Double CO;
     private Double O2;
     private Double H2S;
     private Double CH4;

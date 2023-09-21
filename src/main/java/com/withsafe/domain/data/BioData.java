@@ -15,4 +15,5 @@ public class BioData {
     private LocalDateTime reg_dt;
     private int walk_count;
     private double oxygen;
+    private Boolean is_fall;
 }
