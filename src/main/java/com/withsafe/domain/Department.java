@@ -1,12 +1,11 @@
 package com.withsafe.domain;
 
+import com.withsafe.domain.area.IndoorMap;
+import com.withsafe.domain.area.OutdoorMap;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,10 +18,14 @@ public class Department {
     private Long id;
 
     private String name;
-    private String userList;
-    private String outdoorList;
-    private String indoorList;
-    //private List<User> users = new ArrayList<>();
 
+    @OneToMany(mappedBy = "department")
+    private List<User> userList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "department")
+    private List<OutdoorMap> outdoorMapList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "department")
+    private List<IndoorMap> indoorMapList = new ArrayList<>();
 }
 

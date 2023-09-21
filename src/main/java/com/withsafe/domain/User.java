@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Getter
 public class User {
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -31,4 +31,10 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    // == 연관관계 편의 메서드 == //
+    public void setDepartment(Department department) {
+        this.department = department;
+        department.getUserList().add(this);
+    }
 }

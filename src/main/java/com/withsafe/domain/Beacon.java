@@ -10,7 +10,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Beacon {
 
     @Id @GeneratedValue
@@ -25,4 +25,10 @@ public class Beacon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")
     private IndoorMap indoorMap;
+
+    // == 연관관계 편의 메서드 == //
+    public void setIndoorMap(IndoorMap indoorMap) {
+        this.indoorMap = indoorMap;
+        indoorMap.getBeaconList().add(this);
+    }
 }

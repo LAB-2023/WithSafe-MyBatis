@@ -10,7 +10,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 @RequiredArgsConstructor
 public class IndoorUserLocation {
     @Id @GeneratedValue

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Watch {
     @Id @GeneratedValue
     @Column(name = "watch_id")

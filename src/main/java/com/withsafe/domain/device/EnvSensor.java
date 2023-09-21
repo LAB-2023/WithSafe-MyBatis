@@ -10,7 +10,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 @RequiredArgsConstructor
 public class EnvSensor {
 
@@ -28,4 +28,10 @@ public class EnvSensor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outdoor_map_id")
     private OutdoorMap outdoorMap;
+
+    // == 연관관계 편의 메서드 == //
+    public void setOUtdoorMap(OutdoorMap outdoorMap) {
+        this.outdoorMap = outdoorMap;
+        outdoorMap.getEnvSensorList().add(this);
+    }
 }

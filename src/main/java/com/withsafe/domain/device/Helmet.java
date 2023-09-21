@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Helmet {
     @Id @GeneratedValue
     @Column(name = "helmet_id")

@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Getter
 public class UwbTag {
     @Id @GeneratedValue
     @Column(name = "uwb_tag_id")

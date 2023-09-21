@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 public class WarningMessage {
     @Id @GeneratedValue
     @Column(name = "warning_message_id")
