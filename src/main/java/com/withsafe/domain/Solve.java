@@ -17,5 +17,7 @@ public class Solve {
     private LocalDateTime date;
 
     //FK
-    private Long notice;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notice_id")
+    private Notice notice;
 }

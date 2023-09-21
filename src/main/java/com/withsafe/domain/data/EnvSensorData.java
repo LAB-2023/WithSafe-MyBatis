@@ -34,6 +34,7 @@ public class EnvSensorData {
     private Double humidity;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "env_sensor_id")
     private EnvSensor envSensor;
 }

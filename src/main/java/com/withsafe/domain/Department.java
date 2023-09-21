@@ -23,5 +23,6 @@ public class Department {
     private String outdoorList;
     private String indoorList;
     //private List<User> users = new ArrayList<>();
+
 }
 

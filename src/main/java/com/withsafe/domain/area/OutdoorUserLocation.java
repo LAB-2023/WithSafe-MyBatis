@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @RequiredArgsConstructor
 public class OutdoorUserLocation {
+
     @Id @GeneratedValue
     @Column(name = "outdoor_user_location_id")
     private Long id;
@@ -23,6 +24,7 @@ public class OutdoorUserLocation {
     private LocalDateTime date;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "watch_id")
     private Watch watch;
 }

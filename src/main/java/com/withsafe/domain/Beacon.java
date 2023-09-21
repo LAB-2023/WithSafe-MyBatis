@@ -1,13 +1,11 @@
 package com.withsafe.domain;
 
 
+import com.withsafe.domain.area.IndoorMap;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 
@@ -22,6 +20,9 @@ public class Beacon {
     private Point coordinate;
     private LocalDateTime date;
     private String status;
+
     //FK
-    private Long indoorMap;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "indoor_map_id")
+    private IndoorMap indoorMap;
 }

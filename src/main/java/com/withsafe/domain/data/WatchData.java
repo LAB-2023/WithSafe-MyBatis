@@ -23,6 +23,7 @@ public class WatchData {
     private LocalDateTime date;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "watch_id")
     private Watch watch;
 }

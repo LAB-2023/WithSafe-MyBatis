@@ -24,6 +24,7 @@ public class IndoorUserLocation {
     private String mapId;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uwb_tag_id")
     private UwbTag uwbTag;
 }

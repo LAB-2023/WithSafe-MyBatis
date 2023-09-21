@@ -25,10 +25,7 @@ public class OutdoorMap {
     private Point coordinate;
 
     //연관관계 매핑
-    @OneToMany
-    private List<RestrictArea> restrictAreas = new ArrayList<>();
-    @OneToMany
-    private List<EnvSensor> envSensors = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
     private Department department;
 }

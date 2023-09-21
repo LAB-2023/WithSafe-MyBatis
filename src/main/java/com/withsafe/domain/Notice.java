@@ -1,12 +1,10 @@
 package com.withsafe.domain;
 
+import com.withsafe.domain.device.Watch;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,6 +20,14 @@ public class Notice {
     private LocalDateTime date;
 
     //FK
-    private Long warning_message;
-    private Long watch_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warning_message_id")
+    private WarningMessage warning_message;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "watch_id")
+    private Watch watch;
+
+    @OneToOne(mappedBy = "notice", fetch = FetchType.LAZY)
+    private Solve solve;
 }

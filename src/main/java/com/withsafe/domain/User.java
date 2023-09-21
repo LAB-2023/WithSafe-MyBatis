@@ -28,5 +28,7 @@ public class User {
     private Sex sex;
 
     //FK
-    private Long department;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

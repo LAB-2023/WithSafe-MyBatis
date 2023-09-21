@@ -21,6 +21,7 @@ public class IndoorMap {
     private String imageUrl;
 
     //연관관계 매핑
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
     private Department department;
 }

@@ -23,8 +23,11 @@ public class RestrictArea {
     private Point coordinate;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "indoor_map_id")
     private IndoorMap indoorMap;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outdoor_map_id")
     private OutdoorMap outdoorMap;
 }

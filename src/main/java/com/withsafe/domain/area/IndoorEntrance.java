@@ -29,6 +29,7 @@ public class IndoorEntrance {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beacon_id")
     private Beacon beacon;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "watch_id")
     private Watch watch;

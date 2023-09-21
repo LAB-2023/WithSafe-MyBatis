@@ -25,6 +25,7 @@ public class EnvSensor {
     private Boolean isUsed;
 
     //연관관계 매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outdoor_map_id")
     private OutdoorMap outdoorMap;
 }
