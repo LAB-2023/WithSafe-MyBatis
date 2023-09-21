@@ -3,10 +3,7 @@ package com.withsafe.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class WarningMessage {
     @Id @GeneratedValue
+    @Column(name = "warning_message_id")
     private Long id;
 
 //    @Lob

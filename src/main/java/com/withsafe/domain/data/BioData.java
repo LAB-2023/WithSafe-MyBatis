@@ -2,15 +2,13 @@ package com.withsafe.domain.data;
 
 import com.withsafe.domain.device.Watch;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 public class BioData {
     @Id @GeneratedValue
+    @Column(name = "bio_data_id")
     private Long id;
 
     private int heartRate;
