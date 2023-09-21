@@ -1,23 +1,26 @@
 package com.withsafe.domain;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.awt.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 public class Beacon {
-    @Id
+
+    @Id @GeneratedValue
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Point coordinate;
+    private LocalDateTime date;
+    private String status;
 
-    public Long getId() {
-        return id;
-    }
+    //FK
+    private Long indoorMap;
 }

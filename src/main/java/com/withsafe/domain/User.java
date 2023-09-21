@@ -25,4 +25,7 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private String sex;
+
+    //FK
+    private Long department;
 }
