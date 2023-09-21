@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-public class helmet {
+public class Helmet {
     @Id @GeneratedValue
     private Long id;
 

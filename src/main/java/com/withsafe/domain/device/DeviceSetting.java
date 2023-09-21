@@ -1,4 +1,4 @@
-package com.withsafe.domain;
+package com.withsafe.domain.device;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -16,7 +16,7 @@ public class EnvSensorData {
     private Double PM025;
     private Double PM040;
     private Double PM100;
-    private Double Cㅒ2;
+    private Double CH2;
     private Double TVOC;
     private Double NO2;
     private Double SO2;
