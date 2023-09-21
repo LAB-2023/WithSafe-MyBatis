@@ -1,6 +1,7 @@
 package com.withsafe.repository;
 
 import com.withsafe.domain.User;
+import com.withsafe.domain.device.Watch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +23,13 @@ public class UserRepository {
         return em.createQuery("select u from User u",User.class)
                 .getResultList();
     }
+
     public List<User> findByName(String name){
         return em.createQuery("select u from User u where u.name = :name", User.class)
                 .setParameter("name",name)
                 .getResultList();
     }
+    /**
+     * 부서별 유저 검색 기능 구현 필요시 findByDepartment 메소드 추가
+     */
 }

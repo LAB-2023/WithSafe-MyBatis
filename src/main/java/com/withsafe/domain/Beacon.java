@@ -20,7 +20,6 @@ public class Beacon {
     private Point coordinate;
     private LocalDateTime date;
     private String status;
-
     //FK
     private Long indoorMap;
 }
