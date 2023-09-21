@@ -1,16 +1,24 @@
 package com.withsafe.domain.data;
 
+import com.withsafe.domain.device.EnvSensor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter @Setter
+@RequiredArgsConstructor
 public class EnvSensorData {
     @Id @GeneratedValue
     private Long id;
 
-    private LocalDateTime reg_dt;
+    private LocalDateTime date;
 
     private Double PM010;
     private Double PM025;
@@ -26,4 +34,8 @@ public class EnvSensorData {
     private Double CH4;
     private Double temperature;
     private Double humidity;
+
+    //연관관계 매핑
+    @ManyToOne
+    private EnvSensor envSensor;
 }
