@@ -21,7 +21,6 @@ public class RestrictArea {
 
     private Point coordinate;
 
-    //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")
     private IndoorMap indoorMap;

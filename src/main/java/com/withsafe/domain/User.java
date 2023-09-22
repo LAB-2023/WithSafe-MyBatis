@@ -1,6 +1,7 @@
 package com.withsafe.domain;
 
 
+import com.withsafe.domain.device.Watch;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,9 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private Sex sex;
+
+    @OneToOne(mappedBy = "watch", fetch = FetchType.LAZY)
+    private Watch watch;
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)

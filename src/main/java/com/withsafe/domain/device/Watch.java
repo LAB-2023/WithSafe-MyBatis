@@ -1,5 +1,6 @@
 package com.withsafe.domain.device;
 
+import com.withsafe.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +14,9 @@ public class Watch {
     @Column(name = "watch_id")
     private Long id;
 
-    //FK
-    private Long user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     private String serial_num;
     private LocalDateTime operating_date;
@@ -26,6 +28,6 @@ public class Watch {
     private int device_num;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "watch_id")
+    @JoinColumn(name = "helmet_id")
     private Helmet helmet;
 }
