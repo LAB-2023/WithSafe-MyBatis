@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class EnvSensorData {
+public class EnvSensorData {    //환경센서에서 넘어오는 데이터
     @Id @GeneratedValue
     @Column(name = "env_sensor_id")
     private Long id;

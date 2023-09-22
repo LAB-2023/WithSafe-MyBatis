@@ -16,7 +16,7 @@ public class WarningMessage {
 
 //    @Lob
     private String content; // 경고 메시지
-    private String type; // 경고 메시지 발생 시간
-    private LocalDateTime date;
+    private String type; // 경고 메시지 타입
+    private LocalDateTime date; //경고 메시지 발생시간
 
 }

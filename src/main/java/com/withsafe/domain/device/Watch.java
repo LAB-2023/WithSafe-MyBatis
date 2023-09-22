@@ -16,18 +16,18 @@ public class Watch {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User user;
+    private User user;  //워치가 매핑된 유저 id
 
-    private String serial_num;
-    private LocalDateTime operating_date;
+    private String serial_num;  //시리얼 번호
+    private LocalDateTime operating_date;   //개통일
 
-    private String model;
+    private String model;   //모델 정보
 
-    private Boolean is_used;
+    private Boolean is_used;    //사용유무
 
-    private int device_num;
+    private int device_num; //디바이스번호(PK와 다름)
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "helmet_id")
-    private Helmet helmet;
+    private Helmet helmet;  //워치에 매핑된 턱끈 id
 }

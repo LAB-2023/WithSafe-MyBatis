@@ -10,10 +10,10 @@ import javax.persistence.*;
 public class UwbTag {
     @Id @GeneratedValue
     @Column(name = "uwb_tag_id")
-    private Long id;
+    private Long id;    //PK
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;  //태그와 매핑된 유저 io
 }

@@ -13,21 +13,21 @@ import java.awt.*;
 public class RestrictArea {
     @Id @GeneratedValue
     @Column(name = "restrict_area_id")
-    private Long id;
+    private Long id;    //PK
 
-    private String name;
+    private String name;    //제한구역 이름
 
-    private String safetyRule;
+    private String safetyRule;  //제한구역의 안전수칙
 
-    private Point coordinate;
+    private Point coordinate;   //제한구역의 중심 좌표
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")
-    private IndoorMap indoorMap;
+    private IndoorMap indoorMap;    //실내에 해당되는 제한구역일 경우 실내지도의 id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outdoor_map_id")
-    private OutdoorMap outdoorMap;
+    private OutdoorMap outdoorMap;  //실외에 해당되는 제한구역일 경우 실외지도의 id
 
     // == 연관관계 편의 메서드 == //
     public void setIndoorMap(IndoorMap indoorMap) {

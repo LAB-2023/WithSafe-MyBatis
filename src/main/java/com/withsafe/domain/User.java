@@ -14,27 +14,27 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    private String name;
-    private int age;
-    private String phone_num;
-    private String emergency_contact;
-    private String emergency_relation;
-    private int heartRate_threshold;
-    private int oxygen_threshold;
-    private int walk_threshold;
-    private double height;
-    private double weight;
+    private String name;    //이름
+    private int age;    //나이
+    private String phone_num;   //전화번호
+    private String emergency_contact;   //비상연락망
+    private String emergency_relation;  //비상연락망 대상과의 관계
+    private int heartRate_threshold;    //심박수 임계치
+    private int oxygen_threshold;   //산소포화도 임계치
+    private int walk_threshold; //걸음수 임계치
+    private double height;  //키
+    private double weight;  //몸무게
 
     @Enumerated(value = EnumType.STRING)
-    private Sex sex;
+    private Sex sex;    //성별
 
     @OneToOne(mappedBy = "watch", fetch = FetchType.LAZY)
-    private Watch watch;
+    private Watch watch;    //매핑된 워치 id
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;
+    private Department department;  //해당 사용자가 포함된 부서 id
 
     // == 연관관계 편의 메서드 == //
     public void setDepartment(Department department) {

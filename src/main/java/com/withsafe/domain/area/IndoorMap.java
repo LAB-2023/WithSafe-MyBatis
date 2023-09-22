@@ -23,17 +23,16 @@ public class IndoorMap {
 
     private String imageUrl;
 
-    //실내지도가 비콘 리스트를 가지고 있어야하나..? 일단 추가
     @OneToMany(mappedBy = "indoorMap")
-    private List<Beacon> beaconList = new ArrayList<>();
+    private List<Beacon> beaconList = new ArrayList<>();    //하나의 지도(구역)에 설치된 비콘 목록
 
     @OneToMany(mappedBy = "indoorMap")
-    private List<RestrictArea> restrictAreaList = new ArrayList<>();
+    private List<RestrictArea> restrictAreaList = new ArrayList<>();    //하나의 지도(구역)에 설정되어있는 제한구역 목록
 
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;
+    private Department department;  //지도를 포함하고 있는 부서
 
 
     /*연관관계 편의 메서드*/
