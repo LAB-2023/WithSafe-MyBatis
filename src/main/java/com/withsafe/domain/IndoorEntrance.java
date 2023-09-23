@@ -1,29 +1,25 @@
-package com.withsafe.domain.area;
+package com.withsafe.domain;
 
-import com.withsafe.domain.Beacon;
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.watch.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class IndoorEntrance {
+public class IndoorEntrance extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "indoor_entrance_id")
     private Long id;
 
-    private LocalDateTime exit_time;    //실내 구역 입장 시간
+    //private LocalDateTime exit_time;    //실내 구역 입장 시간
 
-    private LocalDateTime enter_time;   //실내 구역 퇴장 시간
+    //private LocalDateTime enter_time;   //실내 구역 퇴장 시간
 
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)

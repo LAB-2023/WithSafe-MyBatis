@@ -1,5 +1,6 @@
-package com.withsafe.domain;
+package com.withsafe.domain.uwb;
 
+import com.withsafe.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 

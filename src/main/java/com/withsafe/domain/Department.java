@@ -1,7 +1,5 @@
 package com.withsafe.domain;
 
-import com.withsafe.domain.area.IndoorMap;
-import com.withsafe.domain.area.OutdoorMap;
 import lombok.Getter;
 import lombok.Setter;
 

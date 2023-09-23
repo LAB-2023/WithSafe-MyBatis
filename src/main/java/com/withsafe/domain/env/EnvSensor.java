@@ -1,9 +1,9 @@
-package com.withsafe.domain.device;
+package com.withsafe.domain.env;
 
-import com.withsafe.domain.area.OutdoorMap;
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.OutdoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class EnvSensor {
+public class EnvSensor extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "env_sensor_id")
@@ -20,7 +20,7 @@ public class EnvSensor {
 
     private Point coordinate;   //환경센서 설치된 좌표
     private String serialNum;   //시리얼번호
-    private LocalDateTime openingDate;  //개통일
+    //private LocalDateTime openingDate;  //개통일
     private String model;   //모델 정보
     private Boolean isUsed; //사용여부
 

@@ -1,19 +1,20 @@
-package com.withsafe.domain.data;
+package com.withsafe.domain.watch;
 
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.watch.Watch;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class BioData {  //워치에서 넘어오는 유저의 생체 데이터
+public class BioData extends BaseTimeEntity {  //워치에서 넘어오는 유저의 생체 데이터
     @Id @GeneratedValue
     @Column(name = "bio_data_id")
     private Long id;
 
     private int heartRate;     //심장박동수
     private double temperature; //체온
-    private LocalDateTime date; //데이터가 넘어오는 시간
+    //private LocalDateTime date; //데이터가 넘어오는 시간
     private int walkCount;  //걸음수
     private double oxygen;  //산소포화도
 

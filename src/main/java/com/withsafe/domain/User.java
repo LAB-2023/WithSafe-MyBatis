@@ -1,9 +1,8 @@
 package com.withsafe.domain;
 
 
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.watch.Watch;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -28,7 +27,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Sex sex;    //성별
 
-    @OneToOne(mappedBy = "watch", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Watch watch;    //매핑된 워치 id
 
     //FK
