@@ -1,10 +1,7 @@
-package com.withsafe.domain.area;
+package com.withsafe.domain;
 
-import com.withsafe.domain.Beacon;
-import com.withsafe.domain.Department;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;

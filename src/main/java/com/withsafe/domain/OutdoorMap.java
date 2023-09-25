@@ -1,10 +1,8 @@
-package com.withsafe.domain.area;
+package com.withsafe.domain;
 
-import com.withsafe.domain.Department;
-import com.withsafe.domain.device.EnvSensor;
+import com.withsafe.domain.env.EnvSensor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.awt.*;

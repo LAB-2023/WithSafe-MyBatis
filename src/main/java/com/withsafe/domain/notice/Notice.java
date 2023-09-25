@@ -1,15 +1,15 @@
-package com.withsafe.domain;
+package com.withsafe.domain.notice;
 
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.watch.Watch;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class Notice {
+public class Notice extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "notice_id")
@@ -17,7 +17,7 @@ public class Notice {
 
     private String type;    //경고 알림 타입
     private String content; //내용
-    private LocalDateTime date; //알림 발생 시각
+    //private LocalDateTime date; //알림 발생 시각
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
-package com.withsafe.domain;
+package com.withsafe.domain.notice;
 
+import com.withsafe.domain.BaseTimeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class WarningMessage {
+public class WarningMessage extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "warning_message_id")
     private Long id;
@@ -17,6 +18,6 @@ public class WarningMessage {
 //    @Lob
     private String content; // 경고 메시지
     private String type; // 경고 메시지 타입
-    private LocalDateTime date; //경고 메시지 발생시간
+    // private LocalDateTime date; //경고 메시지 발생시간
 
 }

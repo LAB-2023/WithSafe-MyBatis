@@ -1,9 +1,9 @@
-package com.withsafe.domain.data;
+package com.withsafe.domain.env;
 
-import com.withsafe.domain.device.EnvSensor;
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.env.EnvSensor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class EnvSensorData {    //환경센서에서 넘어오는 데이터
+public class EnvSensorData extends BaseTimeEntity {    //환경센서에서 넘어오는 데이터
     @Id @GeneratedValue
-    @Column(name = "env_sensor_id")
+    @Column(name = "env_sensor_data_id")
     private Long id;
 
-    private LocalDateTime date;
+    //private LocalDateTime date;
 
     private Double PM010;
     private Double PM025;

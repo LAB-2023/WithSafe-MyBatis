@@ -1,6 +1,6 @@
 package com.withsafe.repository;
 
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.watch.Watch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
-package com.withsafe.domain.area;
+package com.withsafe.domain.watch;
 
-import com.withsafe.domain.device.Watch;
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.watch.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class OutdoorUserLocation {
+public class OutdoorUserLocation extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "outdoor_user_location_id")
@@ -20,7 +20,7 @@ public class OutdoorUserLocation {
 
     private Point coordinate;   //실외에서 유저의 위치정보(위도, 경도)
 
-    private LocalDateTime date; //해당 위치 정보가 전송된 시간
+    //private LocalDateTime date; //해당 위치 정보가 전송된 시간
 
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)

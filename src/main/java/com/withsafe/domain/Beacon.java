@@ -1,9 +1,7 @@
 package com.withsafe.domain;
 
 
-import com.withsafe.domain.area.IndoorMap;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -11,14 +9,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class Beacon {
+public class Beacon extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "beacon_id")
     private Long id;
 
     private Point coordinate;   //비콘이 설치된 좌표
-    private LocalDateTime date; //설치된 시간
+    //private LocalDateTime date; //설치된 시간
     private String status;  //수신/미수신 샅태
 
     //FK
