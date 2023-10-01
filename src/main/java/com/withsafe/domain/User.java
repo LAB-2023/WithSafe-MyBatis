@@ -1,13 +1,17 @@
 package com.withsafe.domain;
 
 
-import com.withsafe.domain.watch.Watch;
+import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
+@RequiredArgsConstructor
 public class User {
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -35,9 +39,21 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;  //해당 사용자가 포함된 부서 id
 
-    // == 연관관계 편의 메서드 == //
-    public void setDepartment(Department department) {
+    @Builder
+    public User(Long id, String name, int age, String phone_num, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Watch watch, Department department) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.phone_num = phone_num;
+        this.emergency_contact = emergency_contact;
+        this.emergency_relation = emergency_relation;
+        this.heartRate_threshold = heartRate_threshold;
+        this.oxygen_threshold = oxygen_threshold;
+        this.walk_threshold = walk_threshold;
+        this.height = height;
+        this.weight = weight;
+        this.sex = sex;
+        this.watch = watch;
         this.department = department;
-        department.getUserList().add(this);
     }
 }

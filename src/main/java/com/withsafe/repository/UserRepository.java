@@ -1,34 +1,16 @@
 package com.withsafe.repository;
 
 import com.withsafe.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
-    private final EntityManager em;
+public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("select u from User u where u.name = :name")
+    List<User> findUser(@Param("name") String name);
 
-    public void save(User user){
-        em.persist(user);
-    }
-    public User findOne(Long id){
-        return em.find(User.class, id);
-    }
-    public List<User> findAll(){
-        return em.createQuery("select u from User u",User.class)
-                .getResultList();
-    }
-
-    public List<User> findByName(String name){
-        return em.createQuery("select u from User u where u.name = :name", User.class)
-                .setParameter("name",name)
-                .getResultList();
-    }
-    /**
-     * 부서별 유저 검색 기능 구현 필요시 findByDepartment 메소드 추가
-     */
+    @Query("select u.name from User u")
+    List<String> findUsernameList();
 }

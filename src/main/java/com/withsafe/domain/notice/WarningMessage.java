@@ -2,6 +2,7 @@ package com.withsafe.domain.notice;
 
 import com.withsafe.domain.BaseTimeEntity;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@RequiredArgsConstructor
 @Getter
 public class WarningMessage extends BaseTimeEntity {
     @Id @GeneratedValue

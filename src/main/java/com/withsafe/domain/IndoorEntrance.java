@@ -1,11 +1,10 @@
 package com.withsafe.domain;
 
-import com.withsafe.domain.watch.Watch;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

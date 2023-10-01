@@ -2,11 +2,13 @@ package com.withsafe.domain.uwb;
 
 import com.withsafe.domain.User;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@RequiredArgsConstructor
 @Getter
 public class UwbTag {
     @Id @GeneratedValue

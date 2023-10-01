@@ -1,12 +1,12 @@
-package com.withsafe.domain.watch;
+package com.withsafe.domain.watch.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.watch.Watch;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@RequiredArgsConstructor
 public class BioData extends BaseTimeEntity {  //워치에서 넘어오는 유저의 생체 데이터
     @Id @GeneratedValue
     @Column(name = "bio_data_id")

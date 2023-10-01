@@ -1,7 +1,9 @@
 package com.withsafe.domain;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 
 @Entity
 @Getter @Setter
+@RequiredArgsConstructor
 public class Department {
 
     @Id @GeneratedValue
@@ -25,5 +28,9 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<IndoorMap> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
+
+    public Department(String name) {
+        this.name = name;
+    }
 }
 

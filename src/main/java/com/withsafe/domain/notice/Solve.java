@@ -2,12 +2,14 @@ package com.withsafe.domain.notice;
 
 import com.withsafe.domain.BaseTimeEntity;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 public class Solve extends BaseTimeEntity {
 
     @Id @GeneratedValue
@@ -15,7 +17,7 @@ public class Solve extends BaseTimeEntity {
     private Long id;
 
     private String content; //조치 내용
-    //private LocalDateTime date; //조치 시간
+    private LocalDateTime date; //조치 시간
 
     //FK
     @OneToOne(fetch = FetchType.LAZY)
