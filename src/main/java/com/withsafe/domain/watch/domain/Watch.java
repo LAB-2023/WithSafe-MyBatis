@@ -30,7 +30,7 @@ public class Watch extends BaseTimeEntity {
     private int deviceNum; //디바이스번호(PK와 다름)
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "watch")
+    @JoinColumn(name = "helmet_id")
     private Helmet helmet;  //워치에 매핑된 턱끈 id
 
     @Builder

@@ -1,9 +1,9 @@
-package com.withsafe.domain.notice;
+package com.withsafe.domain.notice.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.solve.domain.Solve;
-import com.withsafe.domain.warning.WarningMessage;
+import com.withsafe.domain.warning.domain.WarningMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,8 @@ public class Notice extends BaseTimeEntity {
     @Column(name = "notice_id")
     private Long id;
 
-    private NoticeType noticeType;
+    @Enumerated(EnumType.STRING)
+    private NoticeType noticeType; //알림 타입
     private String content; //내용
     private LocalDateTime regDate; //알림 발생 시각
 

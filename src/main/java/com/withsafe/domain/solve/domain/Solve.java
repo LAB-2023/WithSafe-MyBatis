@@ -1,7 +1,7 @@
 package com.withsafe.domain.solve.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.notice.Notice;
+import com.withsafe.domain.notice.domain.Notice;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,4 +24,9 @@ public class Solve extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id")
     private Notice notice;  //조치된 경고알림 id
+
+    public Solve(String content, Notice notice) {
+        this.content = content;
+        this.notice = notice;
+    }
 }
