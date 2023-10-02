@@ -21,4 +21,8 @@ public abstract class BaseTimeEntity{
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
+//    public BaseTimeEntity(LocalDateTime createdDate, LocalDateTime modifiedDate) {
+//        this.createdDate = createdDate;
+//        this.modifiedDate = modifiedDate;
+//    }
 }
