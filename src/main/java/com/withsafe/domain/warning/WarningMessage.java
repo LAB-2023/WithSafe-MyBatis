@@ -1,4 +1,4 @@
-package com.withsafe.domain.notice;
+package com.withsafe.domain.warning;
 
 import com.withsafe.domain.BaseTimeEntity;
 import lombok.Getter;

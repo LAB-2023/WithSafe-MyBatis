@@ -1,13 +1,12 @@
 package com.withsafe.domain.env;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.OutdoorMap;
+import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.awt.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

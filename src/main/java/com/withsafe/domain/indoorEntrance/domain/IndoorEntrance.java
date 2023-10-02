@@ -1,5 +1,7 @@
-package com.withsafe.domain;
+package com.withsafe.domain.indoorEntrance.domain;
 
+import com.withsafe.domain.beacon.domain.Beacon;
+import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

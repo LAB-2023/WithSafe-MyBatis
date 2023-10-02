@@ -1,11 +1,12 @@
-package com.withsafe.domain;
+package com.withsafe.domain.beacon.domain;
 
 
+import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.awt.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

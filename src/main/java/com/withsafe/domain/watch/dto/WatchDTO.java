@@ -1,6 +1,6 @@
 package com.withsafe.domain.watch.dto;
 
-import com.withsafe.domain.User;
+import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.Builder;
 import lombok.Getter;

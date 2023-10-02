@@ -1,4 +1,4 @@
-package com.withsafe.service;
+package com.withsafe.domain.service;
 
 import com.withsafe.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

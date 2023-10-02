@@ -1,5 +1,7 @@
-package com.withsafe.domain;
+package com.withsafe.domain.restrictArea.domain;
 
+import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

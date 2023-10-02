@@ -1,11 +1,10 @@
 package com.withsafe.domain.watch.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.User;
+import com.withsafe.domain.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 

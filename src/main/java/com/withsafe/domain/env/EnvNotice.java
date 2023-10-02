@@ -1,6 +1,5 @@
 package com.withsafe.domain.env;
 
-import com.withsafe.domain.User;
 import lombok.Getter;
 
 import javax.persistence.*;

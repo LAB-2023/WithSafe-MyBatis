@@ -1,4 +1,4 @@
-package com.withsafe.domain;
+package com.withsafe.domain.deviceSetting.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

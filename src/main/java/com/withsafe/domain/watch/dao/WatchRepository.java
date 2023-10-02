@@ -1,6 +1,6 @@
 package com.withsafe.domain.watch.dao;
 
-import com.withsafe.domain.User;
+import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,7 @@
-package com.withsafe.domain.notice;
+package com.withsafe.domain.solve.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.notice.Notice;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

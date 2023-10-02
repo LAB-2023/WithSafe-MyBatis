@@ -1,6 +1,7 @@
-package com.withsafe.domain;
+package com.withsafe.domain.user.domain;
 
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.Builder;
 import lombok.Getter;

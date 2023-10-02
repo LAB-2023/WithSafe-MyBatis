@@ -1,9 +1,11 @@
-package com.withsafe.domain;
+package com.withsafe.domain.department.domain;
 
+import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.indoorMap.domain.IndoorMap;
+import com.withsafe.domain.user.domain.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import java.util.List;

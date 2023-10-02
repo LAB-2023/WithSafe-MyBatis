@@ -1,9 +1,6 @@
 package com.withsafe.repository;
 
-import com.withsafe.domain.User;
 import com.withsafe.domain.watch.dao.WatchRepository;
-import com.withsafe.domain.watch.domain.Watch;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;

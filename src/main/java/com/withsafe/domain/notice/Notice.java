@@ -2,6 +2,8 @@ package com.withsafe.domain.notice;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.solve.domain.Solve;
+import com.withsafe.domain.warning.WarningMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
