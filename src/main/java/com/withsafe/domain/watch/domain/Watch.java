@@ -43,4 +43,9 @@ public class Watch extends BaseTimeEntity {
         this.deviceNum = deviceNum;
         this.helmet = helmet;
     }
+
+    public Watch(User user, String model) {
+        this.user = user;
+        this.model = model;
+    }
 }

@@ -38,13 +38,10 @@ public class Notice extends BaseTimeEntity {
     private Solve solve;    //경고 알림에 대한 조치
 
     @Builder
-    public Notice(Long id, NoticeType noticeType, String content, LocalDateTime regDate, WarningMessage warning_message, Watch watch, Solve solve) {
-        this.id = id;
-        this.noticeType = noticeType;
+    public Notice(String content, NoticeType noticeType, WarningMessage warning_message, Watch watch) {
         this.content = content;
-        this.regDate = regDate;
+        this.noticeType = noticeType;
         this.warning_message = warning_message;
         this.watch = watch;
-        this.solve = solve;
     }
 }

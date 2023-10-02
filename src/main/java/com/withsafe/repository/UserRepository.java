@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u.name from User u")
     List<String> findUsernameList();
+
 }

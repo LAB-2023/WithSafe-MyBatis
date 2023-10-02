@@ -14,17 +14,16 @@ public class WarningMessageController {
     private final WarningMessageService warningMessageService;
 
     //경고 메시지 조회
-    @GetMapping
+    @GetMapping("/warning-api/list")
     public List<WarningMessageDto.WarningMessageResponse> messageList(){
         return warningMessageService.messageResponseList();
     }
 
-    //경고 메시지 수정
-    @PostMapping("/warning-api/test")
+    //경고 메시지 수정(url은 테스트 용)
+    @PostMapping("/warning-api/update")
     public WarningMessageDto.UpdateRequestList update(@RequestBody WarningMessageDto.UpdateRequestList updateRequestList){
         for(WarningMessageDto.UpdateRequest updateRequest: updateRequestList.getProducts()){
             warningMessageService.updateWarningMessage(updateRequest);
-            System.out.println("updateRequest = " + updateRequest.getContent());
         }
         return updateRequestList;
     }
