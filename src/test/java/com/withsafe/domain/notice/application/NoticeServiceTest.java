@@ -44,9 +44,9 @@ class NoticeServiceTest {
 
     @Test
     public void 경고알림저장(){
-        User user = new User("name");
+        User user = User.builder().name("test").build();
         userRepository.save(user);
-        Watch watch = new Watch(user, "galaxy");
+        Watch watch = Watch.builder().user(user).model("galaxy").build();
         watchRepository.save(watch);
         WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
@@ -60,9 +60,9 @@ class NoticeServiceTest {
 
     @Test
     public void 경고알림_전체_조회(){
-        User user = new User("name");
+        User user = User.builder().name("test").build();
         userRepository.save(user);
-        Watch watch = new Watch(user, "galaxy");
+        Watch watch = Watch.builder().user(user).model("galaxy").build();
         watchRepository.save(watch);
         WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);

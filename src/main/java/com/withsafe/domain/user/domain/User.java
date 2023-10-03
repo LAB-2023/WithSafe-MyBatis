@@ -58,8 +58,4 @@ public class User {
         this.watch = watch;
         this.department = department;
     }
-
-    public User(String name) {
-        this.name = name;
-    }
 }

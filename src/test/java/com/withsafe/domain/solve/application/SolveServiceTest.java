@@ -44,9 +44,9 @@ class SolveServiceTest {
 
     @Test
     public void 조치_저장(){
-        User user = new User("name");
+        User user = User.builder().name("test").build();
         userRepository.save(user);
-        Watch watch = new Watch(user, "galaxy");
+        Watch watch = Watch.builder().user(user).model("galaxy").build();
         watchRepository.save(watch);
         WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
