@@ -31,7 +31,8 @@ public class SolveService {
     //조치 저장
     @Transactional
     public Long saveSolve(SolveDto.SaveRequest saveRequest){
-        Notice notice = noticeRepository.findById(saveRequest.getNoticeId()).orElseThrow(() -> new NoticeNotFoundException());
+        Notice notice =
+                noticeRepository.findById(saveRequest.getNoticeId()).orElseThrow(() -> new NoticeNotFoundException());
         Solve solve = Solve.builder()
                 .content(saveRequest.getContent())
                 .notice(notice)

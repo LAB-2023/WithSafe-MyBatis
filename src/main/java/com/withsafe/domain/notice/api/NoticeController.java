@@ -38,6 +38,7 @@ public class NoticeController {
     @PostMapping("/notice-api/insert")
     public NoticeDto.SaveRequest saveNotice(@RequestBody NoticeDto.SaveRequest saveRequest){
 
+        //테스트용 입력
         User user = new User("name");
         userRepository.save(user);
         Watch watch = new Watch(user, "galaxy");

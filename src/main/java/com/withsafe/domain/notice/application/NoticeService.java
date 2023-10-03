@@ -59,6 +59,7 @@ public class NoticeService {
                 .warning_message(warningMessage)
                 .watch(watch)
                 .build();
+
         noticeRepository.save(notice);
         return notice.getId();
     }
@@ -70,6 +71,18 @@ public class NoticeService {
     //경고 알림 전체 출력
     public List<NoticeDto.NoticeResponse> findAllNotice(){
         List<Notice> all = noticeRepository.findAllNotice();
+        return getNoticeResponses(all);
+    }
+
+    //Notice type 별 필터링
+    public List<NoticeDto.NoticeResponse> findNoticeByType(NoticeType noticeType){
+        List<Notice> all = noticeRepository.findNoticeByNoticeType(noticeType);
+        return getNoticeResponses(all);
+    }
+
+
+    //notice 결과 리스트를 dto로 변환
+    private List<NoticeDto.NoticeResponse> getNoticeResponses(List<Notice> all) {
         List<NoticeDto.NoticeResponse> noticeResponseList = new ArrayList<>();
         for(Notice notice : all){
             SolveDto.SolveResponse solveResponse = solveService.findSolveFromNoticeId(notice.getId());
@@ -80,6 +93,4 @@ public class NoticeService {
         }
         return noticeResponseList;
     }
-
-    //Notice type 별 필터링
 }
