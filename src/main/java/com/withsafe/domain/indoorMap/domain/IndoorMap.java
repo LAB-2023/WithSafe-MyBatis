@@ -3,6 +3,7 @@ package com.withsafe.domain.indoorMap.domain;
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,8 @@ public class IndoorMap {
 
     private String imageUrl;
 
+    private String uwbMapId; //uwb가 보내주는 MapId 값
+
     @OneToMany(mappedBy = "indoorMap")
     private List<Beacon> beaconList = new ArrayList<>();    //하나의 지도(구역)에 설치된 비콘 목록
 
@@ -40,4 +43,6 @@ public class IndoorMap {
         this.department = department;
         department.getIndoorMapList().add(this);
     }
+
+
 }

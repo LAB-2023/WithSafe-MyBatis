@@ -4,10 +4,11 @@ import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.uwb.UwbTag;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
