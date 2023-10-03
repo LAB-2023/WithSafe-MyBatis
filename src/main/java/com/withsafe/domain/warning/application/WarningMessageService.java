@@ -4,6 +4,7 @@ import com.withsafe.domain.notice.exception.NoticeNotFoundException;
 import com.withsafe.domain.warning.dao.WarningMessageRepository;
 import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.dto.WarningMessageDto;
+import com.withsafe.domain.warning.exception.WarningNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,20 +30,19 @@ public class WarningMessageService {
     //경고 알림 메시지 저장
     @Transactional
     public Long saveMessage(WarningMessageDto.SaveRequest saveRequest){
-        WarningMessage warningMessage = new WarningMessage(saveRequest.getContent(), saveRequest.getType());
+        WarningMessage warningMessage = saveRequest.toEntity();
         warningMessageRepository.save(warningMessage);
         return warningMessage.getId();
     }
 
+
     //경고 알림 메시지 수정
     @Transactional
     public WarningMessage updateWarningMessage(WarningMessageDto.UpdateRequest updateRequest){
-        Optional<WarningMessage> findMessage = warningMessageRepository.findById(updateRequest.getId());
-        if(findMessage.isPresent()){
-            findMessage.get().update(updateRequest);
-            return findMessage.get();
-        }
-        else return null;
+        WarningMessage warningMessage = warningMessageRepository.findById(updateRequest.getId())
+                .orElseThrow(() -> new WarningNotFoundException());
+        warningMessage.update(updateRequest);
+        return warningMessage;
     }
 
     //경고 알림 메시지 조회
@@ -50,7 +50,7 @@ public class WarningMessageService {
         List<WarningMessage> all = warningMessageRepository.findAll();
         List<WarningMessageDto.WarningMessageResponse> warningMessageResponseList = new ArrayList<>();
         for (WarningMessage warningMessage : all) {
-            warningMessageResponseList.add(warningMessage.toWarningMessageResponseDto());
+            warningMessageResponseList.add(warningMessage.toWarningMessageResponse());
         }
         return warningMessageResponseList;
     }

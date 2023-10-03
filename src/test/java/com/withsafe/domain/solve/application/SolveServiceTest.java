@@ -1,6 +1,7 @@
 package com.withsafe.domain.solve.application;
 
 import com.withsafe.domain.notice.application.NoticeService;
+import com.withsafe.domain.notice.dao.NoticeRepository;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeDto;
@@ -33,7 +34,7 @@ class SolveServiceTest {
     @Autowired
     SolveService solveService;
     @Autowired
-    NoticeService noticeService;
+    NoticeRepository noticeRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -47,12 +48,13 @@ class SolveServiceTest {
         userRepository.save(user);
         Watch watch = new Watch(user, "galaxy");
         watchRepository.save(watch);
-        WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
+        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
-        Long saveId = noticeService.saveNotice(saveRequest);
+        Notice notice =
+                Notice.builder().content("gd").noticeType(NoticeType.ENV).warning_message(warningMessage).watch(watch).build();
+        Long saveId = noticeRepository.save(notice).getId();
 
-        SolveDto.SaveRequest solveSaveRequest = new SolveDto.SaveRequest("ㅎㅇ", saveId);
+        SolveDto.SaveRequest solveSaveRequest = SolveDto.SaveRequest.builder().content("test").noticeId(saveId).build();
         Long solveId = solveService.saveSolve(solveSaveRequest);
 
         Solve findSolve = solveService.findById(solveId);

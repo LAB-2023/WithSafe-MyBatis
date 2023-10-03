@@ -27,6 +27,12 @@ public class WarningMessageDto {
             this.type = type;
             this.content = content;
         }
+        public WarningMessage toEntity(){
+            return WarningMessage.builder()
+                    .content(this.content)
+                    .type(this.type)
+                    .build();
+        }
     }
 
     @Getter
@@ -56,6 +62,7 @@ public class WarningMessageDto {
         @Enumerated(EnumType.STRING)
         private WarningMessageType type;
 
+        @Builder
         public WarningMessageResponse(Long id, String content, WarningMessageType type) {
             this.id = id;
             this.content = content;

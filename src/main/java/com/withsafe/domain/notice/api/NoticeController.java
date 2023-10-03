@@ -42,7 +42,7 @@ public class NoticeController {
         userRepository.save(user);
         Watch watch = new Watch(user, "galaxy");
         watchRepository.save(watch);
-        WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
+        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
 
         noticeService.saveNotice(saveRequest);

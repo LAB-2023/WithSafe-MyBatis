@@ -48,14 +48,14 @@ class NoticeServiceTest {
         userRepository.save(user);
         Watch watch = new Watch(user, "galaxy");
         watchRepository.save(watch);
-        WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
+        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
         NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
         Long saveId = noticeService.saveNotice(saveRequest);
 
         Notice noticeById = noticeService.findNoticeById(saveId).get();
 
-        System.out.println("n = " + noticeById.getWatch().getId());
+        assertThat(noticeById.getContent()).isEqualTo(saveRequest.getContent());
     }
 
     @Test
@@ -64,7 +64,7 @@ class NoticeServiceTest {
         userRepository.save(user);
         Watch watch = new Watch(user, "galaxy");
         watchRepository.save(watch);
-        WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
+        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
         warningMessageRepository.save(warningMessage);
         NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
         Long saveId = noticeService.saveNotice(saveRequest);
@@ -72,7 +72,6 @@ class NoticeServiceTest {
         solveService.saveSolve(solveSaveRequest);
 
         List<NoticeDto.NoticeResponse> allNotice = noticeService.findAllNotice();
-
         String result;
         if(allNotice.get(0).getSolveResponse() == null){
             result = "미조치";

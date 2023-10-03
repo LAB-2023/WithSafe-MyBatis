@@ -4,6 +4,7 @@ import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.warning.dto.WarningMessageDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -32,13 +33,9 @@ public class WarningMessage extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "warning_message")
     private List<Notice> noticeList;
 
+    @Builder
     public WarningMessage(Long id, String content, WarningMessageType type) {
         this.id = id;
-        this.content = content;
-        this.type = type;
-    }
-
-    public WarningMessage(String content, WarningMessageType type) {
         this.content = content;
         this.type = type;
     }
@@ -49,7 +46,18 @@ public class WarningMessage extends BaseTimeEntity {
     }
 
     //warning message to warningMessageDto
-    public WarningMessageDto.WarningMessageResponse toWarningMessageResponseDto(){
-        return new WarningMessageDto.WarningMessageResponse(this.id, this.content, this.type);
+    public WarningMessageDto.WarningMessageResponse toWarningMessageResponse(){
+        return WarningMessageDto.WarningMessageResponse.builder()
+                .id(this.id)
+                .content(this.content)
+                .type(this.type)
+                .build();
+    }
+
+    public WarningMessageDto.SaveRequest toSaveRequest(){
+        return WarningMessageDto.SaveRequest.builder()
+                .content(this.content)
+                .type(this.type)
+                .build();
     }
 }

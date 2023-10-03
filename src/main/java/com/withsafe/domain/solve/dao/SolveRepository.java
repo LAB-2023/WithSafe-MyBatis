@@ -11,4 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface SolveRepository extends JpaRepository<Solve, Long> {
+
+//    @Query("select s from Solve s join s.notice n where n.id = :noticeId")
+//    List<Solve> findSolveByNoticeId(@Param("noticeId") Long noticeId);
+
+    //Noice 아이디로 Solve 찾기
+    Optional<Solve> findByNoticeId(Long noticeId);
 }

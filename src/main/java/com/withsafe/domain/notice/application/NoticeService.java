@@ -53,7 +53,12 @@ public class NoticeService {
         WarningMessage warningMessage =
                 warningMessageRepository.findById(saveRequest.getWarningMessageId()).orElseThrow(() -> new WatchNotFoundException());
 
-        Notice notice = new Notice(saveRequest.getContent(), saveRequest.getType(), warningMessage, watch);
+        Notice notice = Notice.builder()
+                .content(saveRequest.getContent())
+                .noticeType(saveRequest.getType())
+                .warning_message(warningMessage)
+                .watch(watch)
+                .build();
         noticeRepository.save(notice);
         return notice.getId();
     }
@@ -67,27 +72,14 @@ public class NoticeService {
         List<Notice> all = noticeRepository.findAllNotice();
         List<NoticeDto.NoticeResponse> noticeResponseList = new ArrayList<>();
         for(Notice notice : all){
-            noticeResponseList.add(createNoticeResponse(notice));
+            SolveDto.SolveResponse solveResponse = solveService.findSolveFromNoticeId(notice.getId());
+            if(notice.getSolve() != null){
+                solveResponse = new SolveDto.SolveResponse(notice.getSolve().getContent(), notice.getSolve().getCreatedDate());
+            }
+            noticeResponseList.add(notice.toNoticeResponse(solveResponse));
         }
         return noticeResponseList;
     }
 
     //Notice type 별 필터링
-
-
-    //noticeDto.NoticeReponse 생성 함수
-    public NoticeDto.NoticeResponse createNoticeResponse(Notice notice){
-        Long id = notice.getId();
-        String username = notice.getWatch().getUser().getName();
-        //String departmentName = notice.getWatch().getUser().getDepartment().getName();
-        WarningMessageType type = notice.getWarning_message().getType();
-        LocalDateTime createdDate = notice.getCreatedDate();
-
-        //조치 사항이 존재하는 지 확인 -> 1대1 매핑은 무조건 즉시 로딩이기 때문에 여기서 해결
-        SolveDto.SolveResponse solveResponse= null;
-        if(notice.getSolve() != null){
-            solveResponse = new SolveDto.SolveResponse(notice.getSolve().getContent(), notice.getSolve().getCreatedDate());
-        }
-        return new NoticeDto.NoticeResponse(id, username, type, solveResponse, createdDate);
-    }
 }

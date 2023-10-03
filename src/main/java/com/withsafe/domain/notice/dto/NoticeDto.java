@@ -1,11 +1,13 @@
 package com.withsafe.domain.notice.dto;
 
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.domain.WarningMessageType;
 import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class NoticeDto {
         private Long warningMessageId;
         private Long watchId;
 
+        @Builder
         public SaveRequest(String content, NoticeType type, Long warningMessageId, Long watchId) {
             this.content = content;
             this.type = type;
@@ -44,17 +47,10 @@ public class NoticeDto {
         private SolveDto.SolveResponse solveResponse;
         private LocalDateTime date;
 
+        @Builder
         public NoticeResponse(Long id, String departmentName, String username, WarningMessageType type, SolveDto.SolveResponse solveResponse, LocalDateTime date) {
             this.id = id;
             this.departmentName = departmentName;
-            this.username = username;
-            this.type = type;
-            this.solveResponse = solveResponse;
-            this.date = date;
-        }
-
-        public NoticeResponse(Long id, String username, WarningMessageType type, SolveDto.SolveResponse solveResponse, LocalDateTime date) {
-            this.id = id;
             this.username = username;
             this.type = type;
             this.solveResponse = solveResponse;

@@ -1,6 +1,8 @@
 package com.withsafe.domain.notice.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.notice.dto.NoticeDto;
+import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.warning.domain.WarningMessage;
@@ -38,10 +40,24 @@ public class Notice extends BaseTimeEntity {
     private Solve solve;    //경고 알림에 대한 조치
 
     @Builder
-    public Notice(String content, NoticeType noticeType, WarningMessage warning_message, Watch watch) {
-        this.content = content;
+    public Notice(Long id, NoticeType noticeType, String content, LocalDateTime regDate,
+                  WarningMessage warning_message, Watch watch, Solve solve) {
+        this.id = id;
         this.noticeType = noticeType;
+        this.content = content;
+        this.regDate = regDate;
         this.warning_message = warning_message;
         this.watch = watch;
+        this.solve = solve;
+    }
+
+    public NoticeDto.NoticeResponse toNoticeResponse(SolveDto.SolveResponse solveResponse){
+        return NoticeDto.NoticeResponse.builder()
+                .id(this.id)
+                .username(this.watch.getUser().getName())
+                .type(this.warning_message.getType())
+                .solveResponse(solveResponse)
+                .date(this.getCreatedDate())
+                .build();
     }
 }

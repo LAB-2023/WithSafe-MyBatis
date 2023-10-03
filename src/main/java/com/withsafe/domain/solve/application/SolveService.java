@@ -8,6 +8,7 @@ import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.solve.dto.SolveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +22,28 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SolveService {
 
     private final SolveRepository solveRepository;
     private final NoticeRepository noticeRepository;
 
     //조치 저장
+    @Transactional
     public Long saveSolve(SolveDto.SaveRequest saveRequest){
         Notice notice = noticeRepository.findById(saveRequest.getNoticeId()).orElseThrow(() -> new NoticeNotFoundException());
-        Solve solve = new Solve(saveRequest.getContent(), notice);
+        Solve solve = Solve.builder()
+                .content(saveRequest.getContent())
+                .notice(notice)
+                .build();
         solveRepository.save(solve);
         return solve.getId();
+    }
+
+    //알림에 대한 조치 사항이 있는 지 확인 -> list size가 0 이면 조치 사항 x
+    public SolveDto.SolveResponse findSolveFromNoticeId(Long noticeId){
+        Optional<Solve> findSolve = solveRepository.findByNoticeId(noticeId);
+        return findSolve.map(Solve::toSolveResponse).orElse(null);
     }
 
     //테스트용 solve 아이디로 엔티티 찾기
