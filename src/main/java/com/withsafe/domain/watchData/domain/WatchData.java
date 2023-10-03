@@ -1,6 +1,7 @@
-package com.withsafe.domain.watch.domain;
+package com.withsafe.domain.watchData.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

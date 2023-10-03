@@ -1,6 +1,8 @@
-package com.withsafe.domain.watch.domain;
+package com.withsafe.domain.helmet.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -23,4 +25,14 @@ public class Helmet extends BaseTimeEntity {
     //FK
     @OneToOne(mappedBy = "helmet", fetch = FetchType.LAZY)
     private Watch watch;
+
+    @Builder
+    public Helmet(Long id, String serialNum, String model, Boolean is_used, Long deviceNum, Watch watch){
+        this.id = id;
+        this.serialNum = serialNum;
+        this.model = model;
+        this.is_used = is_used;
+        this.deviceNum = deviceNum;
+        this.watch = watch;
+    }
 }
