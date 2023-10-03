@@ -34,15 +34,6 @@ public class SolveService {
         return solve.getId();
     }
 
-    //알림에 대한 조치 사항이 있는 지 확인 -> list size가 0 이면 조치 사항 x
-    public SolveDto.SolveResponse findSolveFromNoticeId(Long noticeId){
-        List<Solve> findSolveList = solveRepository.findByNoticeId(noticeId);
-        if(findSolveList.isEmpty()){
-            return null;
-        }
-        return new SolveDto.SolveResponse(findSolveList.get(0).getContent(), findSolveList.get(0).getCreatedDate());
-    }
-
     //테스트용 solve 아이디로 엔티티 찾기
     public Solve findById(Long id){
         return solveRepository.findById(id).get();

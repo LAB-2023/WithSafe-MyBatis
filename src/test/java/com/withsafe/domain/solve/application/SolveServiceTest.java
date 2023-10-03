@@ -49,32 +49,13 @@ class SolveServiceTest {
         watchRepository.save(watch);
         WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
         warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage, watch);
+        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
         Long saveId = noticeService.saveNotice(saveRequest);
 
         SolveDto.SaveRequest solveSaveRequest = new SolveDto.SaveRequest("ㅎㅇ", saveId);
         Long solveId = solveService.saveSolve(solveSaveRequest);
 
         Solve findSolve = solveService.findById(solveId);
-
-        assertThat(findSolve.getContent()).isEqualTo(solveSaveRequest.getContent());
-    }
-
-    @Test
-    public void 조치_사항_확인(){
-        User user = new User("name");
-        userRepository.save(user);
-        Watch watch = new Watch(user, "galaxy");
-        watchRepository.save(watch);
-        WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
-        warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage, watch);
-        Long saveId = noticeService.saveNotice(saveRequest);
-
-        SolveDto.SaveRequest solveSaveRequest = new SolveDto.SaveRequest("ㅎㅇ", saveId);
-        Long solveId = solveService.saveSolve(solveSaveRequest);
-
-        SolveDto.SolveResponse findSolve = solveService.findSolveFromNoticeId(saveId);
 
         assertThat(findSolve.getContent()).isEqualTo(solveSaveRequest.getContent());
     }

@@ -50,7 +50,7 @@ class NoticeServiceTest {
         watchRepository.save(watch);
         WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
         warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage, watch);
+        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
         Long saveId = noticeService.saveNotice(saveRequest);
 
         Notice noticeById = noticeService.findNoticeById(saveId).get();
@@ -66,7 +66,7 @@ class NoticeServiceTest {
         watchRepository.save(watch);
         WarningMessage warningMessage = new WarningMessage("warning", WarningMessageType.HEART);
         warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage, watch);
+        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
         Long saveId = noticeService.saveNotice(saveRequest);
         SolveDto.SaveRequest solveSaveRequest = new SolveDto.SaveRequest("ㅎㅇ", saveId);
         solveService.saveSolve(solveSaveRequest);

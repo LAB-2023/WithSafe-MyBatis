@@ -23,14 +23,14 @@ public class NoticeDto {
         private String content;
         @Enumerated(EnumType.STRING)
         private NoticeType type;
-        private WarningMessage warningMessage;
-        private Watch watch;
+        private Long warningMessageId;
+        private Long watchId;
 
-        public SaveRequest(String content, NoticeType type, WarningMessage warningMessage, Watch watch) {
+        public SaveRequest(String content, NoticeType type, Long warningMessageId, Long watchId) {
             this.content = content;
             this.type = type;
-            this.warningMessage = warningMessage;
-            this.watch = watch;
+            this.warningMessageId = warningMessageId;
+            this.watchId = watchId;
         }
     }
 

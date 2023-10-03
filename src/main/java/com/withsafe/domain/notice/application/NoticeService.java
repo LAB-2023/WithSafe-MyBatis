@@ -6,6 +6,7 @@ import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeDto;
 import com.withsafe.domain.notice.exception.WatchNotFoundException;
 import com.withsafe.domain.solve.application.SolveService;
+import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.warning.application.WarningMessageService;
@@ -48,9 +49,9 @@ public class NoticeService {
     @Transactional
     public Long saveNotice(NoticeDto.SaveRequest saveRequest){
         Watch watch =
-                watchRepository.findById(saveRequest.getWatch().getId()).orElseThrow(() -> new WatchNotFoundException());
+                watchRepository.findById(saveRequest.getWatchId()).orElseThrow(() -> new WatchNotFoundException());
         WarningMessage warningMessage =
-                warningMessageRepository.findById(saveRequest.getWarningMessage().getId()).orElseThrow(() -> new WatchNotFoundException());
+                warningMessageRepository.findById(saveRequest.getWarningMessageId()).orElseThrow(() -> new WatchNotFoundException());
 
         Notice notice = new Notice(saveRequest.getContent(), saveRequest.getType(), warningMessage, watch);
         noticeRepository.save(notice);
@@ -63,7 +64,7 @@ public class NoticeService {
 
     //경고 알림 전체 출력
     public List<NoticeDto.NoticeResponse> findAllNotice(){
-        List<Notice> all = noticeRepository.findAll();
+        List<Notice> all = noticeRepository.findAllNotice();
         List<NoticeDto.NoticeResponse> noticeResponseList = new ArrayList<>();
         for(Notice notice : all){
             noticeResponseList.add(createNoticeResponse(notice));
@@ -80,8 +81,13 @@ public class NoticeService {
         String username = notice.getWatch().getUser().getName();
         //String departmentName = notice.getWatch().getUser().getDepartment().getName();
         WarningMessageType type = notice.getWarning_message().getType();
-        SolveDto.SolveResponse solveFromNoticeId = solveService.findSolveFromNoticeId(notice.getId());
-        LocalDateTime date = notice.getCreatedDate();
-        return new NoticeDto.NoticeResponse(id, username, type, solveFromNoticeId, date);
+        LocalDateTime createdDate = notice.getCreatedDate();
+
+        //조치 사항이 존재하는 지 확인 -> 1대1 매핑은 무조건 즉시 로딩이기 때문에 여기서 해결
+        SolveDto.SolveResponse solveResponse= null;
+        if(notice.getSolve() != null){
+            solveResponse = new SolveDto.SolveResponse(notice.getSolve().getContent(), notice.getSolve().getCreatedDate());
+        }
+        return new NoticeDto.NoticeResponse(id, username, type, solveResponse, createdDate);
     }
 }
