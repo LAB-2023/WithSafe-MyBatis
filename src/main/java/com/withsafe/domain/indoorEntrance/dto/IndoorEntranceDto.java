@@ -2,6 +2,7 @@ package com.withsafe.domain.indoorEntrance.dto;
 
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class IndoorEntranceDto {
 
-    private static class IndoorEntrance{
+    private static class IndoorEntranceInfo{
         private Long id;
         private LocalDateTime createdDate;
 
@@ -24,33 +25,26 @@ public class IndoorEntranceDto {
 
         private Beacon beacon;  //실내 구역 출입을 인지한 비콘의 id
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "watch_id")
-        private Watch watch;
-
     }
 
 
     //사용자에게 받은 검색 조건 저장
+    @Builder
     @Getter
     public static class SearchCondition{
         private String userName;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
+    }
 
-        public SearchCondition(String userName){
-            this.userName = userName;
-        }
-
-        public SearchCondition(LocalDateTime startDate, LocalDateTime endDate){
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-
-        public SearchCondition(String userName, LocalDateTime startDate, LocalDateTime endDate){
-            this.userName = userName;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
+    //검색 결과 저장
+    @Builder
+    @Getter
+    public static class SearchResult{
+        private int deviceNum; //디바이스번호(PK와 다름)
+        private String userName;
+        private String mapName;
+        private LocalDateTime enterTime;
+        private LocalDateTime exitTime;
     }
 }

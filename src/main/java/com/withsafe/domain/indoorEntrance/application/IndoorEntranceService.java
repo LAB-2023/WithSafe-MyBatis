@@ -2,12 +2,14 @@ package com.withsafe.domain.indoorEntrance.application;
 
 import com.withsafe.domain.indoorEntrance.dao.IndoorEntranceRepository;
 import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
+import com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +30,29 @@ public class IndoorEntranceService {
     //indoorEntranceDto로 저장
 
     //전체 조회
-    public List<IndoorEntrance> findRecords(){
-        return indoorEntranceRepository.findAll();
+    public List<IndoorEntranceDto.SearchResult> findRecords(){
+        List<IndoorEntrance> all = indoorEntranceRepository.findAll();
+        List<IndoorEntranceDto.SearchResult> result = new ArrayList<>();
+
+        for (IndoorEntrance entranceInfo : all) {
+            int deviceNum = entranceInfo.getWatch().getDeviceNum();
+            String userName = entranceInfo.getWatch().getUser().getName();
+            String mapName = entranceInfo.getBeacon().getIndoorMap().getName();
+            LocalDateTime enterTime = entranceInfo.getCreatedDate();
+            LocalDateTime exitTime = entranceInfo.getModifiedDate();
+
+            IndoorEntranceDto.SearchResult temp = IndoorEntranceDto.SearchResult.builder()
+                    .deviceNum(deviceNum)
+                    .userName(userName)
+                    .mapName(mapName)
+                    .enterTime(enterTime)
+                    .exitTime(exitTime)
+                    .build();
+
+            result.add(temp);
+        }
+
+        return result;
     }
 
     //사용자 이름으로 검색
@@ -43,9 +66,36 @@ public class IndoorEntranceService {
     }
 
     //사용자 이름과 기간으로 검색
-    public List<IndoorEntrance> findByNameAndDateRange(String name, LocalDateTime startDate, LocalDateTime endDate){
-        return indoorEntranceRepository.findByWatchUserNameAndCreatedDateBetweenAndModifiedDateBetween
-                (name,startDate,endDate,startDate,endDate);
+//    public List<IndoorEntrance> findByNameAndDateRange(String name, LocalDateTime startDate, LocalDateTime endDate){
+//        return indoorEntranceRepository.findByWatchUserNameAndCreatedDateBetweenAndModifiedDateBetween
+//                (name,startDate,endDate,startDate,endDate);
+//    }
+
+    public List<IndoorEntranceDto.SearchResult> findByNameAndDateRange(String name, LocalDateTime startDate, LocalDateTime endDate){
+        List<IndoorEntrance> searchResultList = indoorEntranceRepository.findByWatchUserNameAndCreatedDateBetweenAndModifiedDateBetween
+                (name, startDate, endDate, startDate, endDate);
+
+        List<IndoorEntranceDto.SearchResult> result = new ArrayList<>();
+
+        for (IndoorEntrance indoorEntrance : searchResultList) {
+            int deviceNum = indoorEntrance.getWatch().getDeviceNum();
+            String userName = indoorEntrance.getWatch().getUser().getName();
+            String mapName = indoorEntrance.getBeacon().getIndoorMap().getName();
+            LocalDateTime enterTime = indoorEntrance.getCreatedDate();
+            LocalDateTime exitTime = indoorEntrance.getModifiedDate();
+
+            IndoorEntranceDto.SearchResult temp = IndoorEntranceDto.SearchResult.builder()
+                    .deviceNum(deviceNum)
+                    .userName(userName)
+                    .mapName(mapName)
+                    .enterTime(enterTime)
+                    .exitTime(exitTime)
+                    .build();
+
+            result.add(temp);
+        }
+
+        return result;
     }
 
 }

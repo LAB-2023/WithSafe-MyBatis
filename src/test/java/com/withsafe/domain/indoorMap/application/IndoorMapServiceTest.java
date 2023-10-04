@@ -38,8 +38,8 @@ class IndoorMapServiceTest {
     @Test
     public void testFindRestrictArea(){
         String name = "431ho";
-        List<IndoorMapDto.restrictCoordinate> result = indoorMapService.getRestrictArea(name);
-        for (IndoorMapDto.restrictCoordinate restrictCoordinate : result) {
+        List<IndoorMapDto.RestrictCoordinate> result = indoorMapService.getRestrictArea(name);
+        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : result) {
             System.out.println("restrictCoordinate = " + restrictCoordinate.getCoordinate());
         }
     }
@@ -47,8 +47,8 @@ class IndoorMapServiceTest {
     @Test
     public void testGetUserInfo(){
         String name = "431ho";
-        List<IndoorMapDto.userInfo> result = indoorMapService.getUserInfo(name);
-        for (IndoorMapDto.userInfo userInfo : result) {
+        List<IndoorMapDto.UserInfo> result = indoorMapService.getUserInfo(name);
+        for (IndoorMapDto.UserInfo userInfo : result) {
             System.out.println("userInfo.getName() = " + userInfo.getName());
         }
     }

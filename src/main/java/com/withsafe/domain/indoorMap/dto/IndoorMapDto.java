@@ -25,16 +25,25 @@ public class IndoorMapDto {
 
     @Getter
     @Setter
-    public static class restrictCoordinate{
+    public static class RestrictCoordinate{
         private Point coordinate;
     }
 
     @Builder
     @Getter
-    public static class userInfo{
+    public static class UserInfo{
         private String name;
         private String phone_num;
         private Point coordinate;
         private LocalDateTime time;
+    }
+
+    @Builder
+    @Getter
+    public static class AreaInfo{
+        private String URL;
+        private List<RestrictCoordinate> restrictCoordinate;
+        private List<UserInfo> userCoordinate;
+
     }
 }
