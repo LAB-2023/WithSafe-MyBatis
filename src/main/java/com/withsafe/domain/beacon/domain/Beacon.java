@@ -2,11 +2,14 @@ package com.withsafe.domain.beacon.domain;
 
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +27,9 @@ public class Beacon extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")
     private IndoorMap indoorMap;    //비콘이 설치된 실내지도 id
+
+    @OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
+    private List<IndoorEntrance> indoorEntranceList = new ArrayList<>();
 
     // == 연관관계 편의 메서드 == //
     public void setIndoorMap(IndoorMap indoorMap) {

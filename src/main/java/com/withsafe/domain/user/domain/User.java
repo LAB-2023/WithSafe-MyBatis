@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @RequiredArgsConstructor
+@Table(name = "member")
 public class User {
     @Id @GeneratedValue
     @Column(name = "user_id")
