@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/watch")
 @RequiredArgsConstructor
 public class WatchController {
+
     private final WatchService watchService;
     /**
      * 워치 등록
@@ -47,3 +48,4 @@ public class WatchController {
         return watch;
     }
 }
+

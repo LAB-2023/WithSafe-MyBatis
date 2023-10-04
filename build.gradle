@@ -30,7 +30,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '5.6.15.Final'
+
+
 	runtimeOnly 'com.h2database:h2'
+
 }
 
 tasks.named('test') {

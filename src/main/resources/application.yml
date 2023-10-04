@@ -1,13 +1,15 @@
 spring:
   datasource:
+
     url: jdbc:h2:tcp://localhost/~/withsafe
     username: sa
     password: 1
     driver-class-name: org.h2.Driver
 
   jpa:
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         #show_sql: true

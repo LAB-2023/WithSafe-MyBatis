@@ -5,8 +5,9 @@ import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import org.locationtech.jts.geom.Point;
 import javax.persistence.*;
-import java.awt.*;
+//import java.awt.*;
 
 @Entity
 @Getter
@@ -20,6 +21,8 @@ public class RestrictArea {
 
     private String safetyRule;  //제한구역의 안전수칙
 
+    //의존성 추가, yml 수정필요
+    //import org.locationtech.jts.geom.Point 사용할 것 (awt 아님)
     private Point coordinate;   //제한구역의 중심 좌표
 
     @ManyToOne(fetch = FetchType.LAZY)
