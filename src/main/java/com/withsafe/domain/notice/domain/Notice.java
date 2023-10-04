@@ -1,9 +1,11 @@
-package com.withsafe.domain.notice;
+package com.withsafe.domain.notice.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.notice.dto.NoticeDto;
+import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.solve.domain.Solve;
-import com.withsafe.domain.warning.WarningMessage;
+import com.withsafe.domain.warning.domain.WarningMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,8 @@ public class Notice extends BaseTimeEntity {
     @Column(name = "notice_id")
     private Long id;
 
-    private NoticeType noticeType;
+    @Enumerated(EnumType.STRING)
+    private NoticeType noticeType; //알림 타입
     private String content; //내용
     private LocalDateTime regDate; //알림 발생 시각
 
@@ -37,7 +40,8 @@ public class Notice extends BaseTimeEntity {
     private Solve solve;    //경고 알림에 대한 조치
 
     @Builder
-    public Notice(Long id, NoticeType noticeType, String content, LocalDateTime regDate, WarningMessage warning_message, Watch watch, Solve solve) {
+    public Notice(Long id, NoticeType noticeType, String content, LocalDateTime regDate,
+                  WarningMessage warning_message, Watch watch, Solve solve) {
         this.id = id;
         this.noticeType = noticeType;
         this.content = content;
@@ -45,5 +49,15 @@ public class Notice extends BaseTimeEntity {
         this.warning_message = warning_message;
         this.watch = watch;
         this.solve = solve;
+    }
+
+    public NoticeDto.NoticeResponse toNoticeResponse(SolveDto.SolveResponse solveResponse){
+        return NoticeDto.NoticeResponse.builder()
+                .id(this.id)
+                .username(this.watch.getUser().getName())
+                .type(this.warning_message.getType())
+                .solveResponse(solveResponse)
+                .date(this.getCreatedDate())
+                .build();
     }
 }
