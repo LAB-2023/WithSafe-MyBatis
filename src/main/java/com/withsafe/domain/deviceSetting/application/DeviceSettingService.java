@@ -3,6 +3,8 @@ package com.withsafe.domain.deviceSetting.application;
 import com.withsafe.domain.deviceSetting.dao.DeviceSettingRepository;
 import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
+import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.FindDeviceSettingRequestDTO;
+import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.SaveDeviceSettingRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,16 +26,16 @@ public class DeviceSettingService {
      * 기존 디바이스 세팅 조회
      */
     @Transactional
-    public DeviceSettingDTO viewDeviceSetting() {
+    public FindDeviceSettingRequestDTO findDeviceSetting() {
         DeviceSetting settingData = deviceSettingRepository.findTopByOrderByIdDesc();
-        return settingData.toDeviceSettingDTO();
+        return settingData.toFindDeviceSettingDTO();
     }
 
     /**
      * 디바이스 세팅 저장
      */
     @Transactional
-    public Long saveDeviceSetting(DeviceSettingDTO saveRequest) {
+    public Long saveDeviceSetting(SaveDeviceSettingRequestDTO saveRequest) {
         DeviceSetting deviceSetting = saveRequest.toEntity();
         deviceSettingRepository.save(deviceSetting);
         return deviceSetting.getId();
