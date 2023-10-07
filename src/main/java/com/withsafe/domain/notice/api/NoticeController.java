@@ -1,11 +1,10 @@
 package com.withsafe.domain.notice.api;
 
 import com.withsafe.domain.notice.application.NoticeService;
-import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
-import com.withsafe.domain.notice.dto.NoticeDto;
+import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
+import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.user.domain.User;
-import com.withsafe.domain.warning.application.WarningMessageService;
 import com.withsafe.domain.warning.dao.WarningMessageRepository;
 import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.domain.WarningMessageType;
@@ -13,14 +12,15 @@ import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.withsafe.domain.notice.dto.NoticeDto.SaveRequest;
+
 @RestController
+@RequestMapping("/notice-api")
 @RequiredArgsConstructor
 public class NoticeController {
 
@@ -29,22 +29,31 @@ public class NoticeController {
     private final WatchRepository watchRepository;
     private final WarningMessageRepository warningMessageRepository;
 
-    //경고알림 전부 출력
-    @GetMapping("/notice-api/list")
-    public List<NoticeDto.NoticeResponse> noticeList(){
-        return noticeService.findAllNotice();
+    //메인 화면 경고알림 출력
+    @GetMapping(("/main"))
+    public List<NoticeMainResponseDto> noticeList(@RequestParam(required = false) NoticeType noticeType){
+        return noticeService.findAllMainNotice(noticeType);
     }
 
-    @PostMapping("/notice-api/insert")
-    public NoticeDto.SaveRequest saveNotice(@RequestBody NoticeDto.SaveRequest saveRequest){
+    //경고 알림 창 경고 알림 출력
+    @GetMapping(("/warning"))
+    public List<NoticeWarningResponseDto> noticeList(@RequestParam(required = false) String username,
+                                                     @RequestParam(required = false) LocalDateTime startDate,
+                                                     @RequestParam(required = false) LocalDateTime endDate,
+                                                     @RequestParam int option){
+        return noticeService.findAllWarningNotice(username, startDate, endDate, option);
+    }
+
+    @PostMapping
+    public SaveRequest saveNotice(@RequestBody SaveRequest saveRequest){
 
         //테스트용 입력
-//        User user = new User("name");
-//        userRepository.save(user);
-//        Watch watch = new Watch(user, "galaxy");
-//        watchRepository.save(watch);
-//        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
-//        warningMessageRepository.save(warningMessage);
+        User user = User.builder().name("gd").build();
+        userRepository.save(user);
+        Watch watch = Watch.builder().model("galaxy").user(user).build();
+        watchRepository.save(watch);
+        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
+        warningMessageRepository.save(warningMessage);
 
         noticeService.saveNotice(saveRequest);
         return saveRequest;

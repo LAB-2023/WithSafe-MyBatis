@@ -22,6 +22,13 @@ public class SolveDto {
             this.content = content;
             this.noticeId = noticeId;
         }
+
+        public Solve toEntity(Notice notice){
+            return Solve.builder()
+                    .content(this.getContent())
+                    .notice(notice)
+                    .build();
+        }
     }
 
     //조치 사항있는지 확인

@@ -1,11 +1,9 @@
 package com.withsafe.domain.notice.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.notice.dto.NoticeDto;
-import com.withsafe.domain.solve.dto.SolveDto;
-import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.warning.domain.WarningMessage;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -51,13 +49,4 @@ public class Notice extends BaseTimeEntity {
         this.solve = solve;
     }
 
-    public NoticeDto.NoticeResponse toNoticeResponse(SolveDto.SolveResponse solveResponse){
-        return NoticeDto.NoticeResponse.builder()
-                .id(this.id)
-                .username(this.watch.getUser().getName())
-                .type(this.warning_message.getType())
-                .solveResponse(solveResponse)
-                .date(this.getCreatedDate())
-                .build();
-    }
 }

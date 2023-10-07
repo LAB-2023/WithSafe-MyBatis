@@ -1,20 +1,15 @@
 package com.withsafe.domain.notice.dto;
 
-import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
-import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.warning.domain.WarningMessage;
-import com.withsafe.domain.warning.domain.WarningMessageType;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
 
 public class NoticeDto {
 
@@ -35,26 +30,15 @@ public class NoticeDto {
             this.warningMessageId = warningMessageId;
             this.watchId = watchId;
         }
-    }
 
-    @Getter
-    @NoArgsConstructor
-    public static class NoticeResponse{
-        private Long id;
-        private String departmentName;
-        private String username;
-        private WarningMessageType type;
-        private SolveDto.SolveResponse solveResponse;
-        private LocalDateTime date;
-
-        @Builder
-        public NoticeResponse(Long id, String departmentName, String username, WarningMessageType type, SolveDto.SolveResponse solveResponse, LocalDateTime date) {
-            this.id = id;
-            this.departmentName = departmentName;
-            this.username = username;
-            this.type = type;
-            this.solveResponse = solveResponse;
-            this.date = date;
+        public Notice toEntity(WarningMessage warningMessage, Watch watch){
+            return Notice.builder()
+                    .content(this.content)
+                    .noticeType(this.getType())
+                    .warning_message(warningMessage)
+                    .watch(watch)
+                    .build();
         }
     }
+
 }
