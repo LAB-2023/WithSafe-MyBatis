@@ -5,7 +5,7 @@ import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
 import com.withsafe.domain.notice.dto.NoticeSaveRequestDto;
-import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
+import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.notice.exception.WatchNotFoundException;
 import com.withsafe.domain.solve.application.SolveService;
@@ -15,11 +15,12 @@ import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 /*
@@ -56,18 +57,19 @@ public class NoticeService {
     }
 
     //메인 경고 알림 전체 출력
-    public List<NoticeMainResponseDto> findAllMainNotice(NoticeType noticeType){
-        return noticeRepository.findNoticeMainResponseDto(noticeType);
+    public Page<NoticeMainResponseDto> findAllMainNotice(NoticeType noticeType, Pageable pageable){
+        return noticeRepository.noticeMainResponseDtoPage(noticeType, pageable);
     }
 
     //경고 창 경고 알림 전체 출력
-    public List<NoticeWarningResponseDto> findAllWarningNotice(String name, LocalDateTime startDate, LocalDateTime endDate, int option){
-        return noticeRepository.findNoticeWarningResponseDto(name, startDate, endDate, option);
+    public Page<NoticeWarningResponseDto> findAllWarningNotice(String name, LocalDateTime startDate, LocalDateTime endDate,
+                                                               int option, Pageable pageable){
+        return noticeRepository.noticeWarningResponseDtoPage(name, startDate, endDate, option, pageable);
     }
 
     //긴급 연락망 클릭 시 연락망 리스트 출력
-    public List<NoticeWarningContactDto> findAllWarningContactNotice(String name, String phoneNumber){
-        return noticeRepository.findNoticeWarningContactResponseDto(name, phoneNumber);
+    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber, Pageable pageable){
+        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, pageable);
     }
 
     //테스트 용

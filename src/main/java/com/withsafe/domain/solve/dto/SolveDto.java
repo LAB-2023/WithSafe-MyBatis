@@ -30,7 +30,7 @@ public class SolveDto {
         }
     }
 
-    //조치 사항있는지 확인
+    //조치 사항 있는지 확인
     @Getter
     @NoArgsConstructor
     public static class SolveResponse{

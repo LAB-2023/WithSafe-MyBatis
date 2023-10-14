@@ -7,9 +7,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
-import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
+import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
-import com.withsafe.domain.user.domain.QUser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -32,31 +34,39 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
     }
 
     @Override
-    public List<NoticeMainResponseDto> findNoticeMainResponseDto(NoticeType noticeType) {
-        return jpaQueryFactory.select(
+    public Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType, Pageable pageable){
+        List<NoticeMainResponseDto> content = jpaQueryFactory
+                .select(
                         Projections.fields(
-                                NoticeMainResponseDto.class,
-                                notice.id.as("id"),
-                                notice.watch.user.name.as("name"),
-                                notice.noticeType.as("noticeType"),
-                                notice.solve.content.as("solveContent"),
-                                notice.solve.createdDate.as("solveDate"),
-                                notice.createdDate.as("createdDate")
-                        )
+                        NoticeMainResponseDto.class,
+                        notice.id.as("id"),
+                        notice.watch.user.name.as("name"),
+                        notice.noticeType.as("noticeType"),
+                        notice.solve.content.as("solveContent"),
+                        notice.solve.createdDate.as("solveDate"),
+                        notice.createdDate.as("createdDate")
+                    )
                 )
                 .from(notice)
                 .leftJoin(notice.solve, solve)
                 .join(notice.watch.user, user)
                 .where(eqNoticeType(noticeType))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+        long count = (long) content.size();
+
+        return new PageImpl<>(content, pageable, count);
     }
 
     @Override
-    public List<NoticeWarningResponseDto> findNoticeWarningResponseDto(String name,
+    public Page<NoticeWarningResponseDto> noticeWarningResponseDtoPage(String name,
                                                                        LocalDateTime startDate,
                                                                        LocalDateTime endDate,
-                                                                       int option) {
-        return jpaQueryFactory.select(
+                                                                       int option,
+                                                                       Pageable pageable) {
+        List<NoticeWarningResponseDto> content = jpaQueryFactory
+                .select(
                         Projections.fields(
                                 NoticeWarningResponseDto.class,
                                 notice.id.as("id"),
@@ -73,22 +83,32 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .join(notice.watch.user, user)
                 .where(eqUsername(name), btwDate(startDate, endDate), checkSolve(option))
                 .fetch();
+        long count = (long) content.size();
+
+        return new PageImpl<>(content, pageable, count);
     }
 
+    //긴급 연락망 리스트
     @Override
-    public List<NoticeWarningContactDto> findNoticeWarningContactResponseDto(String name, String phoneNumber){
-        return jpaQueryFactory.select(
-                    Projections.fields(
-                            NoticeWarningContactDto.class,
-                            user.department.as("department"),
-                            user.name.as("name"),
-                            user.phone_num.as("phoneNumber")
-                    )
+    public Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber, Pageable pageable){
+        List<NoticeEmergencyContactDto> content = jpaQueryFactory
+                .select(
+                        Projections.fields(
+                                NoticeEmergencyContactDto.class,
+                                //user.department.as("department"),
+                                user.name.as("name"),
+                                user.phone_num.as("phoneNumber")
+                        )
                 )
                 .from(user)
                 .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
                 .fetch();
+        long count = (long) content.size();
+
+        return new PageImpl<>(content, pageable, count);
     }
+
+
 
     //알림 타입 검색
     private BooleanExpression eqNoticeType(NoticeType noticeType) {
@@ -99,7 +119,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //유저 이름 검색
     private BooleanExpression eqUsername(String username) {
-        if (username == null || username.equals("null"))
+        if (username == null || username.equals(""))
             return null;
         else
             return notice.watch.user.name.eq(username);

@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class NoticeWarningResponseDto {
     private Long id;
-    private String username;
+    private String name;
     private WarningMessageType warningMessageType;
     private String solveContent;
     private LocalDateTime solveDate;
     private LocalDateTime createdDate;
 
     @Builder
-    public NoticeWarningResponseDto(Long id, String username, WarningMessageType warningMessageType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
+    public NoticeWarningResponseDto(Long id, String name, WarningMessageType warningMessageType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.solveContent = solveContent;
         this.solveDate = solveDate;
         this.warningMessageType = warningMessageType;
@@ -31,7 +31,7 @@ public class NoticeWarningResponseDto {
     public static NoticeWarningResponseDto toNoticeWaringResponse(Notice notice){
         return NoticeWarningResponseDto.builder()
                 .id(notice.getId())
-                .username(notice.getWatch().getUser().getName())
+                .name(notice.getWatch().getUser().getName())
                 .warningMessageType(notice.getWarning_message().getType())
                 .solveContent(notice.getSolve().getContent())
                 .solveDate(notice.getSolve().getCreatedDate())
