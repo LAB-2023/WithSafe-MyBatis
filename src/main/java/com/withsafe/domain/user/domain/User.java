@@ -17,6 +17,7 @@ import static com.withsafe.domain.user.dto.UserDTO.*;
 @Getter @Setter
 @RequiredArgsConstructor
 public class User extends BaseTimeEntity {
+
     @Id @GeneratedValue
     @Column(name = "user_id")
     private Long id;

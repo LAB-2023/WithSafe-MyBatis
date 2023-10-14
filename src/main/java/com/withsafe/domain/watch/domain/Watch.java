@@ -34,7 +34,7 @@ public class Watch extends BaseTimeEntity {
     private LocalDateTime regDate;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "watch")
+    @JoinColumn(name = "helmet_id")
     private Helmet helmet;  //워치에 매핑된 턱끈 id
 
     @Builder

@@ -1,18 +1,23 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/withsafe?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
-    username: root
-    password: 2413
+    url: jdbc:h2:tcp://localhost/~/withsafe
+    username: sa
+    password: 1
+    driver-class-name: org.h2.Driver
 
   jpa:
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
-        show_sql: true
+        #show_sql: true
         format_sql: true
-        
+        default_batch_fetch_size: 1000 #최적화 옵션
+
+# 애초에 memory가 디폴트라 위 코드 없어도 됨!!
+# ddl-auto는 디폴트가 create-droㄴp -> 프로그램 종료 시 모든 생성 테이블을 드랍해버림
+
 logging.level:
   org.hibernate.SQL: debug
-#  org.hibernate.type: trace
+  org.hibernate.orm.jdbc.bind: trace
