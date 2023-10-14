@@ -4,6 +4,8 @@ import com.withsafe.domain.notice.dao.NoticeRepository;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
+import com.withsafe.domain.notice.dto.NoticeSaveRequestDto;
+import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.notice.exception.WatchNotFoundException;
 import com.withsafe.domain.solve.application.SolveService;
@@ -19,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import static com.withsafe.domain.notice.dto.NoticeDto.SaveRequest;
 
 /*
     필요기능
@@ -43,7 +43,7 @@ public class NoticeService {
 
     //경고 알림 저장
     @Transactional
-    public Long saveNotice(SaveRequest saveRequest){
+    public Long saveNotice(NoticeSaveRequestDto saveRequest){
         Watch watch =
                 watchRepository.findById(saveRequest.getWatchId()).orElseThrow(() -> new WatchNotFoundException());
         WarningMessage warningMessage =
@@ -63,6 +63,11 @@ public class NoticeService {
     //경고 창 경고 알림 전체 출력
     public List<NoticeWarningResponseDto> findAllWarningNotice(String name, LocalDateTime startDate, LocalDateTime endDate, int option){
         return noticeRepository.findNoticeWarningResponseDto(name, startDate, endDate, option);
+    }
+
+    //긴급 연락망 클릭 시 연락망 리스트 출력
+    public List<NoticeWarningContactDto> findAllWarningContactNotice(String name, String phoneNumber){
+        return noticeRepository.findNoticeWarningContactResponseDto(name, phoneNumber);
     }
 
     //테스트 용

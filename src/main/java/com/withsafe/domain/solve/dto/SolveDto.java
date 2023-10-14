@@ -1,7 +1,6 @@
 package com.withsafe.domain.solve.dto;
 
 import com.withsafe.domain.notice.domain.Notice;
-import com.withsafe.domain.notice.dto.NoticeDto;
 import com.withsafe.domain.solve.domain.Solve;
 import lombok.Builder;
 import lombok.Getter;

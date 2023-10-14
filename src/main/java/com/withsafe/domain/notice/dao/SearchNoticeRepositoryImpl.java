@@ -7,7 +7,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
+import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
+import com.withsafe.domain.user.domain.QUser;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +37,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                         Projections.fields(
                                 NoticeMainResponseDto.class,
                                 notice.id.as("id"),
-                                notice.watch.user.name.as("username"),
+                                notice.watch.user.name.as("name"),
                                 notice.noticeType.as("noticeType"),
                                 notice.solve.content.as("solveContent"),
                                 notice.solve.createdDate.as("solveDate"),
@@ -50,7 +52,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
     }
 
     @Override
-    public List<NoticeWarningResponseDto> findNoticeWarningResponseDto(String username,
+    public List<NoticeWarningResponseDto> findNoticeWarningResponseDto(String name,
                                                                        LocalDateTime startDate,
                                                                        LocalDateTime endDate,
                                                                        int option) {
@@ -58,7 +60,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                         Projections.fields(
                                 NoticeWarningResponseDto.class,
                                 notice.id.as("id"),
-                                notice.watch.user.name.as("username"),
+                                notice.watch.user.name.as("name"),
                                 notice.warning_message.type.as("warningMessageType"),
                                 notice.solve.content.as("solveContent"),
                                 notice.solve.createdDate.as("solveDate"),
@@ -69,16 +71,33 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .leftJoin(notice.solve, solve)
                 .join(notice.warning_message, warningMessage)
                 .join(notice.watch.user, user)
-                .where(eqUsername(username), btwDate(startDate, endDate), checkSolve(option))
+                .where(eqUsername(name), btwDate(startDate, endDate), checkSolve(option))
                 .fetch();
     }
 
+    @Override
+    public List<NoticeWarningContactDto> findNoticeWarningContactResponseDto(String name, String phoneNumber){
+        return jpaQueryFactory.select(
+                    Projections.fields(
+                            NoticeWarningContactDto.class,
+                            user.department.as("department"),
+                            user.name.as("name"),
+                            user.phone_num.as("phoneNumber")
+                    )
+                )
+                .from(user)
+                .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
+                .fetch();
+    }
+
+    //알림 타입 검색
     private BooleanExpression eqNoticeType(NoticeType noticeType) {
         if (noticeType == null)
             return null;
         return notice.noticeType.eq(noticeType);
     }
 
+    //유저 이름 검색
     private BooleanExpression eqUsername(String username) {
         if (username == null || username.equals("null"))
             return null;
@@ -86,6 +105,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
             return notice.watch.user.name.eq(username);
     }
 
+    //날짜 검색
     private BooleanExpression btwDate(LocalDateTime startDate, LocalDateTime endDate) {
         if (startDate == null && endDate == null) {
             return null;
@@ -108,5 +128,23 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
         } else {
             return notice.solve.content.isNull();
         }
+    }
+
+    //긴급 연락망 이름 검색
+    private BooleanExpression eqWarningUserName(String name){
+        if(name == null || name.equals("null")){
+            return null;
+        }
+        else{
+            return user.name.eq(name);
+        }
+    }
+
+    //긴급 연락망 전화번호 검색
+    private BooleanExpression eqWarningPhoneNumber(String phoneNumber){
+        if(phoneNumber == null)
+            return null;
+        else
+            return user.phone_num.eq(phoneNumber);
     }
 }

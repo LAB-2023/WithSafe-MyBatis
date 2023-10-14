@@ -3,6 +3,8 @@ package com.withsafe.domain.notice.api;
 import com.withsafe.domain.notice.application.NoticeService;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
+import com.withsafe.domain.notice.dto.NoticeSaveRequestDto;
+import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.warning.dao.WarningMessageRepository;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.withsafe.domain.notice.dto.NoticeDto.SaveRequest;
 
 @RestController
 @RequestMapping("/notice-api")
@@ -37,16 +38,21 @@ public class NoticeController {
 
     //경고 알림 창 경고 알림 출력
     @GetMapping(("/warning"))
-    public List<NoticeWarningResponseDto> noticeList(@RequestParam(required = false) String username,
+    public List<NoticeWarningResponseDto> noticeList(@RequestParam(required = false) String name,
                                                      @RequestParam(required = false) LocalDateTime startDate,
                                                      @RequestParam(required = false) LocalDateTime endDate,
                                                      @RequestParam int option){
-        return noticeService.findAllWarningNotice(username, startDate, endDate, option);
+        return noticeService.findAllWarningNotice(name, startDate, endDate, option);
+    }
+
+    @GetMapping("/emergency_contact")
+    public List<NoticeWarningContactDto> emergencyContactList(@RequestParam(required = false) String name,
+                                                              @RequestParam(required = false) String phoneNumber){
+        return noticeService.findAllWarningContactNotice(name, phoneNumber);
     }
 
     @PostMapping
-    public SaveRequest saveNotice(@RequestBody SaveRequest saveRequest){
-
+    public NoticeSaveRequestDto saveNotice(@RequestBody NoticeSaveRequestDto saveRequest){
         //테스트용 입력
         User user = User.builder().name("gd").build();
         userRepository.save(user);

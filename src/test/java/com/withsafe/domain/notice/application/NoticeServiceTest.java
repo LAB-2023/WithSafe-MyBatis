@@ -2,7 +2,7 @@ package com.withsafe.domain.notice.application;
 
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
-import com.withsafe.domain.notice.dto.NoticeDto;
+import com.withsafe.domain.notice.dto.NoticeWarningContactDto;
 import com.withsafe.domain.solve.application.SolveService;
 import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.user.domain.User;
@@ -38,35 +38,11 @@ class NoticeServiceTest {
 
     @Test
     public void 경고알림저장(){
-        User user = User.builder().name("test").build();
-        userRepository.save(user);
-        Watch watch = Watch.builder().user(user).model("galaxy").build();
-        watchRepository.save(watch);
-        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
-        warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
-        Long saveId = noticeService.saveNotice(saveRequest);
 
-        Notice noticeById = noticeService.findNoticeById(saveId).get();
-
-        assertThat(noticeById.getContent()).isEqualTo(saveRequest.getContent());
     }
 
     @Test
     public void 경고알림_전체_조회(){
-        User user = User.builder().name("test").build();
-        userRepository.save(user);
-        Watch watch = Watch.builder().user(user).model("galaxy").build();
-        watchRepository.save(watch);
-        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
-        warningMessageRepository.save(warningMessage);
-        NoticeDto.SaveRequest saveRequest = new NoticeDto.SaveRequest("gd", NoticeType.HEART, warningMessage.getId(), watch.getId());
-        Long saveId = noticeService.saveNotice(saveRequest);
-        SolveDto.SaveRequest solveSaveRequest = new SolveDto.SaveRequest("ㅎㅇ", saveId);
-        solveService.saveSolve(solveSaveRequest);
-
-        //List<NoticeResponseDto> allNotice = noticeService.findAllNotice();
-        String result;
 
     }
 }

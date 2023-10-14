@@ -14,17 +14,17 @@ public class NoticeMainResponseDto //부서 추가 필요
 {
     private Long id;
     //private String departmentName;
-    private String username;
+    private String name;
     private NoticeType noticeType;
     private String solveContent;
     private LocalDateTime solveDate;
     private LocalDateTime createdDate;
 
     @Builder
-    public NoticeMainResponseDto(Long id, String username, NoticeType noticeType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
+    public NoticeMainResponseDto(Long id, String name, NoticeType noticeType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
         this.id = id;
         //this.departmentName = departmentName;
-        this.username = username;
+        this.name = name;
         this.solveContent = solveContent;
         this.solveDate = solveDate;
         this.noticeType = noticeType;
@@ -34,7 +34,7 @@ public class NoticeMainResponseDto //부서 추가 필요
     public static NoticeMainResponseDto toNoticeMainResponse(Notice notice){
         return NoticeMainResponseDto.builder()
                 .id(notice.getId())
-                .username(notice.getWatch().getUser().getName())
+                .name(notice.getWatch().getUser().getName())
                 .noticeType(notice.getNoticeType())
                 .solveContent(notice.getSolve().getContent())
                 .solveDate(notice.getSolve().getCreatedDate())
