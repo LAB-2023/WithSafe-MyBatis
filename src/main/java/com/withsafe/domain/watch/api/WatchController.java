@@ -1,3 +1,4 @@
+
 package com.withsafe.domain.watch.api;
 
 import com.withsafe.domain.watch.application.WatchService;
