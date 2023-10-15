@@ -3,7 +3,6 @@ package com.withsafe.domain.user.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.user.dto.UserDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
