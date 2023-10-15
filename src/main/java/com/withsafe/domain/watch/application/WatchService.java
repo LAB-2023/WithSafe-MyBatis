@@ -1,10 +1,10 @@
 package com.withsafe.domain.watch.application;
 
+import com.withsafe.domain.user.dao.UserRepository;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
-import com.withsafe.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
