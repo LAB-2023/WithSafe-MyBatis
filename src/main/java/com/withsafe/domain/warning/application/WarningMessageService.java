@@ -36,7 +36,7 @@ public class WarningMessageService {
     //경고 알림 메시지 수정
     @Transactional
     public WarningMessage updateWarningMessage(UpdateRequest updateRequest){
-        WarningMessage warningMessage = warningMessageRepository.findById(updateRequest.getId())
+        WarningMessage warningMessage = warningMessageRepository.findWarningMessageByType(updateRequest.getType())
                 .orElseThrow(() -> new WarningNotFoundException());
         warningMessage.update(updateRequest);
         return warningMessage;

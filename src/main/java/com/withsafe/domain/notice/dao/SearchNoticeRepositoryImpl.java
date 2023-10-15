@@ -18,10 +18,12 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.withsafe.domain.notice.domain.QNotice.*;
-import static com.withsafe.domain.solve.domain.QSolve.*;
-import static com.withsafe.domain.user.domain.QUser.*;
-import static com.withsafe.domain.warning.domain.QWarningMessage.*;
+
+import static com.withsafe.domain.department.domain.QDepartment.department;
+import static com.withsafe.domain.notice.domain.QNotice.notice;
+import static com.withsafe.domain.solve.domain.QSolve.solve;
+import static com.withsafe.domain.user.domain.QUser.user;
+import static com.withsafe.domain.warning.domain.QWarningMessage.warningMessage;
 
 @Repository
 public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implements SearchNoticeRepository {
@@ -40,6 +42,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                         Projections.fields(
                         NoticeMainResponseDto.class,
                         notice.id.as("id"),
+                        //notice.watch.user.department.name.as("department"),
                         notice.watch.user.name.as("name"),
                         notice.noticeType.as("noticeType"),
                         notice.solve.content.as("solveContent"),
@@ -50,6 +53,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .from(notice)
                 .leftJoin(notice.solve, solve)
                 .join(notice.watch.user, user)
+                .leftJoin(user.department, department)
                 .where(eqNoticeType(noticeType))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -101,6 +105,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                         )
                 )
                 .from(user)
+                .leftJoin(user.department, department)
                 .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
                 .fetch();
         long count = (long) content.size();
@@ -127,13 +132,10 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //날짜 검색
     private BooleanExpression btwDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
+        if (startDate == null || endDate == null) {
             return null;
-        } else if (startDate == null) {
-            return notice.createdDate.loe(endDate);
-        } else if (endDate == null) {
-            return notice.createdDate.goe(startDate);
-        } else {
+        }
+       else {
             return notice.createdDate.between(startDate, endDate);
         }
     }

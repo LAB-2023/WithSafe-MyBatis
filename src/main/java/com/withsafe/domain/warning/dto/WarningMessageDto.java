@@ -43,13 +43,13 @@ public class WarningMessageDto {
     @Getter
     @NoArgsConstructor
     public static class UpdateRequest{
-        private Long id;
         private String content;
+        private WarningMessageType type;
 
         @Builder
-        public UpdateRequest(Long id, String content) {
-            this.id = id;
+        public UpdateRequest(String content, WarningMessageType type) {
             this.content = content;
+            this.type = type;
         }
     }
 

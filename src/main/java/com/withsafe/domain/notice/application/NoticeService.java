@@ -46,9 +46,9 @@ public class NoticeService {
     @Transactional
     public Long saveNotice(NoticeSaveRequestDto saveRequest){
         Watch watch =
-                watchRepository.findById(saveRequest.getWatchId()).orElseThrow(() -> new WatchNotFoundException());
+                watchRepository.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
         WarningMessage warningMessage =
-                warningMessageRepository.findById(saveRequest.getWarningMessageId()).orElseThrow(() -> new WatchNotFoundException());
+                warningMessageRepository.findById(saveRequest.getWarningMessageId()).orElseThrow(WatchNotFoundException::new);
 
         Notice notice = saveRequest.toEntity(warningMessage, watch);
 

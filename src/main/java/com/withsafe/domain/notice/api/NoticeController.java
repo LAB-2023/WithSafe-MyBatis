@@ -1,5 +1,6 @@
 package com.withsafe.domain.notice.api;
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.notice.application.NoticeService;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
@@ -32,13 +33,13 @@ public class NoticeController {
     private final WarningMessageRepository warningMessageRepository;
 
     //메인 화면 경고알림 출력
-    @GetMapping(("/main"))
+    @GetMapping("/main")
     public Page<NoticeMainResponseDto> noticeList(@RequestParam(required = false) NoticeType noticeType, Pageable pageable){
         return noticeService.findAllMainNotice(noticeType, pageable);
     }
 
     //경고 알림 창 경고 알림 출력
-    @GetMapping(("/warning"))
+    @GetMapping("/warning")
     public Page<NoticeWarningResponseDto> noticeList(@RequestParam(required = false) String name,
                                                      @RequestParam(required = false) LocalDateTime startDate,
                                                      @RequestParam(required = false) LocalDateTime endDate,
@@ -62,8 +63,16 @@ public class NoticeController {
         userRepository.save(user);
         Watch watch = Watch.builder().model("galaxy").user(user).build();
         watchRepository.save(watch);
-        WarningMessage warningMessage = WarningMessage.builder().content("hd").type(WarningMessageType.HEART).build();
-        warningMessageRepository.save(warningMessage);
+        WarningMessage warningMessage1 = WarningMessage.builder().content("휴식").type(WarningMessageType.HEART).build();
+        warningMessageRepository.save(warningMessage1);
+        WarningMessage warningMessage2 = WarningMessage.builder().content("승인").type(WarningMessageType.NO_APPROVE).build();
+        warningMessageRepository.save(warningMessage2);
+        WarningMessage warningMessage3 = WarningMessage.builder().content("위험").type(WarningMessageType.DANGER_ZONE).build();
+        warningMessageRepository.save(warningMessage3);
+        WarningMessage warningMessage4 = WarningMessage.builder().content("성별").type(WarningMessageType.GENDER_SPECIFIC_AREA).build();
+        warningMessageRepository.save(warningMessage4);
+        WarningMessage warningMessage5 = WarningMessage.builder().content("턱끈").type(WarningMessageType.NO_EQUIPMENT).build();
+        warningMessageRepository.save(warningMessage5);
 
         noticeService.saveNotice(saveRequest);
         return saveRequest;

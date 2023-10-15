@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class NoticeMainResponseDto //부서 추가 필요
 {
     private Long id;
-    //private String departmentName;
+    private String departmentName;
     private String name;
     private NoticeType noticeType;
     private String solveContent;
@@ -21,9 +21,9 @@ public class NoticeMainResponseDto //부서 추가 필요
     private LocalDateTime createdDate;
 
     @Builder
-    public NoticeMainResponseDto(Long id, String name, NoticeType noticeType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
+    public NoticeMainResponseDto(Long id, String departmentName, String name, NoticeType noticeType, String solveContent, LocalDateTime solveDate, LocalDateTime createdDate) {
         this.id = id;
-        //this.departmentName = departmentName;
+        this.departmentName = departmentName;
         this.name = name;
         this.solveContent = solveContent;
         this.solveDate = solveDate;

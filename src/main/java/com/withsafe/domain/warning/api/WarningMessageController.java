@@ -22,7 +22,7 @@ public class WarningMessageController {
     }
 
     //경고 메시지 저장
-    @PostMapping
+    @PutMapping
     public UpdateRequestList update(@RequestBody UpdateRequestList updateRequestList){
         for(UpdateRequest updateRequest: updateRequestList.getProducts()){
             warningMessageService.updateWarningMessage(updateRequest);
@@ -31,7 +31,7 @@ public class WarningMessageController {
     }
 
     //경고 추가 -> 원래는 ppt에 없는데 postman 테스트 용
-    @PutMapping
+    @PostMapping
     public SaveRequest saveMessage(@RequestBody SaveRequest saveRequest){
         warningMessageService.saveMessage(saveRequest);
         return saveRequest;
