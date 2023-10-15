@@ -31,5 +31,8 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<IndoorMap> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
 
+    public Department(String name) {
+        this.name = name;
+    }
 }
 
