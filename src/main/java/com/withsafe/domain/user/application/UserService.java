@@ -37,8 +37,8 @@ public class UserService {
     }
 
     //이름으로 조회
-    @Transactional
-    public List<User> findUser(@RequestParam("username") String username) {
+    @Transactional(readOnly = true)
+    public List<User> findUser(String username) {
         List<User> foundUserList = userRepository.findByName(username);
         if (foundUserList.isEmpty()) {
             throw new NoSuchElementException("해당 이름의 사용자를 찾지 못했습니다.");
