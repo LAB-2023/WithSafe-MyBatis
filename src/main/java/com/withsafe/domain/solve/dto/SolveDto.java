@@ -1,7 +1,6 @@
 package com.withsafe.domain.solve.dto;
 
 import com.withsafe.domain.notice.domain.Notice;
-import com.withsafe.domain.notice.dto.NoticeDto;
 import com.withsafe.domain.solve.domain.Solve;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +21,16 @@ public class SolveDto {
             this.content = content;
             this.noticeId = noticeId;
         }
+
+        public Solve toEntity(Notice notice){
+            return Solve.builder()
+                    .content(this.getContent())
+                    .notice(notice)
+                    .build();
+        }
     }
 
-    //조치 사항있는지 확인
+    //조치 사항 있는지 확인
     @Getter
     @NoArgsConstructor
     public static class SolveResponse{

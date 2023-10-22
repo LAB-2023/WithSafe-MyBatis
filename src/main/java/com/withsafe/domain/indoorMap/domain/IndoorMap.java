@@ -43,6 +43,4 @@ public class IndoorMap {
         this.department = department;
         department.getIndoorMapList().add(this);
     }
-
-
 }
