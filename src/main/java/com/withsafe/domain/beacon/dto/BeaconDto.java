@@ -19,15 +19,13 @@ public class BeaconDto {
         private String indoorMapName;
 
         @Builder
-        public RequestSave(Point coordinate, String status, String indoorMapName) {
-            this.coordinate = coordinate;
+        public RequestSave(String status, String indoorMapName) {
             this.status = status;
             this.indoorMapName = indoorMapName;
         }
 
         public Beacon toEntity(IndoorMap indoorMap){
             return Beacon.builder()
-                    .coordinate(this.coordinate)
                     .status(this.status)
                     .indoorMap(indoorMap)
                     .build();

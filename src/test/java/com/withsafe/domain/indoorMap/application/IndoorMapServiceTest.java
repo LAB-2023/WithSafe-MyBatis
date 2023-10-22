@@ -44,13 +44,13 @@ class IndoorMapServiceTest {
         }
     }
 
-    @Test
-    public void testGetUserInfo(){
-        String name = "431ho";
-        List<IndoorMapDto.UserInfo> result = indoorMapService.getUserInfo(name);
-        for (IndoorMapDto.UserInfo userInfo : result) {
-            System.out.println("userInfo.getName() = " + userInfo.getName());
-        }
-    }
+//    @Test
+//    public void testGetUserInfo(){
+//        String name = "431ho";
+//        List<IndoorMapDto.UserInfo> result = indoorMapService.getUserInfo(name);
+//        for (IndoorMapDto.UserInfo userInfo : result) {
+//            System.out.println("userInfo.getName() = " + userInfo.getName());
+//        }
+//    }
 
 }

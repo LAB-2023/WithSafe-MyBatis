@@ -24,6 +24,7 @@ import static com.withsafe.domain.notice.domain.QNotice.notice;
 import static com.withsafe.domain.solve.domain.QSolve.solve;
 import static com.withsafe.domain.user.domain.QUser.user;
 import static com.withsafe.domain.warning.domain.QWarningMessage.warningMessage;
+import static com.withsafe.domain.watch.domain.QWatch.watch;
 
 @Repository
 public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implements SearchNoticeRepository {
@@ -42,7 +43,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                         Projections.fields(
                         NoticeMainResponseDto.class,
                         notice.id.as("id"),
-                        //notice.watch.user.department.name.as("department"),
+                        //notice.watch.department.name.as("department"),
                         notice.watch.user.name.as("name"),
                         notice.noticeType.as("noticeType"),
                         notice.solve.content.as("solveContent"),
@@ -53,7 +54,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .from(notice)
                 .leftJoin(notice.solve, solve)
                 .join(notice.watch.user, user)
-                .leftJoin(user.department, department)
+                .join(notice.watch.department, department)
                 .where(eqNoticeType(noticeType))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -99,13 +100,14 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .select(
                         Projections.fields(
                                 NoticeEmergencyContactDto.class,
-                                //user.department.as("department"),
-                                user.name.as("name"),
-                                user.phone_num.as("phoneNumber")
+                                //watch.department.as("department"),
+                                watch.user.name.as("name"),
+                                watch.user.phoneNum.as("phoneNumber")
                         )
                 )
-                .from(user)
-                .leftJoin(user.department, department)
+                .from(watch)
+                .join(watch.user, user)
+                .join(watch.department, department)
                 .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
                 .fetch();
         long count = (long) content.size();
@@ -167,6 +169,6 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
         if(phoneNumber == null)
             return null;
         else
-            return user.phone_num.eq(phoneNumber);
+            return user.phoneNum.eq(phoneNumber);
     }
 }

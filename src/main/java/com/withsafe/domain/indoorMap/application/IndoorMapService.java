@@ -4,7 +4,6 @@ import com.withsafe.domain.indoorMap.dao.IndoorMapRepository;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
-import com.withsafe.domain.uwb.IndoorUserLocation;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
@@ -71,28 +70,28 @@ public class IndoorMapService {
 
     //사용자 위치 및 정보 반환
     //경고 알림이랑 조치 현황은 일단 생략 ..
-    public List<IndoorMapDto.UserInfo> getUserInfo(String mapName){
-        IndoorMap byName = indoorMapRepository.findByName(mapName);
-        String mapId = byName.getUwbMapId();
-        List<IndoorUserLocation> indoorUserLocationList = indoorMapRepository.findLocationByMapId(mapId);
-        List<IndoorMapDto.UserInfo> userList = new ArrayList<>();
-
-        for (IndoorUserLocation location : indoorUserLocationList) {
-            String name = location.getUwbTag().getUser().getName();
-            String phone_num = location.getUwbTag().getUser().getPhone_num();
-            Point coordinate = location.getCoordinate();
-            LocalDateTime time = location.getCreatedDate();
-
-            IndoorMapDto.UserInfo temp = IndoorMapDto.UserInfo.builder()
-                    .name(name)
-                    .phone_num(phone_num)
-                    .coordinate(coordinate)
-                    .time(time)
-                    .build();
-
-            userList.add(temp);
-        }
-
-        return userList;
-    }
+//    public List<IndoorMapDto.UserInfo> getUserInfo(String mapName){
+//        IndoorMap byName = indoorMapRepository.findByName(mapName);
+//        String mapId = byName.getUwbMapId();
+//        List<IndoorUserLocation> indoorUserLocationList = indoorMapRepository.findLocationByMapId(mapId);
+//        List<IndoorMapDto.UserInfo> userList = new ArrayList<>();
+//
+//        for (IndoorUserLocation location : indoorUserLocationList) {
+//            String name = location.getUwbTag().getUser().getName();
+//            String phone_num = location.getUwbTag().getUser().getPhone_num();
+//            Point coordinate = location.getCoordinate();
+//            LocalDateTime time = location.getCreatedDate();
+//
+//            IndoorMapDto.UserInfo temp = IndoorMapDto.UserInfo.builder()
+//                    .name(name)
+//                    .phone_num(phone_num)
+//                    .coordinate(coordinate)
+//                    .time(time)
+//                    .build();
+//
+//            userList.add(temp);
+//        }
+//
+//        return userList;
+//    }
 }
