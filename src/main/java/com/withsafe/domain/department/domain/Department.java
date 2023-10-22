@@ -1,8 +1,9 @@
 package com.withsafe.domain.department.domain;
 
+import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
-import com.withsafe.domain.user.domain.User;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,8 +23,12 @@ public class Department {
 
     private String name;    //부서 이름
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
     @OneToMany(mappedBy = "department")
-    private List<User> userList = new ArrayList<>();    //부서에 포함된 유저 목록
+    private List<Watch> watchList = new ArrayList<>();    //부서에 포함된 유저 목록
 
     @OneToMany(mappedBy = "department")
     private List<OutdoorMap> outdoorMapList = new ArrayList<>();    //부서에 포함된 실외지도 목록

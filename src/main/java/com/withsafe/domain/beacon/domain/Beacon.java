@@ -1,25 +1,26 @@
 package com.withsafe.domain.beacon.domain;
 
-
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 public class Beacon extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "beacon_id")
     private Long id;
 
-    private Point coordinate;   //비콘이 설치된 좌표
     //private LocalDateTime date; //설치된 시간
     private String status;  //수신/미수신 샅태
 
@@ -35,5 +36,13 @@ public class Beacon extends BaseTimeEntity {
     public void setIndoorMap(IndoorMap indoorMap) {
         this.indoorMap = indoorMap;
         indoorMap.getBeaconList().add(this);
+    }
+
+    @Builder
+    public Beacon(Long id, String status, IndoorMap indoorMap, List<IndoorEntrance> indoorEntranceList) {
+        this.id = id;
+        this.status = status;
+        this.indoorMap = indoorMap;
+        this.indoorEntranceList = indoorEntranceList;
     }
 }

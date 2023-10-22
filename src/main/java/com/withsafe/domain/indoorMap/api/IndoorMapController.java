@@ -33,7 +33,5 @@ public class IndoorMapController {
                 .restrictCoordinate(restrictArea)
                 .userCoordinate(userInfo)
                 .build();
-
     }
-
 }

@@ -1,6 +1,7 @@
 package com.withsafe.domain.watch.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.helmet.domain.Helmet;
 import com.withsafe.domain.user.domain.User;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class Watch extends BaseTimeEntity {
 
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;  //워치가 매핑된 유저 id
 
@@ -37,8 +38,11 @@ public class Watch extends BaseTimeEntity {
     @JoinColumn(name = "helmet_id")
     private Helmet helmet;  //워치에 매핑된 턱끈 id
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;  //해당 사용자가 포함된 부서 id
     @Builder
-    public Watch(Long id, User user, String serialNum, String model, Boolean is_used, Integer deviceNum, LocalDateTime regDate,Helmet helmet) {
+    public Watch(Long id, User user, String serialNum, String model, Boolean is_used, Integer deviceNum, LocalDateTime regDate,Helmet helmet, Department department) {
         this.id = id;
         this.user = user;
         this.serialNum = serialNum;
@@ -47,5 +51,6 @@ public class Watch extends BaseTimeEntity {
         this.deviceNum = deviceNum;
         this.regDate = regDate;
         this.helmet = helmet;
+        this.department = department;
     }
 }
