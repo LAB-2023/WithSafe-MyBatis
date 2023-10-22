@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import static com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.*;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -54,7 +56,11 @@ public class DeviceSetting extends BaseTimeEntity {    //워치 데이터 세팅
         this.safe_upload = safe_upload;
     }
 
-    public DeviceSettingDTO toDeviceSettingDTO(){
-        return new DeviceSettingDTO(this.id, this.heart_rate_min,this.heart_rate_max,this.bio_store,this.sensor_upload,this.gps_upload,this.gps_store,this.ble_upload, this.ble_filter_type,this.ble_filter_value,this.ble_scan_type,this.ble_scan_value,this.battery_upload,this.charge_upload,this.warning_upload,this.safe_upload);
+    public FindDeviceSettingRequestDTO toFindDeviceSettingDTO(){
+        return new FindDeviceSettingRequestDTO(this.heart_rate_min,this.heart_rate_max,this.bio_store,this.sensor_upload,this.gps_upload,this.gps_store,this.ble_upload, this.ble_filter_type,this.ble_filter_value,this.ble_scan_type,this.ble_scan_value,this.battery_upload,this.charge_upload,this.warning_upload,this.safe_upload);
+    }
+
+    public SaveDeviceSettingRequestDTO toSaveDeviceSettingDTO(){
+        return new SaveDeviceSettingRequestDTO(this.heart_rate_min,this.heart_rate_max,this.bio_store,this.sensor_upload,this.gps_upload,this.gps_store,this.ble_upload, this.ble_filter_type,this.ble_filter_value,this.ble_scan_type,this.ble_scan_value,this.battery_upload,this.charge_upload,this.warning_upload,this.safe_upload);
     }
 }
