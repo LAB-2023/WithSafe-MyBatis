@@ -1,10 +1,11 @@
 package com.withsafe.domain.deviceSetting.api;
 
 import com.withsafe.domain.deviceSetting.application.DeviceSettingService;
-import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import static com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.*;
 
 /**
  * 필요기능
@@ -20,11 +21,12 @@ public class DeviceSettingController {
 
     /**
      * 디바이스 세팅 조회
+     *
      * @return
      */
     @GetMapping
-    public DeviceSettingDTO findDeviceSetting(){
-        return deviceSettingService.viewDeviceSetting();
+    public FindDeviceSettingRequestDTO findDeviceSetting(){
+        return deviceSettingService.findDeviceSetting();
     }
 
     /**
@@ -33,7 +35,7 @@ public class DeviceSettingController {
      * @return
      */
     @PostMapping("/save")
-    public DeviceSettingDTO saveDeviceSetting(@RequestBody DeviceSettingDTO request) {
+    public SaveDeviceSettingRequestDTO saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request) {
         deviceSettingService.saveDeviceSetting(request);
         return request;
     }

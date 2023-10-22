@@ -6,8 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DeviceSettingRepository extends JpaRepository<DeviceSetting, Long> {
-
-
     DeviceSetting findTopByOrderByIdDesc();
-
 }
