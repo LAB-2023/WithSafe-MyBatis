@@ -3,6 +3,7 @@ package com.withsafe.domain.watch.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.withsafe.domain.user.domain.Sex;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.*;
@@ -73,6 +74,7 @@ public class WatchDTO {
             this.userName = (watch.getUser()).getName();
             this.watchId = watch.getId();
         }
+
 
         public Watch toEntity(Watch watch){
             return Watch.builder()
