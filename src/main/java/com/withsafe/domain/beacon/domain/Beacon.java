@@ -4,10 +4,11 @@ package com.withsafe.domain.beacon.domain;
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
+import lombok.Builder;
 import lombok.Getter;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +36,14 @@ public class Beacon extends BaseTimeEntity {
     public void setIndoorMap(IndoorMap indoorMap) {
         this.indoorMap = indoorMap;
         indoorMap.getBeaconList().add(this);
+    }
+
+    @Builder
+    public Beacon(Long id, Point coordinate, String status, IndoorMap indoorMap, List<IndoorEntrance> indoorEntranceList) {
+        this.id = id;
+        this.coordinate = coordinate;
+        this.status = status;
+        this.indoorMap = indoorMap;
+        this.indoorEntranceList = indoorEntranceList;
     }
 }

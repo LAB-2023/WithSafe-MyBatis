@@ -1,6 +1,5 @@
 package com.withsafe.domain.warning.dto;
 
-import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.domain.WarningMessageType;
 import lombok.Builder;
@@ -38,19 +37,19 @@ public class WarningMessageDto {
     @Getter
     @NoArgsConstructor
     public static class UpdateRequestList{
-        private List<WarningMessageDto.UpdateRequest> products;
+        private List<UpdateRequest> products;
     }
 
     @Getter
     @NoArgsConstructor
     public static class UpdateRequest{
-        private Long id;
         private String content;
+        private WarningMessageType type;
 
         @Builder
-        public UpdateRequest(Long id, String content) {
-            this.id = id;
+        public UpdateRequest(String content, WarningMessageType type) {
             this.content = content;
+            this.type = type;
         }
     }
 
@@ -67,6 +66,15 @@ public class WarningMessageDto {
             this.id = id;
             this.content = content;
             this.type = type;
+        }
+
+        //warning message to warningMessageDto
+        public static WarningMessageResponse toWarningMessageResponse(WarningMessage warningMessage){
+            return WarningMessageResponse.builder()
+                    .id(warningMessage.getId())
+                    .content(warningMessage.getContent())
+                    .type(warningMessage.getType())
+                    .build();
         }
     }
 }
