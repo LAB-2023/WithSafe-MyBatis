@@ -40,8 +40,6 @@ public class User extends BaseTimeEntity {
     @JoinColumn(name = "department_id")
     private Department department;  //해당 사용자가 포함된 부서 id
 
-
-
     @Builder
     public User(Long id, String name, Integer age, String phone_num, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex, Department department) {
 //        this.id = id;
