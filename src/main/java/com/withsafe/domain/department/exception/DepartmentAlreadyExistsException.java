@@ -5,3 +5,4 @@ public class DepartmentAlreadyExistsException extends RuntimeException {
         super(message);
     }
 }
+

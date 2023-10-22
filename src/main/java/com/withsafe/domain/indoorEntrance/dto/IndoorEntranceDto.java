@@ -35,16 +35,26 @@ public class IndoorEntranceDto {
         private String userName;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
+
+        public static SearchCondition toSearchCondition(String userName, LocalDateTime startDate, LocalDateTime endDate) {
+            return SearchCondition.builder()
+                    .userName(userName)
+                    .startDate(startDate)
+                    .endDate(endDate)
+                    .build();
+        }
     }
 
     //검색 결과 저장
-    @Builder
-    @Getter
-    public static class SearchResult{
-        private int deviceNum; //디바이스번호(PK와 다름)
-        private String userName;
-        private String mapName;
-        private LocalDateTime enterTime;
-        private LocalDateTime exitTime;
-    }
+//    @Builder
+//    @Getter
+//    public static class SearchResult{
+//        private int deviceNum; //디바이스번호(PK와 다름)
+//        private String userName;
+//        private String mapName;
+//        private LocalDateTime enterTime;
+//        private LocalDateTime exitTime;
+//
+//
+//    }
 }

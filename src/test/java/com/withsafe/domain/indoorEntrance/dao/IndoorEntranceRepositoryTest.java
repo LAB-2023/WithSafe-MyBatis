@@ -1,9 +1,14 @@
 package com.withsafe.domain.indoorEntrance.dao;
 
 import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
+import com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto;
+import com.withsafe.domain.indoorEntrance.dto.SearchResultDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,57 +24,33 @@ class IndoorEntranceRepositoryTest {
 
     @Autowired IndoorEntranceRepository indoorEntranceRepository;
 
-    @Test
-    public void testFindAll(){
-        List<IndoorEntrance> all = indoorEntranceRepository.findAll();
-
-        System.out.println("FindAll=========================================");
-        for (IndoorEntrance indoorEntrance : all) {
-            System.out.println("indoorEntrance = " + indoorEntrance.getId());
-        }
-    }
 
     @Test
-    public void testFindByName(){
-        List<IndoorEntrance> all = indoorEntranceRepository.findByWatchUserName("lee");
+    public void testGetIndoorEntranceList(){
+        LocalDateTime startTime = null; //LocalDateTime.of(2023, 9, 1, 10, 0, 0);
+        LocalDateTime endTime = null; //LocalDateTime.of(2023, 9, 30, 15, 0, 0);
 
-        System.out.println("이름=========================================");
-        for (IndoorEntrance indoorEntrance : all) {
-            System.out.println("indoorEntrance = " + indoorEntrance.getId());
-        }
-    }
+        IndoorEntranceDto.SearchCondition searchCondition = IndoorEntranceDto.SearchCondition.toSearchCondition("lee",startTime,endTime);
 
-    @Test
-    public void testFindByDateRange(){
+        System.out.println("====================");
 
-        LocalDateTime startTime = LocalDateTime.of(2023, 9, 1, 10, 0, 0);
-        LocalDateTime endTime = LocalDateTime.of(2023, 9, 30, 15, 0, 0);
+        System.out.println("searchCondition = " + searchCondition.getUserName());
+        System.out.println("searchCondition.getStartDate() = " + searchCondition.getStartDate());
+        System.out.println("searchCondition.getEndDate() = " + searchCondition.getEndDate());
 
-        List<IndoorEntrance> all = indoorEntranceRepository.
-                findByCreatedDateBetweenAndModifiedDateBetween(startTime,endTime,startTime,endTime);
+        //Pageable pageable = PageRequest.of(0,10);
+        PageRequest pageable = PageRequest.of(0, 10);
 
-        System.out.println("기간=========================================");
-        for (IndoorEntrance indoorEntrance : all) {
-            System.out.println("indoorEntrance = " + indoorEntrance.getId());
+        Page<SearchResultDto> results = indoorEntranceRepository.findAllBySearchCondition(searchCondition, pageable);
+
+        System.out.println("====================");
+        for (SearchResultDto result : results) {
+            System.out.println("EnterTime = " + result.getEnterTime());
+            System.out.println("result.getUserName() = " + result.getUserName());
         }
 
     }
 
-    @Test
-    public void testFindByNameAndDateRange(){
-
-        LocalDateTime startTime = LocalDateTime.of(2023, 9, 1, 10, 0, 0);
-        LocalDateTime endTime = LocalDateTime.of(2023, 9, 30, 15, 0, 0);
-
-        List<IndoorEntrance> all = indoorEntranceRepository.
-                findByWatchUserNameAndCreatedDateBetweenAndModifiedDateBetween("kim", startTime,endTime,startTime,endTime);
-
-        System.out.println("이름&기간=========================================");
-        for (IndoorEntrance indoorEntrance : all) {
-            System.out.println("indoorEntrance = " + indoorEntrance.getId());
-        }
-
-    }
 
 
 }

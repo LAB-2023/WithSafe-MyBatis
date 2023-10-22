@@ -1,10 +1,8 @@
 package com.withsafe.domain.solve.application;
 
-import com.withsafe.domain.notice.application.NoticeService;
 import com.withsafe.domain.notice.dao.NoticeRepository;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
-import com.withsafe.domain.notice.dto.NoticeDto;
 import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.solve.dto.SolveDto;
 import com.withsafe.domain.user.dao.UserRepository;
@@ -21,10 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional

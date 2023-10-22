@@ -33,18 +33,9 @@ public class SolveService {
     public Long saveSolve(SolveDto.SaveRequest saveRequest){
         Notice notice =
                 noticeRepository.findById(saveRequest.getNoticeId()).orElseThrow(() -> new NoticeNotFoundException());
-        Solve solve = Solve.builder()
-                .content(saveRequest.getContent())
-                .notice(notice)
-                .build();
+        Solve solve = saveRequest.toEntity(notice);
         solveRepository.save(solve);
         return solve.getId();
-    }
-
-    //알림에 대한 조치 사항이 있는 지 확인 -> list size가 0 이면 조치 사항 x
-    public SolveDto.SolveResponse findSolveFromNoticeId(Long noticeId){
-        Optional<Solve> findSolve = solveRepository.findByNoticeId(noticeId);
-        return findSolve.map(Solve::toSolveResponse).orElse(null);
     }
 
     //테스트용 solve 아이디로 엔티티 찾기
