@@ -5,12 +5,10 @@ import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import com.withsafe.domain.uwb.IndoorUserLocation;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +95,4 @@ public class IndoorMapService {
 
         return userList;
     }
-
-
-
 }

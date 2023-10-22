@@ -59,20 +59,20 @@ public class NoticeController {
     @PostMapping
     public NoticeSaveRequestDto saveNotice(@RequestBody NoticeSaveRequestDto saveRequest){
         //테스트용 입력
-        User user = User.builder().name("gd").phone_num("010-1234-1234").build();
-        userRepository.save(user);
-        Watch watch = Watch.builder().model("galaxy").user(user).build();
-        watchRepository.save(watch);
-        WarningMessage warningMessage1 = WarningMessage.builder().content("휴식").type(WarningMessageType.HEART).build();
-        warningMessageRepository.save(warningMessage1);
-        WarningMessage warningMessage2 = WarningMessage.builder().content("승인").type(WarningMessageType.NO_APPROVE).build();
-        warningMessageRepository.save(warningMessage2);
-        WarningMessage warningMessage3 = WarningMessage.builder().content("위험").type(WarningMessageType.DANGER_ZONE).build();
-        warningMessageRepository.save(warningMessage3);
-        WarningMessage warningMessage4 = WarningMessage.builder().content("성별").type(WarningMessageType.GENDER_SPECIFIC_AREA).build();
-        warningMessageRepository.save(warningMessage4);
-        WarningMessage warningMessage5 = WarningMessage.builder().content("턱끈").type(WarningMessageType.NO_EQUIPMENT).build();
-        warningMessageRepository.save(warningMessage5);
+//        User user = User.builder().name("gd").phone_num("010-1234-1234").build();
+//        userRepository.save(user);
+//        Watch watch = Watch.builder().model("galaxy").user(user).build();
+//        watchRepository.save(watch);
+//        WarningMessage warningMessage1 = WarningMessage.builder().content("휴식").type(WarningMessageType.HEART).build();
+//        warningMessageRepository.save(warningMessage1);
+//        WarningMessage warningMessage2 = WarningMessage.builder().content("승인").type(WarningMessageType.NO_APPROVE).build();
+//        warningMessageRepository.save(warningMessage2);
+//        WarningMessage warningMessage3 = WarningMessage.builder().content("위험").type(WarningMessageType.DANGER_ZONE).build();
+//        warningMessageRepository.save(warningMessage3);
+//        WarningMessage warningMessage4 = WarningMessage.builder().content("성별").type(WarningMessageType.GENDER_SPECIFIC_AREA).build();
+//        warningMessageRepository.save(warningMessage4);
+//        WarningMessage warningMessage5 = WarningMessage.builder().content("턱끈").type(WarningMessageType.NO_EQUIPMENT).build();
+//        warningMessageRepository.save(warningMessage5);
 
         noticeService.saveNotice(saveRequest);
         return saveRequest;
