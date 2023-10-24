@@ -4,6 +4,7 @@ import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<IndoorMap> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
 
+    @Builder
     public Department(String name) {
         this.name = name;
     }

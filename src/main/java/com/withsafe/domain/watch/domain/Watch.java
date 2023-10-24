@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class Watch extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "watch_id")
-
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

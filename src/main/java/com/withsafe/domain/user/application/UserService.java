@@ -27,7 +27,7 @@ public class UserService {
     public Long saveUser(SaveRequest saveRequest) {
 
         //전화번호 중복 예외처리
-        if (userRepository.existsByPhoneNumber(saveRequest.getPhone_num())) {
+        if (userRepository.existsByPhoneNum(saveRequest.getPhoneNum())) {
             throw new PhoneNumberDuplicateException("해당 전화번호로 등록된 사용자가 존재합니다.");
         }
 

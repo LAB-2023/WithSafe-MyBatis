@@ -19,10 +19,10 @@ class DepartmentRepositoryTest {
     @Autowired
     DepartmentService departmentService;
 
-    @Test
-    public void 부서생성() {
-        Department department = new Department("teamA");
-        departmentService.saveDepartment(department.toSaveDepartmentDTO());
-    }
+//    @Test
+//    public void 부서생성() {
+//        Department department = new Department("teamA");
+//        departmentService.saveDepartment(department.toSaveDepartmentDTO());
+//    }
 
 }

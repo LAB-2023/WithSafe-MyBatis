@@ -21,17 +21,17 @@ public class IndoorMapController {
 
     //도면 모니터링 페이지 (정보 한번에 DTO로 담아서 리턴)
     //DTO 안에 DTO 가져도 되는가..
-    @GetMapping("/{mapName}")
-    public IndoorMapDto.AreaInfo show(@PathVariable("mapName") String mapName){
-
-        String mapURL = indoorMapService.getMap(mapName);
-        List<IndoorMapDto.RestrictCoordinate> restrictArea = indoorMapService.getRestrictArea(mapName);
-        List<IndoorMapDto.UserInfo> userInfo = indoorMapService.getUserInfo(mapName);
-
-        return IndoorMapDto.AreaInfo.builder()
-                .URL(mapURL)
-                .restrictCoordinate(restrictArea)
-                .userCoordinate(userInfo)
-                .build();
-    }
+//    @GetMapping("/{mapName}")
+//    public IndoorMapDto.AreaInfo show(@PathVariable("mapName") String mapName){
+//
+//        String mapURL = indoorMapService.getMap(mapName);
+//        List<IndoorMapDto.RestrictCoordinate> restrictArea = indoorMapService.getRestrictArea(mapName);
+//        List<IndoorMapDto.UserInfo> userInfo = indoorMapService.getUserInfo(mapName);
+//
+//        return IndoorMapDto.AreaInfo.builder()
+//                .URL(mapURL)
+//                .restrictCoordinate(restrictArea)
+//                .userCoordinate(userInfo)
+//                .build();
+//    }
 }
