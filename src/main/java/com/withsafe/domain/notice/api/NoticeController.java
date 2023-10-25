@@ -1,6 +1,5 @@
 package com.withsafe.domain.notice.api;
 
-import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.notice.application.NoticeService;
 import com.withsafe.domain.notice.domain.NoticeType;
 import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
@@ -8,18 +7,17 @@ import com.withsafe.domain.notice.dto.NoticeSaveRequestDto;
 import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.user.dao.UserRepository;
-import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.warning.dao.WarningMessageRepository;
-import com.withsafe.domain.warning.domain.WarningMessage;
-import com.withsafe.domain.warning.domain.WarningMessageType;
 import com.withsafe.domain.watch.dao.WatchRepository;
-import com.withsafe.domain.watch.domain.Watch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+
+import static com.withsafe.domain.admin.constant.SessionConstants.*;
+import static com.withsafe.domain.admin.dto.AdminDto.*;
 
 
 @RestController
@@ -34,7 +32,8 @@ public class NoticeController {
 
     //메인 화면 경고알림 출력
     @GetMapping("/main")
-    public Page<NoticeMainResponseDto> noticeList(@RequestParam(required = false) NoticeType noticeType, Pageable pageable){
+    public Page<NoticeMainResponseDto> noticeList(@SessionAttribute(name= LOGIN_INFO) LoginResponseDto loginInfo,
+                                                  @RequestParam(required = false) NoticeType noticeType, Pageable pageable){
         return noticeService.findAllMainNotice(noticeType, pageable);
     }
 
