@@ -42,12 +42,11 @@ public class AdminService {
             throw new DuplicateEmailException();
         }
 
-        Department department = null;
+        Department department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
         //입력받은 type이 master면 부서가 없다는 가정 하에 체크 -> 부서에 본사나 SBS가 들어오면 수정해야함!!
 //        if(!adminSaveRequestDto.getType().equals(AdminType.MASTER)){
 //            department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
 //        }
-        department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
         if(department == null){
             throw new IllegalStateException("부서가 없습니다.");
         }

@@ -30,6 +30,8 @@ public class AdminController {
         departmentService.saveDepartment(saveDepartment2);
         DepartmentDTO.saveDepartment saveDepartment3 = new DepartmentDTO.saveDepartment("MAINCOMPANY");
         departmentService.saveDepartment(saveDepartment3);
+        DepartmentDTO.saveDepartment saveDepartment4 = new DepartmentDTO.saveDepartment("TESTCOMPANY");
+        departmentService.saveDepartment(saveDepartment4);
         //
     }
     //유저 생성

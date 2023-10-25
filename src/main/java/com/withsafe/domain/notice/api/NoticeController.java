@@ -47,7 +47,7 @@ public class NoticeController {
             return noticeService.findAllMainNotice(noticeType, pageable, null);
         }
         else{
-            return noticeService.findAllMainNotice(noticeType, pageable, String.valueOf(loginInfo.getType()));
+            return noticeService.findAllMainNotice(noticeType, pageable, loginInfo.getDepartmentName());
         }
     }
 
@@ -64,7 +64,7 @@ public class NoticeController {
             return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, null);
         }
         else{
-            return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, String.valueOf(loginInfo.getType()));
+            return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, loginInfo.getDepartmentName());
         }
     }
 
@@ -85,8 +85,7 @@ public class NoticeController {
     @PostMapping("/test")
     public void test(){
         //테스트용 입력
-        Department department = Department.builder().name("test_department").build();
-        departmentRepository.save(department);
+        Department department = departmentRepository.findByName("TESTCOMPANY");
         User user = User.builder().name("gd").phoneNum("010-1234-1234").build();
         userRepository.save(user);
         Watch watch = Watch.builder().model("galaxy").user(user).department(department).build();
