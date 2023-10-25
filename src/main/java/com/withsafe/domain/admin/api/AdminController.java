@@ -42,7 +42,7 @@ public class AdminController {
     }
 
     //로그인
-    @GetMapping("/login-api")
+    @PostMapping("/login-api")
     @ResponseBody
     public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request){
 
