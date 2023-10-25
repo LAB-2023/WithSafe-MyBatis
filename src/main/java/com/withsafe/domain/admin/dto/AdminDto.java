@@ -68,22 +68,25 @@ public class AdminDto {
         private String name;
         private String loginId;
         private AdminType type;
+        private String departmentName;
 
         @Builder
-        public LoginResponseDto(Long id, String name, String loginId, AdminType type) {
+        public LoginResponseDto(Long id, String name, String loginId, AdminType type, String departmentName) {
             this.id = id;
             this.name = name;
             this.loginId = loginId;
             this.type = type;
+            this.departmentName = departmentName;
         }
 
-        public static LoginResponseDto toLoginResponseDto(Long id, String name, String loginId, AdminType type){
+        public static LoginResponseDto toLoginResponseDto(Long id, String name, String loginId, AdminType type, String departmentName){
             return LoginResponseDto
                     .builder()
                     .id(id)
                     .name(name)
                     .loginId(loginId)
                     .type(type)
+                    .departmentName(departmentName)
                     .build();
         }
     }

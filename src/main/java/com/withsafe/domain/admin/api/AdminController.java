@@ -21,13 +21,20 @@ public class AdminController {
     private final AdminService adminService;
     private final DepartmentService departmentService;
 
+    @PostMapping("/department-test")
+    public void test(){
+        //테스트용 DEPARTMENT INPUT
+        DepartmentDTO.saveDepartment saveDepartment = new DepartmentDTO.saveDepartment("TEST_DEPARTMENT");
+        departmentService.saveDepartment(saveDepartment);
+        DepartmentDTO.saveDepartment saveDepartment2 = new DepartmentDTO.saveDepartment("SBSYSTEMS");
+        departmentService.saveDepartment(saveDepartment2);
+        DepartmentDTO.saveDepartment saveDepartment3 = new DepartmentDTO.saveDepartment("MAINCOMPANY");
+        departmentService.saveDepartment(saveDepartment3);
+        //
+    }
     //유저 생성
     @PostMapping("/signup-api")
     public AdminSaveRequestDto signup(@RequestBody AdminSaveRequestDto adminSaveRequestDto){
-        //테스트용 DEPARTMENT INPUT
-        DepartmentDTO.saveDepartment saveDepartment = new DepartmentDTO.saveDepartment("test_department");
-        departmentService.saveDepartment(saveDepartment);
-
         adminService.signup(adminSaveRequestDto);
         return adminSaveRequestDto;
     }
@@ -42,9 +49,7 @@ public class AdminController {
             request.getSession().invalidate();
             HttpSession session = request.getSession();
             session.setAttribute(LOGIN_INFO, loginInfo);
-        }
-        else{
-            System.out.println("fail");
+            session.setMaxInactiveInterval(1800);
         }
         return loginInfo;
     }

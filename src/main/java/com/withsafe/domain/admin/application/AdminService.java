@@ -44,8 +44,12 @@ public class AdminService {
 
         Department department = null;
         //입력받은 type이 master면 부서가 없다는 가정 하에 체크 -> 부서에 본사나 SBS가 들어오면 수정해야함!!
-        if(!adminSaveRequestDto.getType().equals(AdminType.MASTER)){
-            department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
+//        if(!adminSaveRequestDto.getType().equals(AdminType.MASTER)){
+//            department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
+//        }
+        department = departmentRepository.findByName(adminSaveRequestDto.getDepartmentName());
+        if(department == null){
+            throw new IllegalStateException("부서가 없습니다.");
         }
         adminSaveRequestDto.passwordEncryption(passwordEncoder);
         Admin admin = adminSaveRequestDto.toEntity(department);
@@ -65,7 +69,10 @@ public class AdminService {
         if(admin == null || !passwordEncoder.matches(loginRequestDto.getPassword(), encodedPassword)){
             return null;
         }
-        return toLoginResponseDto(admin.getId(), admin.getName(), admin.getLoginId(), admin.getType());
+        //부서이름 받아오기
+        Department department = admin.getDepartment();
+        String departmentName = department.getName();
+        return toLoginResponseDto(admin.getId(), admin.getName(), admin.getLoginId(), admin.getType(), departmentName);
     }
 
     private boolean loginIdDuplicateCheck(String loginId){
