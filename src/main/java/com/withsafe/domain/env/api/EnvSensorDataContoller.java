@@ -16,7 +16,7 @@ public class EnvSensorDataContoller {
     private final EnvSensorDataService envSensorDataService;
 
     @GetMapping
-    public Map<String, Double> findEnvData() {
+    public Map<String, Object> findEnvData() {
         return envSensorDataService.findEnvData();
     }
 }

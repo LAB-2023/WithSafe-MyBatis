@@ -35,10 +35,10 @@ public class EnvSensorData extends BaseTimeEntity {
 
     @Type(type = "io.hypersistence.utils.hibernate.type.json.JsonType")
     @Column(columnDefinition = "json")
-    private Map<String, Double> dataValues = new HashMap<>();
+    private Map<String, Object> dataValues = new HashMap<>();
 
     @Builder
-    public EnvSensorData(Long id, EnvSensor envSensor, String assetCode, String device, Float version, String name, Map<String, Double> dataValues) {
+    public EnvSensorData(Long id, EnvSensor envSensor, String assetCode, String device, Float version, String name, Map<String, Object> dataValues) {
         this.id = id;
         this.envSensor = envSensor;
         this.assetCode = assetCode;
@@ -48,7 +48,7 @@ public class EnvSensorData extends BaseTimeEntity {
         this.dataValues = dataValues;
     }
 
-    public EnvSensorData(Map<String, Double> dataValues) {
+    public EnvSensorData(Map<String, Object> dataValues) {
         this.dataValues = dataValues;
     }
 }

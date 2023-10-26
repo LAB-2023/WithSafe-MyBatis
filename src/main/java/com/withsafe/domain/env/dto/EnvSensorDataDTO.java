@@ -12,11 +12,11 @@ public class EnvSensorDataDTO {
     @Getter
     public static class FindRequest {
 
-        private Map<String, Double> dataValues;
+        private Map<String, Object> dataValues;
         private EnvSensor envSensor;
 
         @Builder
-        public FindRequest(Map<String, Double> dataValues, EnvSensor envSensor) {
+        public FindRequest(Map<String, Object> dataValues, EnvSensor envSensor) {
             this.dataValues = dataValues;
             this.envSensor = envSensor;
         }

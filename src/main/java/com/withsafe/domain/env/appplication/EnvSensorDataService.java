@@ -17,7 +17,7 @@ public class EnvSensorDataService {
 
     //데이터 조회
     @Transactional(readOnly = true)
-    public Map<String, Double> findEnvData(){
+    public Map<String, Object> findEnvData(){
         EnvSensorData findData = envSensorDataRepository.findTopByOrderByCreatedDateDesc();
         if (findData == null) {
             throw new NoSuchElementException("데이터가 존재하지 않습니다.");
