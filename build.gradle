@@ -1,6 +1,8 @@
 buildscript {
 	ext{
 		queryDslVersion = "5.0.0"
+		jacksonDatabindVersion="2.15.2"
+		jacksonJaxbAnnotationsVersion="2.14.2"
 	}
 }
 
@@ -46,6 +48,11 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+	//hypersistence-utils for json to mysql
+	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.6.0'
+	//for parsing json
+	implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+	implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonJaxbAnnotationsVersion}"
 }
 
 tasks.named('test') {
