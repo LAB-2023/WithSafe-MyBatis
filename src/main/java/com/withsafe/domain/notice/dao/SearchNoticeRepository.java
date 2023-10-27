@@ -23,5 +23,6 @@ public interface SearchNoticeRepository {
                                                                 String departmentName);
 
     //긴급 연락망 출력
-    Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber, Pageable pageable);
+    Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber,
+                                                                          String departmentName, Pageable pageable);
 }

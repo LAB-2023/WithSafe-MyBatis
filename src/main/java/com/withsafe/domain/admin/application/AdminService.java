@@ -66,7 +66,7 @@ public class AdminService {
         Admin admin = adminRepository.findByLoginId(loginRequestDto.getLoginId());
         String encodedPassword = (admin == null) ? "" : admin.getLoginPwd();
         if(admin == null || !passwordEncoder.matches(loginRequestDto.getPassword(), encodedPassword)){
-            return null;
+            throw new IllegalStateException("비밀번호 아이디 틀림");
         }
         //부서이름 받아오기
         Department department = admin.getDepartment();

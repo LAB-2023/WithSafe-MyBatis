@@ -48,11 +48,12 @@ public class NoticeService {
 
     //경고 알림 저장
     @Transactional
-    public Long saveNotice(NoticeSaveRequestDto saveRequest){
+    public Long saveNotice(NoticeSaveRequestDto saveRequest, String departmentName){
         Watch watch =
                 watchRepository.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
         WarningMessage warningMessage =
-                warningMessageRepository.findWarningMessageByType(saveRequest.getWarningMessageType()).orElseThrow(WatchNotFoundException::new);
+                warningMessageRepository.findWarningMessageByTypeAndDepartmentName(saveRequest.getWarningMessageType(), departmentName)
+                        .orElseThrow(WatchNotFoundException::new);
 
         Notice notice = saveRequest.toEntity(warningMessage, watch);
 
@@ -72,8 +73,9 @@ public class NoticeService {
     }
 
     //긴급 연락망 클릭 시 연락망 리스트 출력
-    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber, Pageable pageable){
-        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, pageable);
+    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber,
+                                                                         String departmentName, Pageable pageable){
+        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, departmentName, pageable);
     }
 
     //테스트 용

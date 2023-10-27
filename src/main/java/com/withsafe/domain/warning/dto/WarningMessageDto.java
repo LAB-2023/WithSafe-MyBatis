@@ -1,5 +1,6 @@
 package com.withsafe.domain.warning.dto;
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.domain.WarningMessageType;
 import lombok.Builder;
@@ -26,10 +27,11 @@ public class WarningMessageDto {
             this.type = type;
             this.content = content;
         }
-        public WarningMessage toEntity(){
+        public WarningMessage toEntity(Department department){
             return WarningMessage.builder()
                     .content(this.content)
                     .type(this.type)
+                    .department(department)
                     .build();
         }
     }

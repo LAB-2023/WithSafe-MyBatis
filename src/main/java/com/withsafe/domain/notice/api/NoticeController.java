@@ -42,13 +42,9 @@ public class NoticeController {
     @GetMapping("/main")
     public Page<NoticeMainResponseDto> noticeList(@SessionAttribute(name= LOGIN_INFO) LoginResponseDto loginInfo,
                                                   @RequestParam(required = false) NoticeType noticeType,
+                                                  @RequestParam String departmentName,
                                                   Pageable pageable){
-        if(loginInfo.getType().equals(AdminType.MASTER)){
-            return noticeService.findAllMainNotice(noticeType, pageable, null);
-        }
-        else{
-            return noticeService.findAllMainNotice(noticeType, pageable, loginInfo.getDepartmentName());
-        }
+        return noticeService.findAllMainNotice(noticeType, pageable, departmentName);
     }
 
     //경고 알림 창 경고 알림 출력
@@ -58,27 +54,25 @@ public class NoticeController {
                                                      @RequestParam(required = false) LocalDateTime startDate,
                                                      @RequestParam(required = false) LocalDateTime endDate,
                                                      @RequestParam int option,
+                                                     @RequestParam String departmentName,
                                                      Pageable pageable){
 
-        if(loginInfo.getType().equals(AdminType.MASTER)){
-            return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, null);
-        }
-        else{
-            return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, loginInfo.getDepartmentName());
-        }
+        return noticeService.findAllWarningNotice(name, startDate, endDate, option, pageable, departmentName);
     }
 
     //긴급 연락 망 리스트 출력
+    //일단 보류
     @GetMapping("/emergency-contact")
     public Page<NoticeEmergencyContactDto> emergencyContactList(@RequestParam(required = false) String name,
                                                                 @RequestParam(required = false) String phoneNumber,
+                                                                @RequestParam String departmentName,
                                                                 Pageable pageable){
-        return noticeService.findAllEmergencyContactNotice(name, phoneNumber, pageable);
+        return noticeService.findAllEmergencyContactNotice(name, phoneNumber, departmentName, pageable);
     }
 
     @PostMapping
-    public NoticeSaveRequestDto saveNotice(@RequestBody NoticeSaveRequestDto saveRequest){
-        noticeService.saveNotice(saveRequest);
+    public NoticeSaveRequestDto saveNotice(@RequestBody NoticeSaveRequestDto saveRequest, @RequestParam String departmentName){
+        noticeService.saveNotice(saveRequest, departmentName);
         return saveRequest;
     }
 

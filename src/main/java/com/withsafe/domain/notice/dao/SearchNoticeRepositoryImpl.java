@@ -99,20 +99,21 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //긴급 연락망 리스트
     @Override
-    public Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber, Pageable pageable){
+    public Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber,
+                                                                                 String departmentName, Pageable pageable){
         List<NoticeEmergencyContactDto> content = jpaQueryFactory
                 .select(
                         Projections.fields(
                                 NoticeEmergencyContactDto.class,
-                                //watch.department.as("department"),
+                                watch.department.as("department"),
                                 watch.user.name.as("name"),
                                 watch.user.phoneNum.as("phoneNumber")
                         )
                 )
                 .from(watch)
-                .join(watch.user, user)
+                .leftJoin(watch.user, user)
                 .join(watch.department, department)
-                .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
+                .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber), eqDepartmentName(departmentName))
                 .fetch();
         long count = (long) content.size();
 
