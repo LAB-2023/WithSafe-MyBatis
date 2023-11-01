@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface IndoorMapRepository extends JpaRepository<IndoorMap,Long> {
 
-    IndoorMap findByName(String mapName);
+
+    IndoorMap findByDepartmentNameAndName(String departmentName, String Name);
 
 //    @Query("select i from IndoorUserLocation i where i.mapId = :mapId")
 //    List<IndoorUserLocation> findLocationByMapId(String mapId);

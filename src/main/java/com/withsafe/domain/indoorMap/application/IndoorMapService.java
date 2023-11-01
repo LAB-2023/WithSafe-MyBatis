@@ -3,6 +3,7 @@ package com.withsafe.domain.indoorMap.application;
 import com.withsafe.domain.indoorMap.dao.IndoorMapRepository;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
+import com.withsafe.domain.indoorMap.dto.IndoorMapDto.IndoorMapInfo;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
 
 /**
  * 페이지 : 도면 모니터링
@@ -28,45 +31,66 @@ public class IndoorMapService {
 
     private final IndoorMapRepository indoorMapRepository;
 
-    //IndoorMap DTO로 변환
-    public List<IndoorMapDto.IndoorMapInfo> getAllIndoorMap(){
-        List<IndoorMap> indoorMapList = indoorMapRepository.findAll();
+    //사용자가 선택한 map 이미지, 위험구역 반환
+    public IndoorMapInfo getIndoorMapInfo(String departmentName, String mapName){
+        IndoorMap map = indoorMapRepository.findByDepartmentNameAndName(departmentName, mapName);
 
-        return indoorMapList.stream()
-                .map(indoorMap -> IndoorMapDto.IndoorMapInfo.builder()
-                        .id(indoorMap.getId())
-                        .name(indoorMap.getName())
-                        .URL(indoorMap.getImageUrl())
-                        .uwbMapId(indoorMap.getUwbMapId())
-                        .build())
-                .collect(Collectors.toList());
-    }
+        IndoorMapInfo indoorMapInfo = IndoorMapInfo.builder()
+                .id(map.getId())
+                .name(map.getName())
+                .URL(map.getImageUrl())
+                .build();
 
-    //사용자가 선택한 구역의 지도 이미지 url 반환
-    public String getMap(String mapName){
-        IndoorMap byName = indoorMapRepository.findByName(mapName);
-        return byName.getImageUrl();
-    }
-
-    //사용자가 선택한 구역의 위험 구역 좌표 반환
-    public List<IndoorMapDto.RestrictCoordinate> getRestrictArea(String mapName){
-        IndoorMap byName = indoorMapRepository.findByName(mapName);
-
-        List<RestrictArea> restrictAreaList = byName.getRestrictAreaList();
-        List<IndoorMapDto.RestrictCoordinate> coordinateList = new ArrayList<>();
-
-        for (RestrictArea restrictArea : restrictAreaList) {
-            Point coordinate = restrictArea.getCoordinate();
-
-            IndoorMapDto.RestrictCoordinate temp = new IndoorMapDto.RestrictCoordinate();
-            temp.setCoordinate(coordinate); // 좌표 정보를 DTO에 설정
-
-            coordinateList.add(temp);
+        for (RestrictArea area : map.getRestrictAreaList()) {
+            RestrictCoordinate restrictCoordinateList = RestrictCoordinate.builder()
+                    .coordinate_left(area.getCoordinate_left())
+                    .coordinate_right(area.getCoordinate_right())
+                    .build();
+            indoorMapInfo.getRestrictCoordinateList().add(restrictCoordinateList);
         }
 
-        return coordinateList;
-
+        return indoorMapInfo;
     }
+
+//    //IndoorMap DTO로 변환
+//    public List<IndoorMapDto.IndoorMapInfo> getAllIndoorMap(){
+//        List<IndoorMap> indoorMapList = indoorMapRepository.findAll();
+//
+//        return indoorMapList.stream()
+//                .map(indoorMap -> IndoorMapDto.IndoorMapInfo.builder()
+//                        .id(indoorMap.getId())
+//                        .name(indoorMap.getName())
+//                        .URL(indoorMap.getImageUrl())
+//                        .uwbMapId(indoorMap.getUwbMapId())
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
+//
+//    //사용자가 선택한 구역의 지도 이미지 url 반환
+//    public String getMap(String mapName){
+//        IndoorMap byName = indoorMapRepository.findByName(mapName);
+//        return byName.getImageUrl();
+//    }
+//
+//    //사용자가 선택한 구역의 위험 구역 좌표 반환
+//    public List<IndoorMapDto.RestrictCoordinate> getRestrictArea(String mapName){
+//        IndoorMap byName = indoorMapRepository.findByName(mapName);
+//
+//        List<RestrictArea> restrictAreaList = byName.getRestrictAreaList();
+//        List<IndoorMapDto.RestrictCoordinate> coordinateList = new ArrayList<>();
+//
+//        for (RestrictArea restrictArea : restrictAreaList) {
+//            Point coordinate = restrictArea.getCoordinate();
+//
+//            IndoorMapDto.RestrictCoordinate temp = new IndoorMapDto.RestrictCoordinate();
+//            temp.setCoordinate(coordinate); // 좌표 정보를 DTO에 설정
+//
+//            coordinateList.add(temp);
+//        }
+//
+//        return coordinateList;
+//
+//    }
 
     //사용자 위치 및 정보 반환
     //경고 알림이랑 조치 현황은 일단 생략 ..

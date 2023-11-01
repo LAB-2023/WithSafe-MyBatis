@@ -34,4 +34,7 @@ public class IndoorMapController {
 //                .userCoordinate(userInfo)
 //                .build();
 //    }
+
+
+
 }

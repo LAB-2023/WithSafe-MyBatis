@@ -21,28 +21,39 @@ class IndoorMapServiceTest {
     private IndoorMapService indoorMapService;
 
     @Test
-    public void testFindAllIndoorMap(){
-        List<IndoorMapDto.IndoorMapInfo> result = indoorMapService.getAllIndoorMap();
+    void testGetIndoorMapInfo() {
+        String departmentName = "a부서";
+        String mapName = "500ho";
+        IndoorMapDto.IndoorMapInfo indoorMapInfo = indoorMapService.getIndoorMapInfo(departmentName, mapName);
 
-        for (IndoorMapDto.IndoorMapInfo indoorMapInfo : result) {
-            System.out.println("indoorMapInfo = " + indoorMapInfo.getId());
+        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : indoorMapInfo.getRestrictCoordinateList()) {
+            System.out.println("restrictCoordinate.getCoordinate_left() = " + restrictCoordinate.getCoordinate_left());
         }
     }
 
-    @Test
-    public void testFindMap(){
-        String name = "431ho";
-        System.out.println("map url = " +  indoorMapService.getMap(name));
-    }
-
-    @Test
-    public void testFindRestrictArea(){
-        String name = "431ho";
-        List<IndoorMapDto.RestrictCoordinate> result = indoorMapService.getRestrictArea(name);
-        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : result) {
-            System.out.println("restrictCoordinate = " + restrictCoordinate.getCoordinate());
-        }
-    }
+    //    @Test
+//    public void testFindAllIndoorMap(){
+//        List<IndoorMapDto.IndoorMapInfo> result = indoorMapService.getAllIndoorMap();
+//
+//        for (IndoorMapDto.IndoorMapInfo indoorMapInfo : result) {
+//            System.out.println("indoorMapInfo = " + indoorMapInfo.getId());
+//        }
+//    }
+//
+//    @Test
+//    public void testFindMap(){
+//        String name = "431ho";
+//        System.out.println("map url = " +  indoorMapService.getMap(name));
+//    }
+//
+//    @Test
+//    public void testFindRestrictArea(){
+//        String name = "431ho";
+//        List<IndoorMapDto.RestrictCoordinate> result = indoorMapService.getRestrictArea(name);
+//        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : result) {
+//            System.out.println("restrictCoordinate = " + restrictCoordinate.getCoordinate());
+//        }
+//    }
 
 //    @Test
 //    public void testGetUserInfo(){

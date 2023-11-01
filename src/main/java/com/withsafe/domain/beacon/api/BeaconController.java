@@ -17,9 +17,9 @@ public class BeaconController {
 
     private final BeaconService beaconService;
 
-    @PostMapping
-    public RequestSave requestSave(@RequestBody RequestSave requestSave){
-        beaconService.saveBeaconInfo(requestSave);
-        return requestSave;
-    }
+//    @PostMapping
+//    public RequestSave requestSave(@RequestBody RequestSave requestSave){
+//        beaconService.saveBeaconInfo(requestSave);
+//        return requestSave;
+//    }
 }

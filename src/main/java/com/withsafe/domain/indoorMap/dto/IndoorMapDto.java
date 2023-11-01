@@ -9,25 +9,35 @@ import org.locationtech.jts.geom.Point;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IndoorMapDto {
+
+    @Getter
     @Builder
+    public static class RestrictCoordinate{
+        private Point coordinate_left;
+        private Point coordinate_right;
+    }
+
     @Getter
     public static class IndoorMapInfo{
         private Long id;
         private String name;
         private String URL;
-        private String uwbMapId;
-        private List<Beacon> beaconList;
-        private List<RestrictArea> restrictAreaList;
+        private List<RestrictCoordinate> RestrictCoordinateList;
+
+        @Builder
+        public IndoorMapInfo(Long id, String name, String URL, List<RestrictCoordinate> restrictCoordinateList) {
+            this.id = id;
+            this.name = name;
+            this.URL = URL;
+            RestrictCoordinateList = new ArrayList<>();
+        }
     }
 
-    @Getter
-    @Setter
-    public static class RestrictCoordinate{
-        private Point coordinate;
-    }
+
 
     @Builder
     @Getter

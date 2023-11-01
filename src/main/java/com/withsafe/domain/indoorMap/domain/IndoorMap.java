@@ -24,8 +24,6 @@ public class IndoorMap {
 
     private String imageUrl;
 
-    private String uwbMapId; //uwb가 보내주는 MapId 값
-
     @OneToMany(mappedBy = "indoorMap")
     private List<Beacon> beaconList = new ArrayList<>();    //하나의 지도(구역)에 설치된 비콘 목록
 

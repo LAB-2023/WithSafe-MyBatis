@@ -24,7 +24,10 @@ public class RestrictArea {
 
     //의존성 추가, yml 수정필요
     //import org.locationtech.jts.geom.Point 사용할 것 (awt 아님)
-    private Point coordinate;   //제한구역의 중심 좌표
+    private Point coordinate_left;   //제한구역 좌표(왼쪽 위)
+
+    private Point coordinate_right;   //제한구역 좌표(오른쪽 아래)
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")

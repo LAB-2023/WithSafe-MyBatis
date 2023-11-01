@@ -1,5 +1,6 @@
 package com.withsafe.domain.admin.domain;
 
+import com.withsafe.domain.department.domain.Department;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,10 @@ public class Admin {
 
     private String loginId;
     private String loginPwd;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
 
     @Enumerated(EnumType.STRING)
     private AdminType type;
