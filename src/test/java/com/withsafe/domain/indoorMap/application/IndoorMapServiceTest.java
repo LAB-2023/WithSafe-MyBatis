@@ -29,6 +29,10 @@ class IndoorMapServiceTest {
         for (IndoorMapDto.RestrictCoordinate restrictCoordinate : indoorMapInfo.getRestrictCoordinateList()) {
             System.out.println("restrictCoordinate.getCoordinate_left() = " + restrictCoordinate.getCoordinate_left());
         }
+
+        for (IndoorMapDto.BeaconCoordinate beaconCoordinate : indoorMapInfo.getBeaconCoordinateList()) {
+            System.out.println("beaconCoordinate.getCoordinate() = " + beaconCoordinate.getCoordinate());
+        }
     }
 
     //    @Test

@@ -1,10 +1,12 @@
 package com.withsafe.domain.indoorMap.application;
 
+import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.indoorMap.dao.IndoorMapRepository;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto.IndoorMapInfo;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import com.withsafe.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,7 @@ public class IndoorMapService {
 
     private final IndoorMapRepository indoorMapRepository;
 
-    //사용자가 선택한 map 이미지, 위험구역 반환
+    //사용자가 선택한 map 이미지, 위험구역, 비콘
     public IndoorMapInfo getIndoorMapInfo(String departmentName, String mapName){
         IndoorMap map = indoorMapRepository.findByDepartmentNameAndName(departmentName, mapName);
 
@@ -49,8 +51,21 @@ public class IndoorMapService {
             indoorMapInfo.getRestrictCoordinateList().add(restrictCoordinateList);
         }
 
+        for (Beacon beacon : map.getBeaconList()) {
+            BeaconCoordinate beaconCoordinateList = BeaconCoordinate.builder()
+                    .coordinate(beacon.getCoordinate())
+                    .build();
+            indoorMapInfo.getBeaconCoordinateList().add(beaconCoordinateList);
+        }
+
         return indoorMapInfo;
     }
+
+    //해당 지도의 사용자 좌표 반환
+//    public List<UserLocationInfo> getUserInfo(SearchCondition searchCondition){
+//        indoorMapRepository.findAllBySearchCondition(searchCondition);
+//        return null;
+//    }
 
 //    //IndoorMap DTO로 변환
 //    public List<IndoorMapDto.IndoorMapInfo> getAllIndoorMap(){

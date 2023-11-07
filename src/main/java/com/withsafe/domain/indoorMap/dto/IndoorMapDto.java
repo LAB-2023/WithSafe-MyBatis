@@ -22,38 +22,52 @@ public class IndoorMapDto {
     }
 
     @Getter
+    @Builder
+    public static class BeaconCoordinate{
+        private Point coordinate;
+    }
+
+    @Getter
     public static class IndoorMapInfo{
         private Long id;
         private String name;
         private String URL;
         private List<RestrictCoordinate> RestrictCoordinateList;
+        private List<BeaconCoordinate> BeaconCoordinateList;
 
         @Builder
-        public IndoorMapInfo(Long id, String name, String URL, List<RestrictCoordinate> restrictCoordinateList) {
+        public IndoorMapInfo(Long id, String name, String URL, List<RestrictCoordinate> restrictCoordinateList, List<BeaconCoordinate> beaconCoordinateList) {
             this.id = id;
             this.name = name;
             this.URL = URL;
             RestrictCoordinateList = new ArrayList<>();
+            BeaconCoordinateList = new ArrayList<>();
         }
     }
 
-
-
     @Builder
     @Getter
-    public static class UserInfo{
+    public static class UserLocationInfo{
         private String name;
         private String phone_num;
         private Point coordinate;
-        private LocalDateTime time;
+        //private LocalDateTime time;
     }
 
-    @Builder
     @Getter
-    public static class AreaInfo{
-        private String URL;
-        private List<RestrictCoordinate> restrictCoordinate;
-        private List<UserInfo> userCoordinate;
-
+    @Builder
+    public static class SearchCondition{
+        private String userName;
+        private Integer deviceNum;
     }
+
+
+//    @Builder
+//    @Getter
+//    public static class AreaInfo{
+//        private String URL;
+//        private List<RestrictCoordinate> restrictCoordinate;
+//        private List<UserInfo> userCoordinate;
+//
+//    }
 }
