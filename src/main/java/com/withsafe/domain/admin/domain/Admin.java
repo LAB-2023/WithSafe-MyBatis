@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-import static com.withsafe.domain.admin.dto.AdminDto.*;
-
 @Getter
 @Entity
 @RequiredArgsConstructor
@@ -22,22 +20,33 @@ public class Admin {
 
     private String name;
     private String loginId;
-    private String loginPwd;
+    private String loginPassword;
 
     @Enumerated(EnumType.STRING)
-    private AdminType type;
+    private Authority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
     @Builder
-    public Admin(Long id, String name, String loginId, String loginPwd, AdminType type, Department department) {
+    public Admin(Long id, String name, String loginId, String loginPassword, Authority authority, Department department) {
         this.id = id;
         this.loginId = loginId;
-        this.loginPwd = loginPwd;
+        this.loginPassword = loginPassword;
         this.name = name;
-        this.type = type;
+        this.authority = authority;
         this.department = department;
+    }
+
+    public static Admin toEntity(AdminDto.AdminSaveRequestDto adminSaveRequestDto, Department department, String encodedPassword){
+        return Admin
+                .builder()
+                .name(adminSaveRequestDto.getName())
+                .loginId(adminSaveRequestDto.getLoginId())
+                .loginPassword(encodedPassword)
+                .authority(adminSaveRequestDto.getAuthority())
+                .department(department)
+                .build();
     }
 }

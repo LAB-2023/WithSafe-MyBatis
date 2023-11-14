@@ -6,10 +6,10 @@ spring:
 #    username: root
 #    password: 1220
 
-       url: jdbc:h2:tcp://localhost/~/withsafe
-       username: sa
-       password: 1
-       driver-class-name: org.h2.Driver
+      url: jdbc:h2:tcp://localhost/~/withsafe
+      username: sa
+      password: 1
+      driver-class-name: org.h2.Driver
 
 
   data:
@@ -19,6 +19,7 @@ spring:
         one-indexed-parameters: true
 
   jpa:
+    #database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
     hibernate:
       ddl-auto: create
     properties:
@@ -29,3 +30,6 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
+
+jwt:
+  secret: /vUwAz/Vx78zX5/E4v6kjfbyoTRpYtOK2WT9rYcXeNPzDMuv1BlehYL113paVVYvUTyUIYg3kSZglWjEAJxgMw==

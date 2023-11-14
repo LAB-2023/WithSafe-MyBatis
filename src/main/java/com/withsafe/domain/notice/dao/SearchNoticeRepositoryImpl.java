@@ -40,7 +40,6 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
     public Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType,
                                                                  Pageable pageable,
                                                                  String departmentName){
-        System.out.println("departmentName = " + departmentName);
         List<NoticeMainResponseDto> content = jpaQueryFactory
                 .select(
                         Projections.fields(

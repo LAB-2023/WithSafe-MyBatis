@@ -1,6 +1,5 @@
 package com.withsafe.domain.notice.api;
 
-import com.withsafe.domain.admin.domain.AdminType;
 import com.withsafe.domain.department.dao.DepartmentRepository;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.notice.application.NoticeService;
@@ -16,6 +15,7 @@ import com.withsafe.domain.warning.domain.WarningMessage;
 import com.withsafe.domain.warning.domain.WarningMessageType;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +40,7 @@ public class NoticeController {
 
     //메인 화면 경고알림 출력
     @GetMapping("/main")
-    public Page<NoticeMainResponseDto> noticeList(@SessionAttribute(name= LOGIN_INFO) LoginResponseDto loginInfo,
-                                                  @RequestParam(required = false) NoticeType noticeType,
+    public Page<NoticeMainResponseDto> noticeList(@RequestParam(required = false) NoticeType noticeType,
                                                   @RequestParam String departmentName,
                                                   Pageable pageable){
         return noticeService.findAllMainNotice(noticeType, pageable, departmentName);
@@ -49,8 +48,7 @@ public class NoticeController {
 
     //경고 알림 창 경고 알림 출력
     @GetMapping("/warning")
-    public Page<NoticeWarningResponseDto> noticeList(@SessionAttribute(name = LOGIN_INFO) LoginResponseDto loginInfo,
-                                                     @RequestParam(required = false) String name,
+    public Page<NoticeWarningResponseDto> noticeList(@RequestParam(required = false) String name,
                                                      @RequestParam(required = false) LocalDateTime startDate,
                                                      @RequestParam(required = false) LocalDateTime endDate,
                                                      @RequestParam int option,
@@ -79,7 +77,8 @@ public class NoticeController {
     @PostMapping("/test")
     public void test(){
         //테스트용 입력
-        Department department = departmentRepository.findByName("TESTCOMPANY");
+        Department department = departmentRepository
+                .findByName("TESTCOMPANY").orElseThrow(() -> new RuntimeException("부서가 존재하지 않습니다."));
         User user = User.builder().name("gd").phoneNum("010-1234-1234").build();
         userRepository.save(user);
         Watch watch = Watch.builder().model("galaxy").user(user).department(department).build();

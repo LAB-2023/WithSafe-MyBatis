@@ -31,7 +31,8 @@ public class WarningMessageService {
     //경고 알림 메시지 저장
     @Transactional
     public Long saveMessage(SaveRequest saveRequest, String departmentName){
-        Department department = departmentRepository.findByName(departmentName);
+        Department department = departmentRepository
+                .findByName(departmentName).orElseThrow(() -> new RuntimeException("부서가 존재하지 않습니다."));
         WarningMessage warningMessage = saveRequest.toEntity(department);
         warningMessageRepository.save(warningMessage);
         return warningMessage.getId();
