@@ -37,7 +37,7 @@ public class TokenProvider {
     }
 
     // 토큰 생성
-    public TokenDto generateTokenDto(Authentication authentication) {
+    public TokenDto generateTokenDto(Authentication authentication, String name, String departmentName) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -60,6 +60,8 @@ public class TokenProvider {
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .tokenExpiresIn(tokenExpiresIn.getTime())
+                .name(name)
+                .departmentName(departmentName)
                 .build();
     }
 

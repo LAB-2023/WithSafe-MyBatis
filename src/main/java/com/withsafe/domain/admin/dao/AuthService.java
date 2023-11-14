@@ -3,6 +3,7 @@ package com.withsafe.domain.admin.dao;
 
 
 import com.withsafe.domain.admin.domain.Admin;
+import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
 import com.withsafe.domain.department.dao.DepartmentRepository;
 import com.withsafe.domain.department.domain.Department;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.withsafe.domain.admin.dto.AdminDto.*;
@@ -48,11 +50,16 @@ public class AuthService {
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
         try{
             Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-            TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-
             Admin admin = adminRepository.findById(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자 입니다."));
-            return tokenDto;
+            Department department = admin.getDepartment();
+            String departmentName = department.getName();
+            if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
+                List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
+                List<Department> departments = departmentRepository.findAllExceptDepartments(excepts);
+                departmentName = departments.get(0).getName();
+            }
+            return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName);
         }catch (RuntimeException e){
             throw new RuntimeException("아이디나 비밀번호를 확인해주세요.");
         }
