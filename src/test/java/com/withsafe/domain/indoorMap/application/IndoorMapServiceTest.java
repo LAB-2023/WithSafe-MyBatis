@@ -46,7 +46,7 @@ class IndoorMapServiceTest {
         for (IndoorMapDto.IndoorMapLocationInfo indoorMapLocationInfo : indoorMapLocationList) {
             System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getDepartmentName());
             System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaId());
-            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaId());
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaCoordinateLeft());
             System.out.println("indoorMapLocationInfo.getUserName() = " + indoorMapLocationInfo.getUserName());
             System.out.println("=====");
         }

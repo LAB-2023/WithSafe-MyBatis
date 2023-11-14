@@ -33,18 +33,19 @@ public class IndoorMapDto {
         private String departmentName;
         private Long indoorMapId;
         private Long restrictAreaId;
-        private Point restrictAreaCoordinateLeft;
-        private Point restrictAreaCoordinateRight;
+        private String restrictAreaCoordinateLeft;
+        private String restrictAreaCoordinateRight;
         private Long beaconId;
-        private Point beaconCoordinate;
+        private String beaconCoordinate;
         private Long indoorEntranceId;
         private Long watchId;
         private Long userId;
         private String userName;
         private String phoneNum;
 
-        public static IndoorMapLocationInfo toIndoorMapLocationInfo(String departmentName,Long indoorMapId,                                                                    Long restrictAreaId, Point restrictAreaCoordinateLeft, Point restrictAreaCoordinateRight,
-                                     Long beaconId, Point beaconCoordinate,
+        public static IndoorMapLocationInfo toIndoorMapLocationInfo(String departmentName,Long indoorMapId,
+                                     Long restrictAreaId, String restrictAreaCoordinateLeft, String restrictAreaCoordinateRight,
+                                     Long beaconId, String beaconCoordinate,
                                      Long indoorEntranceId, Long watchId,
                                      Long userId, String userName, String phoneNum) {
 
@@ -58,6 +59,7 @@ public class IndoorMapDto {
                         .beaconCoordinate(beaconCoordinate)
                         .indoorEntranceId(indoorEntranceId)
                         .watchId(watchId)
+                        .userId(userId)
                         .userName(userName)
                         .phoneNum(phoneNum)
                         .build();

@@ -1,5 +1,7 @@
 package com.withsafe.domain.indoorMap.dao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -8,6 +10,7 @@ import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto.IndoorMapLocationInfo;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto.SearchCondition;
+import org.n52.jackson.datatype.jts.JtsModule;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +38,9 @@ public class IndoorMapLocationRepositoryImpl extends QuerydslRepositorySupport i
     @Override
     public List<IndoorMapLocationInfo> findAllBySearchCondition(SearchCondition searchCondition) {
 
+        var objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JtsModule());
+
         List<Tuple> indoorMapLocationList = jpaQueryFactory.select(
                         department.name, indoorMap.id,
                         restrictArea.id, restrictArea.coordinate_left, restrictArea.coordinate_right,
@@ -54,29 +60,30 @@ public class IndoorMapLocationRepositoryImpl extends QuerydslRepositorySupport i
                         ,eqDeviceNum(searchCondition.getDeviceNum()))
                 .fetch();
 
+
         List<IndoorMapLocationInfo> indoorMapLocationInfoList = indoorMapLocationList.stream()
-                .map(tuple -> IndoorMapLocationInfo.builder()
-                        .departmentName(tuple.get(department.name))
-                        .indoorMapId(tuple.get(indoorMap.id))
-                        .restrictAreaId(tuple.get(restrictArea.id))
-                        //.restrictAreaCoordinateLeft(tuple.get(restrictArea.coordinate_left))
-                        //.restrictAreaCoordinateRight(tuple.get(restrictArea.coordinate_right))
-                        .beaconId(tuple.get(beacon.id))
-                        .beaconCoordinate(tuple.get(beacon.coordinate))
-                        .indoorEntranceId(tuple.get(indoorEntrance.id))
-                        .watchId(tuple.get(watch.id))
-                        .userId(tuple.get(user.id))
-                        .userName(tuple.get(user.name))
-                        .phoneNum(tuple.get(user.phoneNum))
-                        .build())
+                .map(tuple -> {
+                    try {
+                        return IndoorMapLocationInfo.toIndoorMapLocationInfo(
+                                tuple.get(department.name),
+                                tuple.get(indoorMap.id),
+                                tuple.get(restrictArea.id),
+                                objectMapper.writeValueAsString(tuple.get(restrictArea.coordinate_left)),
+                                objectMapper.writeValueAsString(tuple.get(restrictArea.coordinate_right)),
+                                tuple.get(beacon.id),
+                                objectMapper.writeValueAsString(tuple.get(beacon.coordinate)),
+                                tuple.get(indoorEntrance.id),
+                                tuple.get(watch.id),
+                                tuple.get(user.id),
+                                tuple.get(user.name),
+                                tuple.get(user.phoneNum)
+                        );
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
                 .collect(Collectors.toList());
 
-//        for (Tuple tuple : mapDetail) {
-//            System.out.println("tuple = " + tuple.get(restrictArea.id));
-//            System.out.println("tuple = " + tuple.get(beacon.id) +", "+ tuple.get(indoorEntrance.id)
-//            +", "+ tuple.get(watch.id)+", "+tuple.get(user.id));
-//            System.out.println("======");
-//        }
 
         return indoorMapLocationInfoList;
     }

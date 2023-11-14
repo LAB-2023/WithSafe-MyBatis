@@ -46,6 +46,9 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+	//포인트형 json 반환위함
+	implementation 'org.n52.jackson:jackson-datatype-jts:1.2.4'
+
 }
 
 tasks.named('test') {

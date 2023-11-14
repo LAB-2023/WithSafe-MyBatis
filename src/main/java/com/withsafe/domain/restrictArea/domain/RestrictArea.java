@@ -19,7 +19,6 @@ public class RestrictArea {
     @Column(name = "restrict_area_id")
     private Long id;    //PK
 
-    Poin
 
     private String name;    //제한구역 이름
 
