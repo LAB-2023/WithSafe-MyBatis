@@ -14,60 +14,71 @@ import java.util.List;
 
 public class IndoorMapDto {
 
-    @Getter
+    //해당 부서의 실내 지도를 저장하는 클래스
+    //실내 지도의 디테일한 정보 x, 실내 지도에 뭐가 있는지
+    //ex. ai관 3층, ai관 4층, 가천관 3층
     @Builder
-    public static class RestrictCoordinate{
-        private Point coordinate_left;
-        private Point coordinate_right;
-    }
-
     @Getter
-    @Builder
-    public static class BeaconCoordinate{
-        private Point coordinate;
-    }
-
-    @Getter
-    public static class IndoorMapInfo{
+    public static class IndoorMapInfo {
         private Long id;
         private String name;
-        private String URL;
-        private List<RestrictCoordinate> RestrictCoordinateList;
-        private List<BeaconCoordinate> BeaconCoordinateList;
+        private String imageURL;
 
-        @Builder
-        public IndoorMapInfo(Long id, String name, String URL, List<RestrictCoordinate> restrictCoordinateList, List<BeaconCoordinate> beaconCoordinateList) {
-            this.id = id;
-            this.name = name;
-            this.URL = URL;
-            RestrictCoordinateList = new ArrayList<>();
-            BeaconCoordinateList = new ArrayList<>();
+        public static IndoorMapInfo toIndoorMapInfo(Long id, String name, String imageURL) {
+            return IndoorMapInfo.builder()
+                    .id(id)
+                    .name(name)
+                    .imageURL(imageURL)
+                    .build();
         }
     }
 
+    //특정 실내 지도에 대한 디테일한 정보
     @Builder
     @Getter
-    public static class UserLocationInfo{
-        private String name;
-        private String phone_num;
-        private Point coordinate;
-        //private LocalDateTime time;
+    public static class IndoorMapLocationInfo{
+
+        private String departmentName;
+        private Long indoorMapId;
+        private Long restrictAreaId;
+        private Point restrictAreaCoordinateLeft;
+        private Point restrictAreaCoordinateRight;
+        private Long beaconId;
+        private Point beaconCoordinate;
+        private Long indoorEntranceId;
+        private Long watchId;
+        private Long userId;
+        private String userName;
+        private String phoneNum;
+
+        public static IndoorMapLocationInfo toIndoorMapLocationInfo(String departmentName,Long indoorMapId,                                                                    Long restrictAreaId, Point restrictAreaCoordinateLeft, Point restrictAreaCoordinateRight,
+                                     Long beaconId, Point beaconCoordinate,
+                                     Long indoorEntranceId, Long watchId,
+                                     Long userId, String userName, String phoneNum) {
+
+            return IndoorMapLocationInfo.builder()
+                        .departmentName(departmentName)
+                        .indoorMapId(indoorMapId)
+                        .restrictAreaId(restrictAreaId)
+                        .restrictAreaCoordinateLeft(restrictAreaCoordinateLeft)
+                        .restrictAreaCoordinateRight(restrictAreaCoordinateRight)
+                        .beaconId(beaconId)
+                        .beaconCoordinate(beaconCoordinate)
+                        .indoorEntranceId(indoorEntranceId)
+                        .watchId(watchId)
+                        .userName(userName)
+                        .phoneNum(phoneNum)
+                        .build();
+        }
     }
 
     @Getter
     @Builder
     public static class SearchCondition{
+        private String departmentName;
         private String userName;
         private Integer deviceNum;
     }
 
 
-//    @Builder
-//    @Getter
-//    public static class AreaInfo{
-//        private String URL;
-//        private List<RestrictCoordinate> restrictCoordinate;
-//        private List<UserInfo> userCoordinate;
-//
-//    }
 }

@@ -34,6 +34,8 @@ public class Beacon extends BaseTimeEntity {
 
     private Point coordinate;
 
+    private String macAddress;
+
     // == 연관관계 편의 메서드 == //
     public void setIndoorMap(IndoorMap indoorMap) {
         this.indoorMap = indoorMap;

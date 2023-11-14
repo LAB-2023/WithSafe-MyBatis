@@ -21,19 +21,52 @@ class IndoorMapServiceTest {
     private IndoorMapService indoorMapService;
 
     @Test
-    void testGetIndoorMapInfo() {
+    void testGetIndoorMapList(){
         String departmentName = "a부서";
-        String mapName = "500ho";
-        IndoorMapDto.IndoorMapInfo indoorMapInfo = indoorMapService.getIndoorMapInfo(departmentName, mapName);
+        List<IndoorMapDto.IndoorMapInfo> indoorMapList = indoorMapService.getIndoorMapList(departmentName);
 
-        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : indoorMapInfo.getRestrictCoordinateList()) {
-            System.out.println("restrictCoordinate.getCoordinate_left() = " + restrictCoordinate.getCoordinate_left());
-        }
-
-        for (IndoorMapDto.BeaconCoordinate beaconCoordinate : indoorMapInfo.getBeaconCoordinateList()) {
-            System.out.println("beaconCoordinate.getCoordinate() = " + beaconCoordinate.getCoordinate());
+        for (IndoorMapDto.IndoorMapInfo indoorMapInfo : indoorMapList) {
+            System.out.println("indoorMapInfo.getName() = " + indoorMapInfo.getName());
         }
     }
+
+    @Test
+    void testGetIndoorMapLocationList(){
+        String departmentName = "a부서";
+        Integer deviceNum = 50;
+        String userName = "lee";
+        IndoorMapDto.SearchCondition searchCondition = IndoorMapDto.SearchCondition.builder()
+                .departmentName(departmentName)
+                //.deviceNum(deviceNum)
+                .userName(userName)
+                .build();
+
+        List<IndoorMapDto.IndoorMapLocationInfo> indoorMapLocationList = indoorMapService.getIndoorMapLocationList(searchCondition);
+
+        for (IndoorMapDto.IndoorMapLocationInfo indoorMapLocationInfo : indoorMapLocationList) {
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getDepartmentName());
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaId());
+            System.out.println("=====");
+        }
+
+
+    }
+
+
+//    @Test
+//    void testGetIndoorMapInfo() {
+//        String departmentName = "a부서";
+//        String mapName = "500ho";
+//        IndoorMapDto.IndoorMapInfo indoorMapInfo = indoorMapService.getIndoorMapInfo(departmentName, mapName);
+//
+//        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : indoorMapInfo.getRestrictCoordinateList()) {
+//            System.out.println("restrictCoordinate.getCoordinate_left() = " + restrictCoordinate.getCoordinate_left());
+//        }
+//
+//        for (IndoorMapDto.BeaconCoordinate beaconCoordinate : indoorMapInfo.getBeaconCoordinateList()) {
+//            System.out.println("beaconCoordinate.getCoordinate() = " + beaconCoordinate.getCoordinate());
+//        }
+//    }
 
     //    @Test
 //    public void testFindAllIndoorMap(){

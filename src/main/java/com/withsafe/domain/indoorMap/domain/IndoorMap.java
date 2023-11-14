@@ -24,7 +24,7 @@ public class IndoorMap {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "indoorMap")
+    @OneToMany(mappedBy = "indoorMap" )
     private List<Beacon> beaconList = new ArrayList<>();    //하나의 지도(구역)에 설치된 비콘 목록
 
     @OneToMany(mappedBy = "indoorMap")

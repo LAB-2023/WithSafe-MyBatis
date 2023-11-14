@@ -14,7 +14,7 @@ import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
 public interface IndoorMapRepository extends JpaRepository<IndoorMap,Long> {
 
 
-    IndoorMap findByDepartmentNameAndName(String departmentName, String Name);
+    List<IndoorMap> findByDepartmentName(String departmentName);
 
 //    @Query("select i from IndoorUserLocation i where i.mapId = :mapId")
 //    List<IndoorUserLocation> findLocationByMapId(String mapId);
