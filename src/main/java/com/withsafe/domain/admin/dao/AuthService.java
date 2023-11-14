@@ -1,7 +1,5 @@
 package com.withsafe.domain.admin.dao;
 
-
-
 import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;

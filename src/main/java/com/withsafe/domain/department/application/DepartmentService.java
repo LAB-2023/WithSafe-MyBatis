@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,9 @@ public class DepartmentService {
 
     //모든 부서 이름 받기
     public List<String> findAllDepartmentName(){
-        return departmentRepository.findAll().stream()
+        List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
+        return departmentRepository.findAllExceptDepartments(excepts)
+                .stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());
     }

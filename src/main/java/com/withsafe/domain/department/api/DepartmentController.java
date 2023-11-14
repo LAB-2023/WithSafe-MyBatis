@@ -5,10 +5,12 @@ import com.withsafe.domain.department.dto.DepartmentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.withsafe.domain.department.dto.DepartmentDTO.*;
 
 @RestController
-@RequestMapping("/deviceSetting")
+@RequestMapping("/department")
 @RequiredArgsConstructor
 public class DepartmentController {
     private final DepartmentService departmentService;
@@ -17,5 +19,10 @@ public class DepartmentController {
     public saveDepartment saveDepartment(@RequestBody saveDepartment request) {
         departmentService.saveDepartment(request);
         return request;
+    }
+
+    @GetMapping
+    public List<String> allDepartmentName(){
+        return departmentService.findAllDepartmentName();
     }
 }

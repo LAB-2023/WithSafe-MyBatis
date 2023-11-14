@@ -130,7 +130,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //유저 이름 검색
     private BooleanExpression eqUsername(String username) {
-        if (username == null || username.equals(""))
+        if (username == null || username.isEmpty())
             return null;
         else
             return notice.watch.user.name.eq(username);
