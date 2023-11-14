@@ -1,16 +1,8 @@
 package com.withsafe.domain.indoorMap.dto;
 
-import com.withsafe.domain.beacon.domain.Beacon;
-import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import org.locationtech.jts.geom.Point;
-
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class IndoorMapDto {
 
@@ -78,6 +70,14 @@ public class IndoorMapDto {
         private String departmentName;
         private String userName;
         private Integer deviceNum;
+
+        public static SearchCondition toSearchCondition(String departmentName, String userName, Integer deviceNum) {
+            return SearchCondition.builder()
+                    .departmentName(departmentName)
+                    .userName(userName)
+                    .deviceNum(deviceNum)
+                    .build();
+        }
     }
 
 

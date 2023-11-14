@@ -1,5 +1,6 @@
 package com.withsafe.domain.indoorMap.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
@@ -28,6 +29,7 @@ public class IndoorMap {
     private List<Beacon> beaconList = new ArrayList<>();    //하나의 지도(구역)에 설치된 비콘 목록
 
     @OneToMany(mappedBy = "indoorMap")
+    @JsonIgnore
     private List<RestrictArea> restrictAreaList = new ArrayList<>();    //하나의 지도(구역)에 설정되어있는 제한구역 목록
 
     //연관관계 매핑
