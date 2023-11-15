@@ -3,20 +3,26 @@ package com.withsafe.domain.department.api;
 import com.withsafe.domain.department.application.DepartmentService;
 import com.withsafe.domain.department.dto.DepartmentDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.withsafe.domain.department.dto.DepartmentDTO.*;
 
 @RestController
-@RequestMapping("/deviceSetting")
+@RequestMapping("/department")
 @RequiredArgsConstructor
 public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping
-    public DepartmentDTO.saveDepartment saveDepartment(@RequestBody DepartmentDTO.saveDepartment request) {
+    public saveDepartment saveDepartment(@RequestBody saveDepartment request) {
         departmentService.saveDepartment(request);
         return request;
+    }
+
+    @GetMapping
+    public List<String> allDepartmentName(){
+        return departmentService.findAllDepartmentName();
     }
 }

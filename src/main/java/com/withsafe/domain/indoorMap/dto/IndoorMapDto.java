@@ -19,7 +19,6 @@ public class IndoorMapDto {
         private String name;
         private String URL;
         private String uwbMapId;
-        private List<Beacon> beaconList;
         private List<RestrictArea> restrictAreaList;
     }
 
