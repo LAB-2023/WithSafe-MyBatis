@@ -48,11 +48,12 @@ public class NoticeService {
 
     //경고 알림 저장
     @Transactional
-    public Long saveNotice(NoticeSaveRequestDto saveRequest){
+    public Long saveNotice(NoticeSaveRequestDto saveRequest, String departmentName){
         Watch watch =
                 watchRepository.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
         WarningMessage warningMessage =
-                warningMessageRepository.findById(saveRequest.getWarningMessageId()).orElseThrow(WatchNotFoundException::new);
+                warningMessageRepository.findWarningMessageByTypeAndDepartmentName(saveRequest.getWarningMessageType(), departmentName)
+                        .orElseThrow(WatchNotFoundException::new);
 
         Notice notice = saveRequest.toEntity(warningMessage, watch);
 
@@ -61,19 +62,20 @@ public class NoticeService {
     }
 
     //메인 경고 알림 전체 출력
-    public Page<NoticeMainResponseDto> findAllMainNotice(NoticeType noticeType, Pageable pageable){
-        return noticeRepository.noticeMainResponseDtoPage(noticeType, pageable);
+    public Page<NoticeMainResponseDto> findAllMainNotice(NoticeType noticeType, Pageable pageable, String departmentName){
+        return noticeRepository.noticeMainResponseDtoPage(noticeType, pageable, departmentName);
     }
 
     //경고 창 경고 알림 전체 출력
     public Page<NoticeWarningResponseDto> findAllWarningNotice(String name, LocalDateTime startDate, LocalDateTime endDate,
-                                                               int option, Pageable pageable){
-        return noticeRepository.noticeWarningResponseDtoPage(name, startDate, endDate, option, pageable);
+                                                               int option, Pageable pageable, String departmentName){
+        return noticeRepository.noticeWarningResponseDtoPage(name, startDate, endDate, option, pageable, departmentName);
     }
 
     //긴급 연락망 클릭 시 연락망 리스트 출력
-    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber, Pageable pageable){
-        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, pageable);
+    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber,
+                                                                         String departmentName, Pageable pageable){
+        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, departmentName, pageable);
     }
 
     //테스트 용

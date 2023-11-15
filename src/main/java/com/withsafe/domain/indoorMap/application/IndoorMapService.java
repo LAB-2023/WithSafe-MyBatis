@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
+
 /**
  * 페이지 : 도면 모니터링
  * 기능 : 원하는 구역 선택, 구역에 따른 지도 보여주기, 지도 내에서 위험 구역 표시
@@ -29,11 +31,11 @@ public class IndoorMapService {
     private final IndoorMapRepository indoorMapRepository;
 
     //IndoorMap DTO로 변환
-    public List<IndoorMapDto.IndoorMapInfo> getAllIndoorMap(){
+    public List<IndoorMapInfo> getAllIndoorMap(){
         List<IndoorMap> indoorMapList = indoorMapRepository.findAll();
 
         return indoorMapList.stream()
-                .map(indoorMap -> IndoorMapDto.IndoorMapInfo.builder()
+                .map(indoorMap -> IndoorMapInfo.builder()
                         .id(indoorMap.getId())
                         .name(indoorMap.getName())
                         .URL(indoorMap.getImageUrl())
@@ -49,16 +51,16 @@ public class IndoorMapService {
     }
 
     //사용자가 선택한 구역의 위험 구역 좌표 반환
-    public List<IndoorMapDto.RestrictCoordinate> getRestrictArea(String mapName){
+    public List<RestrictCoordinate> getRestrictArea(String mapName){
         IndoorMap byName = indoorMapRepository.findByName(mapName);
 
         List<RestrictArea> restrictAreaList = byName.getRestrictAreaList();
-        List<IndoorMapDto.RestrictCoordinate> coordinateList = new ArrayList<>();
+        List<RestrictCoordinate> coordinateList = new ArrayList<>();
 
         for (RestrictArea restrictArea : restrictAreaList) {
             Point coordinate = restrictArea.getCoordinate();
 
-            IndoorMapDto.RestrictCoordinate temp = new IndoorMapDto.RestrictCoordinate();
+            RestrictCoordinate temp = new RestrictCoordinate();
             temp.setCoordinate(coordinate); // 좌표 정보를 DTO에 설정
 
             coordinateList.add(temp);
