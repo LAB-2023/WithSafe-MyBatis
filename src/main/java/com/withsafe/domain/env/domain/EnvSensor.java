@@ -1,4 +1,4 @@
-package com.withsafe.domain.env;
+package com.withsafe.domain.env.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;

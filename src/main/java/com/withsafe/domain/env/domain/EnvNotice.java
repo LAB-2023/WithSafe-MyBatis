@@ -1,4 +1,4 @@
-package com.withsafe.domain.env;
+package com.withsafe.domain.env.domain;
 
 import lombok.Getter;
 
