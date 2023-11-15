@@ -34,8 +34,6 @@ public class Watch extends BaseTimeEntity {
 
     private Integer deviceNum; //디바이스번호(PK와 다름)
 
-    private LocalDateTime regDate;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "helmet_id")
     private Helmet helmet;  //워치에 매핑된 턱끈 id
@@ -45,14 +43,13 @@ public class Watch extends BaseTimeEntity {
     private Department department;  //해당 사용자가 포함된 부서 id
     @Builder
     public Watch(Long id, User user, String serialNum, String model, Boolean is_used,
-                 Integer deviceNum, LocalDateTime regDate, Helmet helmet, Department department) {
+                 Integer deviceNum, Helmet helmet, Department department) {
         this.id = id;
         this.user = user;
         this.serialNum = serialNum;
         this.model = model;
         this.is_used = is_used;
         this.deviceNum = deviceNum;
-        this.regDate = regDate;
         this.helmet = helmet;
         this.department = department;
     }

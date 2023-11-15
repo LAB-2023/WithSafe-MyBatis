@@ -52,7 +52,6 @@ public class WatchDTO {
                     .model(this.model)
                     .is_used(this.is_used)
                     .deviceNum(this.deviceNum)
-                    .regDate(this.regDate)
                     .build();
         }
     }
