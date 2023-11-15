@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class WatchData extends BaseTimeEntity {
 
     @Id @GeneratedValue
+
     @Column(name = "watch_data_id")
     private Long id;    //PK
 

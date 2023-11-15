@@ -8,6 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 필요 기능
  * 1. 부서 생성
@@ -41,6 +46,15 @@ public class DepartmentService {
     //유저 부서 변경
 
     //유저 삭제
+
+    //모든 부서 이름 받기
+    public List<String> findAllDepartmentName(){
+        List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
+        return departmentRepository.findAllExceptDepartments(excepts)
+                .stream()
+                .map(Department::getName)
+                .collect(Collectors.toList());
+    }
 }
 
 

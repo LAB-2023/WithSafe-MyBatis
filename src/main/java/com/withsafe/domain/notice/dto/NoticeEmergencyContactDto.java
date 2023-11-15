@@ -1,6 +1,5 @@
 package com.withsafe.domain.notice.dto;
 
-import com.withsafe.domain.notice.domain.Notice;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -16,6 +16,7 @@ public class IndoorMapDto {
         private String name;
         private String imageURL;
 
+
         public static IndoorMapInfo toIndoorMapInfo(Long id, String name, String imageURL) {
             return IndoorMapInfo.builder()
                     .id(id)

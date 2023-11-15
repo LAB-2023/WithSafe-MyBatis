@@ -36,6 +36,7 @@ public class IndoorMapService {
     private final IndoorMapRepository indoorMapRepository;
     private final IndoorMapLocationRepository indoorMapLocationRepository;
 
+
     //해당 부서의 실내 지도 리스트 반환
     public List<IndoorMapInfo> getIndoorMapList(String departmentName){
 
@@ -46,9 +47,11 @@ public class IndoorMapService {
                         indoorMap.getId(), indoorMap.getName(), indoorMap.getImageUrl()))
                 .collect(Collectors.toList());
 
-        return indoorMapInfoList;
 
+        return indoorMapInfoList;
+      
     }
+
 
     //해당 실내 지도의 모든 정보 반환 (위험 구역, 비콘, 사용자 위치)
     public List<IndoorMapLocationInfo> getIndoorMapLocationList(SearchCondition searchCondition){
