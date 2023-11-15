@@ -24,10 +24,6 @@ public class Department {
 
     private String name;    //부서 이름
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
-
     @OneToMany(mappedBy = "department")
     private List<Watch> watchList = new ArrayList<>();    //부서에 포함된 유저 목록
 

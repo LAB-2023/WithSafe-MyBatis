@@ -6,7 +6,6 @@ import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +21,10 @@ public class Beacon extends BaseTimeEntity {
     private Long id;
 
     //private LocalDateTime date; //설치된 시간
-    private String status;  //수신/미수신 샅태
+    private String status;  //수신/미수신 상태
+
+    @Enumerated(EnumType.STRING)
+    private BeaconType beaconType;
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,6 +33,10 @@ public class Beacon extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
     private List<IndoorEntrance> indoorEntranceList = new ArrayList<>();
+
+    private Point coordinate;
+
+    private String macAddress;
 
     // == 연관관계 편의 메서드 == //
     public void setIndoorMap(IndoorMap indoorMap) {

@@ -1,17 +1,15 @@
 package com.withsafe.domain.watch.application;
 
-import com.withsafe.domain.user.dao.UserRepository;
-import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.withsafe.domain.watch.exception.WatchNotFoundException;
-import org.w3c.dom.stylesheets.LinkStyle;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.withsafe.domain.watch.dto.WatchDTO.*;
 
@@ -27,30 +25,20 @@ import static com.withsafe.domain.watch.dto.WatchDTO.*;
 @RequiredArgsConstructor
 public class WatchService {
     private final WatchRepository watchRepository;
-    private final UserRepository userRepository;
-
     //워치 등록
     @Transactional
-    public Long saveWatchDTO(SaveRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(RuntimeException::new);
-        Watch savedWatch = watchRepository.save(request.toEntity(user));
+    public Long saveWatch(@RequestBody SaveRequest request) {
+        Watch savedWatch = watchRepository.save(request.toEntity());
         return savedWatch.getId();
     }
-    //워치 검색
+    //전체 워치 조회
     @Transactional
-    public Watch findWatch(FindRequest request){
-        Watch watch = watchRepository.findById(request.getWatchId()).orElseThrow(() -> new WatchNotFoundException());
-        User user = watch.getUser();
-//        User user = userRepository.findById(1L).orElseThrow();
-        return request.toEntity(watch);
-    }
+    public List<FindRequest> findAllWatch(FindRequest request) {
+        List<Watch> watchList = watchRepository.findAll();
 
-    //워치 삭제
-    @Transactional
-    public Long deleteWatchDTO(DeleteRequest request){
-        Watch watch = watchRepository.findById(request.getWatchId()).orElseThrow(() -> new WatchNotFoundException());
-        watchRepository.delete(watch);
-        return watch.getId();
+        List<FindRequest> findRequestList = watchList.stream()
+                .map(FindRequest::toFindRequest)
+                .collect(Collectors.toList());
+        return findRequestList;
     }
-
 }

@@ -30,7 +30,7 @@ import static com.withsafe.domain.watch.domain.QWatch.watch;
 @Repository
 public class IndoorEntranceRepositoryImpl extends QuerydslRepositorySupport implements IndoorEntranceRepository {
 
-    private JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory jpaQueryFactory;
 
     public IndoorEntranceRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
         super(IndoorEntrance.class);

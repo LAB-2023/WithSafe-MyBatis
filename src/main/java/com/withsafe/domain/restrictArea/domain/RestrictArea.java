@@ -1,11 +1,11 @@
 package com.withsafe.domain.restrictArea.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
-
 
 import javax.persistence.*;
 //import java.awt.*;
@@ -18,16 +18,21 @@ public class RestrictArea {
     @Column(name = "restrict_area_id")
     private Long id;    //PK
 
+
     private String name;    //제한구역 이름
 
     private String safetyRule;  //제한구역의 안전수칙
 
     //의존성 추가, yml 수정필요
     //import org.locationtech.jts.geom.Point 사용할 것 (awt 아님)
-    private Point coordinate;   //제한구역의 중심 좌표
+    private Point coordinate_left;   //제한구역 좌표(왼쪽 위)
+
+    private Point coordinate_right;   //제한구역 좌표(오른쪽 아래)
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "indoor_map_id")
+    @JsonIgnore
     private IndoorMap indoorMap;    //실내에 해당되는 제한구역일 경우 실내지도의 id
 
     @ManyToOne(fetch = FetchType.LAZY)

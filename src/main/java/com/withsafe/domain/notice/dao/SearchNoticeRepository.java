@@ -12,15 +12,17 @@ import java.time.LocalDateTime;
 public interface SearchNoticeRepository {
 
     //메인 화면 경고 알림창
-    Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType, Pageable pageable);
+    Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType, Pageable pageable, String departmentName);
 
     //경고 화면 경고 알림창
     Page<NoticeWarningResponseDto> noticeWarningResponseDtoPage(String name,
                                                                 LocalDateTime startDate,
                                                                 LocalDateTime endDate,
                                                                 int option,
-                                                                Pageable pageable);
+                                                                Pageable pageable,
+                                                                String departmentName);
 
     //긴급 연락망 출력
-    Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber, Pageable pageable);
+    Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber,
+                                                                          String departmentName, Pageable pageable);
 }

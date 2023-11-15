@@ -37,13 +37,15 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
     }
 
     @Override
-    public Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType, Pageable pageable){
+    public Page<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType,
+                                                                 Pageable pageable,
+                                                                 String departmentName){
         List<NoticeMainResponseDto> content = jpaQueryFactory
                 .select(
                         Projections.fields(
                         NoticeMainResponseDto.class,
                         notice.id.as("id"),
-                        //notice.watch.department.name.as("department"),
+                        notice.watch.department.name.as("departmentName"),
                         notice.watch.user.name.as("name"),
                         notice.noticeType.as("noticeType"),
                         notice.solve.content.as("solveContent"),
@@ -55,7 +57,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .leftJoin(notice.solve, solve)
                 .join(notice.watch.user, user)
                 .join(notice.watch.department, department)
-                .where(eqNoticeType(noticeType))
+                .where(eqNoticeType(noticeType), eqDepartmentName(departmentName))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -69,7 +71,8 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                                                                        LocalDateTime startDate,
                                                                        LocalDateTime endDate,
                                                                        int option,
-                                                                       Pageable pageable) {
+                                                                       Pageable pageable,
+                                                                       String departmentName) {
         List<NoticeWarningResponseDto> content = jpaQueryFactory
                 .select(
                         Projections.fields(
@@ -86,7 +89,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
                 .leftJoin(notice.solve, solve)
                 .join(notice.warning_message, warningMessage)
                 .join(notice.watch.user, user)
-                .where(eqUsername(name), btwDate(startDate, endDate), checkSolve(option))
+                .where(eqUsername(name), btwDate(startDate, endDate), checkSolve(option), eqDepartmentName(departmentName))
                 .fetch();
         long count = (long) content.size();
 
@@ -95,20 +98,21 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //긴급 연락망 리스트
     @Override
-    public Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber, Pageable pageable){
+    public Page<NoticeEmergencyContactDto> noticeEmergencyContactResponseDtoPage(String name, String phoneNumber,
+                                                                                 String departmentName, Pageable pageable){
         List<NoticeEmergencyContactDto> content = jpaQueryFactory
                 .select(
                         Projections.fields(
                                 NoticeEmergencyContactDto.class,
-                                //watch.department.as("department"),
+                                watch.department.as("department"),
                                 watch.user.name.as("name"),
                                 watch.user.phoneNum.as("phoneNumber")
                         )
                 )
                 .from(watch)
-                .join(watch.user, user)
+                .leftJoin(watch.user, user)
                 .join(watch.department, department)
-                .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber))
+                .where(eqWarningUserName(name), eqWarningPhoneNumber(phoneNumber), eqDepartmentName(departmentName))
                 .fetch();
         long count = (long) content.size();
 
@@ -126,7 +130,7 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
 
     //유저 이름 검색
     private BooleanExpression eqUsername(String username) {
-        if (username == null || username.equals(""))
+        if (username == null || username.isEmpty())
             return null;
         else
             return notice.watch.user.name.eq(username);
@@ -170,5 +174,12 @@ public class SearchNoticeRepositoryImpl extends QuerydslRepositorySupport implem
             return null;
         else
             return user.phoneNum.eq(phoneNumber);
+    }
+
+    //로그인한 유저 department 데이터만 출력
+    private BooleanExpression eqDepartmentName(String departmentName){
+        if(departmentName == null)
+            return null;
+        else return notice.watch.department.name.eq(departmentName);
     }
 }

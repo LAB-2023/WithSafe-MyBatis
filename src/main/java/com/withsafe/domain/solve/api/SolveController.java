@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.withsafe.domain.solve.dto.SolveDto.*;
+
 @RestController
 @RequestMapping("/solve-api")
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class SolveController {
 
     private final SolveService solveService;
     @PostMapping
-    public SolveDto.SaveRequest createSolve(@RequestBody SolveDto.SaveRequest saveRequest){
+    public SaveRequest createSolve(@RequestBody SaveRequest saveRequest){
         solveService.saveSolve(saveRequest);
         return saveRequest;
     }
