@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * TODO: 활동정보 여기에다가 넣는지 문의
+ */
 @Entity
 @NoArgsConstructor
 @Getter
@@ -41,9 +44,8 @@ public class Watch extends BaseTimeEntity {
     @JoinColumn(name = "department_id")
     private Department department;  //해당 사용자가 포함된 부서 id
     @Builder
-    public Watch(Long id, User user, String serialNum, String model, Boolean is_used, Integer deviceNum, LocalDateTime regDate,Helmet helmet, Department department) {
+    public Watch(Long id, String serialNum, String model, Boolean is_used, Integer deviceNum, LocalDateTime regDate,Helmet helmet, Department department) {
         this.id = id;
-        this.user = user;
         this.serialNum = serialNum;
         this.model = model;
         this.is_used = is_used;

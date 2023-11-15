@@ -1,7 +1,14 @@
 package com.withsafe.domain.bioData.application;
 
+import com.withsafe.domain.bioData.dao.BioDataRepository;
+import com.withsafe.domain.bioData.dto.BioDataDto;
+import com.withsafe.domain.bioData.dto.BioDataDto.FindRequest;
+import com.withsafe.domain.bioData.dto.BioDataDto.SaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * 필요한 기능
@@ -11,5 +18,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BioDataService {
+    private final BioDataRepository bioDataRepository;
 
+    @Transactional
+    public Long saveBioData(SaveRequest request) {
+        Long savedBioData = bioDataRepository.save(request.toEntity()).getId();
+        return savedBioData;
+    }
+
+    @Transactional
+    public List<FindRequest> findWeekBioData(Long userId,FindRequest request) {
+        List<FindRequest> findRequestList = bioDataRepository.findWeekBioData(userId, request);
+        return findRequestList;
+    }
 }
