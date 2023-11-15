@@ -29,10 +29,10 @@ public class BioDataController {
      * 생체 세부 데이터 조회
      * 심박수 1주일치 평균, 최대, 최소
      */
-    @RequestMapping(value = "/{userId}",method = RequestMethod.GET)
-    public List<FindRequest> findBioData(@PathVariable Long userId, @RequestBody FindRequest request){
-        List<FindRequest> findRequestList = bioDataService.findWeekBioData(userId, request);
-        return findRequestList;
-    }
+//    @RequestMapping(value = "/{userId}",method = RequestMethod.GET)
+//    public List<FindRequest> findBioData(@PathVariable Long userId, @RequestBody FindRequest request){
+//        List<FindRequest> findRequestList = bioDataService.findWeekBioData(userId, request);
+//        return findRequestList;
+//    }
 
 }

@@ -26,9 +26,9 @@ public class BioDataService {
         return savedBioData;
     }
 
-    @Transactional
-    public List<FindRequest> findWeekBioData(Long userId,FindRequest request) {
-        List<FindRequest> findRequestList = bioDataRepository.findWeekBioData(userId, request);
-        return findRequestList;
-    }
+//    @Transactional
+//    public List<FindRequest> findWeekBioData(Long userId,FindRequest request) {
+//        List<FindRequest> findRequestList = bioDataRepository.findByUserId(userId);
+//        return findRequestList;
+//    }
 }
