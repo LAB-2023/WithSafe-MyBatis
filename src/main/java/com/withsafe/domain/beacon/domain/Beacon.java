@@ -6,6 +6,7 @@ import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.ArrayList;

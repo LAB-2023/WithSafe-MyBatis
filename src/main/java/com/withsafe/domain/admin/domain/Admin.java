@@ -30,10 +30,6 @@ public class Admin {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
-
     @Builder
     public Admin(Long id, String name, String loginId, String loginPassword, Authority authority, Department department) {
         this.id = id;

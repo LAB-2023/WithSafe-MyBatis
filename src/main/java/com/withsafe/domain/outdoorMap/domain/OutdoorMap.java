@@ -1,7 +1,8 @@
 package com.withsafe.domain.outdoorMap.domain;
 
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.env.EnvSensor;
+
+import com.withsafe.domain.env.domain.EnvSensor;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
