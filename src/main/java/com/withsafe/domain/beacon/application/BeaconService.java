@@ -22,12 +22,12 @@ public class BeaconService {
     private final BeaconRepository beaconRepository;
     private final IndoorMapRepository indoorMapRepository;
 
-    @Transactional
-    public Long saveBeaconInfo(BeaconDto.RequestSave requestSave){
-        String mapUrl = requestSave.getIndoorMapName();
-        IndoorMap indoorMap = indoorMapRepository.findByName(mapUrl);
-        Beacon saveBeacon = beaconRepository.save(requestSave.toEntity(indoorMap));
-
-        return saveBeacon.getId();
-    }
+//    @Transactional
+//    public Long saveBeaconInfo(BeaconDto.RequestSave requestSave){
+//        String mapUrl = requestSave.getIndoorMapName();
+//        IndoorMap indoorMap = indoorMapRepository.findByName(mapUrl);
+//        Beacon saveBeacon = beaconRepository.save(requestSave.toEntity(indoorMap));
+//
+//        return saveBeacon.getId();
+//    }
 }

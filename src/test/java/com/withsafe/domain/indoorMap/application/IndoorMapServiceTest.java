@@ -21,36 +21,39 @@ class IndoorMapServiceTest {
     private IndoorMapService indoorMapService;
 
     @Test
-    public void testFindAllIndoorMap(){
-        List<IndoorMapDto.IndoorMapInfo> result = indoorMapService.getAllIndoorMap();
+    void testGetIndoorMapList(){
+        String departmentName = "a부서";
+        List<IndoorMapDto.IndoorMapInfo> indoorMapList = indoorMapService.getIndoorMapList(departmentName);
 
-        for (IndoorMapDto.IndoorMapInfo indoorMapInfo : result) {
-            System.out.println("indoorMapInfo = " + indoorMapInfo.getId());
+        for (IndoorMapDto.IndoorMapInfo indoorMapInfo : indoorMapList) {
+            System.out.println("indoorMapInfo.getName() = " + indoorMapInfo.getName());
         }
     }
 
     @Test
-    public void testFindMap(){
-        String name = "431ho";
-        System.out.println("map url = " +  indoorMapService.getMap(name));
-    }
+    void testGetIndoorMapLocationList(){
+        String departmentName = "a부서";
+        Integer deviceNum = 50;
+        String userName = "lee";
+        IndoorMapDto.SearchCondition searchCondition = IndoorMapDto.SearchCondition.builder()
+                //.departmentName(departmentName)
+                //.deviceNum(deviceNum)
+                //.userName(userName)
+                .build();
 
-    @Test
-    public void testFindRestrictArea(){
-        String name = "431ho";
-        List<IndoorMapDto.RestrictCoordinate> result = indoorMapService.getRestrictArea(name);
-        for (IndoorMapDto.RestrictCoordinate restrictCoordinate : result) {
-            System.out.println("restrictCoordinate = " + restrictCoordinate.getCoordinate());
+        List<IndoorMapDto.IndoorMapLocationInfo> indoorMapLocationList = indoorMapService.getIndoorMapLocationList(searchCondition);
+
+        for (IndoorMapDto.IndoorMapLocationInfo indoorMapLocationInfo : indoorMapLocationList) {
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getDepartmentName());
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaId());
+            System.out.println("indoorMapLocationInfo = " + indoorMapLocationInfo.getRestrictAreaCoordinateLeft());
+            System.out.println("indoorMapLocationInfo.getUserName() = " + indoorMapLocationInfo.getUserName());
+            System.out.println("=====");
         }
-    }
 
-//    @Test
-//    public void testGetUserInfo(){
-//        String name = "431ho";
-//        List<IndoorMapDto.UserInfo> result = indoorMapService.getUserInfo(name);
-//        for (IndoorMapDto.UserInfo userInfo : result) {
-//            System.out.println("userInfo.getName() = " + userInfo.getName());
-//        }
-//    }
+        System.out.println("indoorMapLocationList = " + indoorMapLocationList.size());
+
+
+    }
 
 }
