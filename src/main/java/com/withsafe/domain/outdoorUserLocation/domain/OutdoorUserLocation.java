@@ -2,6 +2,7 @@ package com.withsafe.domain.outdoorUserLocation.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -25,4 +26,11 @@ public class OutdoorUserLocation extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "watch_id")
     private Watch watch;    //위치 정보를 넘겨주는 워치 id
+
+    @Builder
+    public OutdoorUserLocation(Long id, Point coordinate, Watch watch) {
+        this.id = id;
+        this.coordinate = coordinate;
+        this.watch = watch;
+    }
 }

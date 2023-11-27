@@ -39,4 +39,11 @@ public class IndoorEntrance extends BaseTimeEntity {
 //        this.beacon = beacon;
 //        this.watch = watch;
 //    }
+
+    @Builder
+    public IndoorEntrance(Long id, Beacon beacon, Watch watch) {
+        this.id = id;
+        this.beacon = beacon;
+        this.watch = watch;
+    }
 }

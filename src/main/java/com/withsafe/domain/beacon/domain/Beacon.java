@@ -46,10 +46,13 @@ public class Beacon extends BaseTimeEntity {
     }
 
     @Builder
-    public Beacon(Long id, String status, IndoorMap indoorMap, List<IndoorEntrance> indoorEntranceList) {
+    public Beacon(Long id, String status, BeaconType beaconType, IndoorMap indoorMap, List<IndoorEntrance> indoorEntranceList, Point coordinate, String macAddress) {
         this.id = id;
         this.status = status;
+        this.beaconType = beaconType;
         this.indoorMap = indoorMap;
         this.indoorEntranceList = indoorEntranceList;
+        this.coordinate = coordinate;
+        this.macAddress = macAddress;
     }
 }

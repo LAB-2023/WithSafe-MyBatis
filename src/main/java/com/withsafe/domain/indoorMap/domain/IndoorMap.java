@@ -43,4 +43,14 @@ public class IndoorMap {
         this.department = department;
         department.getIndoorMapList().add(this);
     }
+
+    @Builder
+    public IndoorMap(Long id, String name, String imageUrl, List<Beacon> beaconList, List<RestrictArea> restrictAreaList, Department department) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.beaconList = beaconList;
+        this.restrictAreaList = restrictAreaList;
+        this.department = department;
+    }
 }

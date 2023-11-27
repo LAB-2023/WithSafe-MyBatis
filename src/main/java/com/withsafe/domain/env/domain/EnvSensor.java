@@ -2,6 +2,7 @@ package com.withsafe.domain.env.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -32,5 +33,15 @@ public class EnvSensor extends BaseTimeEntity {
     public void setOUtdoorMap(OutdoorMap outdoorMap) {
         this.outdoorMap = outdoorMap;
         outdoorMap.getEnvSensorList().add(this);
+    }
+
+    @Builder
+    public EnvSensor(Long id, Point coordinate, String serialNum, String model, Boolean isUsed, OutdoorMap outdoorMap) {
+        this.id = id;
+        this.coordinate = coordinate;
+        this.serialNum = serialNum;
+        this.model = model;
+        this.isUsed = isUsed;
+        this.outdoorMap = outdoorMap;
     }
 }
