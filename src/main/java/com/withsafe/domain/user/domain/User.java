@@ -40,13 +40,18 @@ public class User extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     private Sex sex;    //성별
 
+    private Integer bloodPressure_high;
+    private Integer bloodPressure_low;
+    private Integer diabetes;
+    private Double heartDisease;
+
     //FK
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Watch> watchList = new ArrayList<>();
 
+
     @Builder
-    public User(Long id, String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {
-//        this.id = id;
+    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
         this.name = name;
         this.age = age;
         this.phoneNum = phoneNum;
@@ -58,26 +63,30 @@ public class User extends BaseTimeEntity {
         this.height = height;
         this.weight = weight;
         this.sex = sex;
+        this.bloodPressure_high = bloodPressure_high;
+        this.bloodPressure_low = bloodPressure_low;
+        this.diabetes = diabetes;
+        this.heartDisease = heartDisease;
     }
 
     public SaveRequest toUserSaveRequestDTO() {
-        return new SaveRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex);
+        return new SaveRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
     }
     public FindRequest toUserFindRequestDTO() {
-        return new FindRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex);
+        return new FindRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
     }
 
-    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {
-        this.name = name;
-        this.age = age;
-        this.phoneNum = phoneNum;
-        this.emergency_contact = emergency_contact;
-        this.emergency_relation = emergency_relation;
-        this.heartRate_threshold = heartRate_threshold;
-        this.oxygen_threshold = oxygen_threshold;
-        this.walk_threshold = walk_threshold;
-        this.height = height;
-        this.weight = weight;
-        this.sex = sex;
-    }
+//    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {
+//        this.name = name;
+//        this.age = age;
+//        this.phoneNum = phoneNum;
+//        this.emergency_contact = emergency_contact;
+//        this.emergency_relation = emergency_relation;
+//        this.heartRate_threshold = heartRate_threshold;
+//        this.oxygen_threshold = oxygen_threshold;
+//        this.walk_threshold = walk_threshold;
+//        this.height = height;
+//        this.weight = weight;
+//        this.sex = sex;
+//    }
 }
