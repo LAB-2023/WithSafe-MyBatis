@@ -45,6 +45,7 @@ import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watchData.domain.WatchData;
 import com.withsafe.domain.watchData.repository.WatchDataRepository;
 import org.junit.jupiter.api.Test;
+import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -109,6 +110,8 @@ public class InsertDb {
     public void Department넣기(){
         departmentRepository.save(makeDepartment("SBSystems"));
         departmentRepository.save(makeDepartment("A-Department"));
+        departmentRepository.save(makeDepartment("B-Department"));
+        departmentRepository.save(makeDepartment("C-Department"));
     }
 
     @Test
@@ -143,8 +146,8 @@ public class InsertDb {
 
     @Test
     public void Watch넣기(){
-        Helmet helmet = helmetRepository.findById(9L).orElseThrow();
-        Helmet helmet1 = helmetRepository.findById(10L).orElseThrow();
+        Helmet helmet = helmetRepository.findById(11L).orElseThrow();
+        Helmet helmet1 = helmetRepository.findById(12L).orElseThrow();
         Department department = departmentRepository.findByName("A-Department").orElseThrow();
         User user = userRepository.findByName("hi").get(0);
         User user2 = userRepository.findByName("hi2").get(0);
@@ -155,8 +158,8 @@ public class InsertDb {
 
     @Test
     public void WatchData넣기(){
-        Watch watch = watchRepository.findById(11L).orElseThrow();
-        Watch watch1 = watchRepository.findById(12L).orElseThrow();
+        Watch watch = watchRepository.findById(13L).orElseThrow();
+        Watch watch1 = watchRepository.findById(14L).orElseThrow();
 
         watchDataRepository.save(makeWatchData("testBattery", "testCharge", watch));
         watchDataRepository.save(makeWatchData("testBattery2", "testCharge2", watch1));
@@ -164,8 +167,8 @@ public class InsertDb {
 
     @Test
     public void OutdoorUserLocation넣기(){
-        Watch watch = watchRepository.findById(11L).orElseThrow();
-        Watch watch1 = watchRepository.findById(12L).orElseThrow();
+        Watch watch = watchRepository.findById(13L).orElseThrow();
+        Watch watch1 = watchRepository.findById(14L).orElseThrow();
 
         outDoorUserLocationRepository.save(makeOutdoorUserLocation(watch));
         outDoorUserLocationRepository.save(makeOutdoorUserLocation(watch1));
@@ -182,11 +185,11 @@ public class InsertDb {
 
     @Test
     public void Notice넣기(){
-        WarningMessage warningMessage = warningMessageRepository.findById(17L).orElseThrow();
-        WarningMessage warningMessage2 = warningMessageRepository.findById(18L).orElseThrow();
+        WarningMessage warningMessage = warningMessageRepository.findById(19L).orElseThrow();
+        WarningMessage warningMessage2 = warningMessageRepository.findById(20L).orElseThrow();
 
-        Watch watch = watchRepository.findById(11L).orElseThrow();
-        Watch watch1 = watchRepository.findById(12L).orElseThrow();
+        Watch watch = watchRepository.findById(13L).orElseThrow();
+        Watch watch1 = watchRepository.findById(14L).orElseThrow();
 
         noticeRepository.save(makeNotice("testNotice", NoticeType.HEART, warningMessage, watch));
         noticeRepository.save(makeNotice("testNotice2", NoticeType.ENV, warningMessage, watch1));
@@ -196,9 +199,9 @@ public class InsertDb {
 
     @Test
     public void Solve넣기(){
-        Notice notice = noticeRepository.findById(19L).orElseThrow();
-        Notice notice1 = noticeRepository.findById(20L).orElseThrow();
-        Notice notice2 = noticeRepository.findById(21L).orElseThrow();
+        Notice notice = noticeRepository.findById(21L).orElseThrow();
+        Notice notice1 = noticeRepository.findById(22L).orElseThrow();
+        Notice notice2 = noticeRepository.findById(23L).orElseThrow();
 
         solveRepository.save(makeSolve("testSolveContent", notice));
         solveRepository.save(makeSolve("testSolveContent2", notice1));
@@ -224,8 +227,8 @@ public class InsertDb {
 
     @Test
     public void EnvSensor넣기(){
-        OutdoorMap outdoorMap = outdoorMapRepository.findById(28L).orElseThrow();
-        OutdoorMap outdoorMap1 = outdoorMapRepository.findById(29L).orElseThrow();
+        OutdoorMap outdoorMap = outdoorMapRepository.findById(30L).orElseThrow();
+        OutdoorMap outdoorMap1 = outdoorMapRepository.findById(31L).orElseThrow();
 
         envSensorRepository.save(makeEnvSensor(true, "testModel", "testSerialNum", outdoorMap));
         envSensorRepository.save(makeEnvSensor(true, "testModel2", "testSerialNum2", outdoorMap1));
@@ -234,8 +237,8 @@ public class InsertDb {
 
     @Test
     public void EnvNotice넣기(){
-        EnvSensor envSensor = envSensorRepository.findById(30L).orElseThrow();
-        EnvSensor envSensor2 = envSensorRepository.findById(31L).orElseThrow();
+        EnvSensor envSensor = envSensorRepository.findById(32L).orElseThrow();
+        EnvSensor envSensor2 = envSensorRepository.findById(33L).orElseThrow();
 
         envNoticeRepository.save(makeEnvNotice(envSensor));
         envNoticeRepository.save(makeEnvNotice(envSensor2));
@@ -243,8 +246,8 @@ public class InsertDb {
 
     @Test
     public void EnvSensorData넣기(){
-        EnvSensor envSensor = envSensorRepository.findById(30L).orElseThrow();
-        EnvSensor envSensor2 = envSensorRepository.findById(31L).orElseThrow();
+        EnvSensor envSensor = envSensorRepository.findById(32L).orElseThrow();
+        EnvSensor envSensor2 = envSensorRepository.findById(33L).orElseThrow();
 
         envSensorDataRepository.save(makeEnvSensorData("testCode", "testDevice", "testName", 1.0f, envSensor));
         envSensorDataRepository.save(makeEnvSensorData("testCode2", "testDevice2", "testName2", 2.0f, envSensor2));
@@ -261,11 +264,11 @@ public class InsertDb {
 
     @Test
     public void RestrictArea넣기(){
-        OutdoorMap outdoorMap = outdoorMapRepository.findById(28L).orElseThrow();
-        OutdoorMap outdoorMap1 = outdoorMapRepository.findById(29L).orElseThrow();
+        OutdoorMap outdoorMap = outdoorMapRepository.findById(30L).orElseThrow();
+        OutdoorMap outdoorMap1 = outdoorMapRepository.findById(31L).orElseThrow();
 
-        IndoorMap indoorMap = indoorMapRepository.findById(36L).orElseThrow();
-        IndoorMap indoorMap1 = indoorMapRepository.findById(37L).orElseThrow();
+        IndoorMap indoorMap = indoorMapRepository.findById(38L).orElseThrow();
+        IndoorMap indoorMap1 = indoorMapRepository.findById(39L).orElseThrow();
 
         restrictAreaRepository.save(makeRestrictArea("testName", "testRule", null, outdoorMap));
         restrictAreaRepository.save(makeRestrictArea("testName2", "testRule2", null, outdoorMap1));
@@ -275,8 +278,8 @@ public class InsertDb {
 
     @Test
     public void Beacon넣기(){
-        IndoorMap indoorMap = indoorMapRepository.findById(36L).orElseThrow();
-        IndoorMap indoorMap1 = indoorMapRepository.findById(37L).orElseThrow();
+        IndoorMap indoorMap = indoorMapRepository.findById(38L).orElseThrow();
+        IndoorMap indoorMap1 = indoorMapRepository.findById(39L).orElseThrow();
 
         beaconRepository.save(makeBeacon(BeaconType.SAFE, "testAddress", "testStatus", indoorMap));
         beaconRepository.save(makeBeacon(BeaconType.DANGER, "testAddress2", "testStatus2", indoorMap1));

@@ -1,5 +1,6 @@
 package com.withsafe.global.jwt;
 
+import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -37,7 +38,7 @@ public class TokenProvider {
     }
 
     // 토큰 생성
-    public TokenDto generateTokenDto(Authentication authentication, String name, String departmentName) {
+    public TokenDto generateTokenDto(Authentication authentication, String name, String departmentName, Authority authority) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -62,6 +63,7 @@ public class TokenProvider {
                 .tokenExpiresIn(tokenExpiresIn.getTime())
                 .name(name)
                 .departmentName(departmentName)
+                .authority(authority)
                 .build();
     }
 
