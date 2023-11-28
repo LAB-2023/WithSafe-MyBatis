@@ -17,6 +17,7 @@ class IndoorMapRepositoryTest {
 
     @Autowired IndoorMapRepository indoorMapRepository;
 
+
 //    @Test
 //    public void testFindByMapId(){
 //        List<IndoorUserLocation> locationByMapId = indoorMapRepository.findLocationByMapId("1004");
