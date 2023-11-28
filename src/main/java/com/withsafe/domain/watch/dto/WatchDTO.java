@@ -2,6 +2,8 @@ package com.withsafe.domain.watch.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.domain.Sex;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
@@ -10,9 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 
 public class WatchDTO {
-
-
-
     private String serialNum; //Watch 시리얼 번호
     private String model; //Watch 모델명
     private Boolean is_used; //Watch 사용유무
@@ -45,14 +44,14 @@ public class WatchDTO {
             this.deviceNum = deviceNum;
             this.regDate = regDate;
         }
-
-        public Watch toEntity(){
+        public Watch toEntity(Department department){
             return Watch.builder()
                     .serialNum(this.serialNum)
                     .model(this.model)
                     .is_used(this.is_used)
                     .deviceNum(this.deviceNum)
                     .regDate(this.regDate)
+                    .department(department)
                     .build();
         }
     }
