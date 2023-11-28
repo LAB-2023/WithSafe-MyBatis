@@ -1,13 +1,11 @@
-package com.withsafe.domain.notice.dao;
-
-
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.withsafe.domain.notice.dao.SearchNoticeRepository;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
-import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
 import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
+import com.withsafe.domain.notice.dto.NoticeMainResponseDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 import static com.withsafe.domain.department.domain.QDepartment.department;
 import static com.withsafe.domain.notice.domain.QNotice.notice;
