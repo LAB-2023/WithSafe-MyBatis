@@ -27,9 +27,13 @@ public class UserDTO {
         private double weight;  //몸무게
         @Enumerated(value = EnumType.STRING)
         private Sex sex;    //성별
+        private Integer bloodPressure_high;
+        private Integer bloodPressure_low;
+        private Integer diabetes;
+        private Double heartDisease;
 
         @Builder
-        public SaveRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex) {
+        public SaveRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
             this.name = name;
             this.age = age;
             this.phoneNum = phoneNum;
@@ -41,6 +45,10 @@ public class UserDTO {
             this.height = height;
             this.weight = weight;
             this.sex = sex;
+            this.bloodPressure_high = bloodPressure_high;
+            this.bloodPressure_low = bloodPressure_low;
+            this.diabetes = diabetes;
+            this.heartDisease = heartDisease;
         }
 
         public User toEntity() {
@@ -56,6 +64,10 @@ public class UserDTO {
                     .height(this.height)
                     .weight(this.weight)
                     .sex(this.sex)
+                    .bloodPressure_high(this.bloodPressure_high)
+                    .bloodPressure_low(this.bloodPressure_low)
+                    .diabetes(this.diabetes)
+                    .heartDisease(this.heartDisease)
                     .build();
         }
     }
@@ -75,9 +87,13 @@ public class UserDTO {
         private double weight;  //몸무게
         @Enumerated(value = EnumType.STRING)
         private Sex sex;    //성별
+        private Integer bloodPressure_high;
+        private Integer bloodPressure_low;
+        private Integer diabetes;
+        private Double heartDisease;
 
         @Builder
-        public FindRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex) {
+        public FindRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
             this.name = name;
             this.age = age;
             this.phoneNum = phoneNum;
@@ -89,7 +105,12 @@ public class UserDTO {
             this.height = height;
             this.weight = weight;
             this.sex = sex;
+            this.bloodPressure_high = bloodPressure_high;
+            this.bloodPressure_low = bloodPressure_low;
+            this.diabetes = diabetes;
+            this.heartDisease = heartDisease;
         }
+
 
         public User toEntity() {
             return User.builder()
@@ -104,6 +125,10 @@ public class UserDTO {
                     .height(this.height)
                     .weight(this.weight)
                     .sex(this.sex)
+                    .bloodPressure_high(this.bloodPressure_high)
+                    .bloodPressure_low(this.bloodPressure_low)
+                    .diabetes(this.diabetes)
+                    .heartDisease(this.heartDisease)
                     .build();
         }
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/env-sensor-data")
 @RequiredArgsConstructor
-public class EnvSensorDataContoller {
+public class EnvSensorDataController {
 
     private final EnvSensorDataService envSensorDataService;
 
