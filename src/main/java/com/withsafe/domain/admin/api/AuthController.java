@@ -4,14 +4,12 @@ import com.withsafe.domain.admin.application.AuthService;
 import com.withsafe.domain.admin.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.withsafe.domain.admin.dto.AdminDto.*;
 import static org.springframework.http.ResponseEntity.ok;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

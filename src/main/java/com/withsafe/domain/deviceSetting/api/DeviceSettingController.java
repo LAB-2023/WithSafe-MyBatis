@@ -12,6 +12,7 @@ import static com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.*;
  * 1. 디바이스 세팅 저장
  * 2. 기존 디바이스 세팅 조회(기존에 세팅값을 화면에 띄워줘야함)
  */
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/deviceSetting")
 @RequiredArgsConstructor

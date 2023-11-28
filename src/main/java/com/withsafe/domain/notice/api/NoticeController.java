@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 import static com.withsafe.domain.admin.constant.SessionConstants.*;
 import static com.withsafe.domain.admin.dto.AdminDto.*;
 
-
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/notice-api")
 @RequiredArgsConstructor

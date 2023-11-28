@@ -3,7 +3,6 @@ package com.withsafe.domain.env.api;
 
 import com.withsafe.domain.env.appplication.EnvSensorService;
 import com.withsafe.domain.env.dto.EnvSensorDTO;
-import com.withsafe.domain.outdoorMap.domain.QOutdoorMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.parameters.P;
@@ -17,6 +16,7 @@ import java.util.List;
  * 2. 시리얼 번호로 검색
  * 3. 부서로 검색 (대시보드 활성 개수 확인용)
  */
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/env-sensor")
 @RequiredArgsConstructor

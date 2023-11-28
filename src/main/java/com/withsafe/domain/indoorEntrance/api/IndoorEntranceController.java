@@ -20,6 +20,7 @@ import java.util.List;
 
 import static com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/indoorEntrance")

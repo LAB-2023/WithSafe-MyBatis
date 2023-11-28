@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.withsafe.domain.bioData.dto.BioDataDto.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/bioData")
 @RequiredArgsConstructor

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import static com.withsafe.domain.admin.constant.SessionConstants.*;
 import static com.withsafe.domain.admin.dto.AdminDto.*;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class AdminController {

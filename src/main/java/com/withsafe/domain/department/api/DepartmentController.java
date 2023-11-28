@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.withsafe.domain.department.dto.DepartmentDTO.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/department")
 @RequiredArgsConstructor

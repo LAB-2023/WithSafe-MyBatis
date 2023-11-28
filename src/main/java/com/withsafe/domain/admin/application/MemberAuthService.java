@@ -1,4 +1,4 @@
-package com.withsafe.domain.admin.api;
+package com.withsafe.domain.admin.application;
 
 import com.withsafe.domain.admin.dao.AdminRepository;
 import com.withsafe.domain.admin.domain.Admin;

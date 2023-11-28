@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.withsafe.domain.solve.dto.SolveDto.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/solve-api")
 @RequiredArgsConstructor
