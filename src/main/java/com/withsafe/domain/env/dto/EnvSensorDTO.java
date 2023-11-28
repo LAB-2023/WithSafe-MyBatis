@@ -79,8 +79,8 @@ public class EnvSensorDTO {
                     .build();
         }
 
-        public static SaveRequest toFindRequestDTO(EnvSensor envSensor) {
-            return SaveRequest.builder()
+        public static FindRequest toFindRequestDTO(EnvSensor envSensor) {
+            return FindRequest.builder()
                     .coordinate(envSensor.getCoordinate())
                     .serialNum(envSensor.getSerialNum())
                     .openingDate(envSensor.getOpeningDate())

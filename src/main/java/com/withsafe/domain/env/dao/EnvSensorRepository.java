@@ -11,4 +11,6 @@ public interface EnvSensorRepository extends JpaRepository<EnvSensor, Long> {
     @Query("SELECT es FROM EnvSensor es JOIN es.outdoorMap om WHERE om.department.name = :dept_name")
     List<EnvSensor> findEnvSensorByDept(
             @Param("dept_name") String deptName);
+
+    List<EnvSensor> findBySerialNum(String serialNum);
 }

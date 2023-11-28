@@ -16,7 +16,6 @@ import java.util.List;
  * 1. 센서 등록(디바이스 등록)
  * 2. 시리얼 번호로 검색
  * 3. 부서로 검색 (대시보드 활성 개수 확인용)
- * 4. 디바이스 번호로 조회 (ppt p.10)
  */
 @RestController
 @RequestMapping("/env-sensor")
@@ -33,9 +32,15 @@ public class EnvSensorController {
     }
 
     //부서로 검색 -> 실외지도 테이블에서 파라미터로 넘어오는 부서로 select 후 envsensor 테이블과 조인
-   public List<EnvSensorDTO> findEnvSensorByDept(@RequestParam String departmentName ){
+    @GetMapping("/dept-name")
+    @Transactional
+   public List<EnvSensorDTO.FindRequest> findEnvSensorByDept(@RequestParam String departmentName ){
+        return envSensorService.findByDept(departmentName);
+    }
 
-
-        return null;
+    @GetMapping("/serial-num")
+    @Transactional
+    public List<EnvSensorDTO.FindRequest> findEnvSensorBySerialNum(@RequestParam String serialNum ){
+        return envSensorService.findBySerialNum(serialNum);
     }
 }

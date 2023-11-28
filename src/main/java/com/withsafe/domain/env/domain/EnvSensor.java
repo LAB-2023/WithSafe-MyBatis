@@ -1,6 +1,7 @@
 package com.withsafe.domain.env.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.env.dto.EnvSensorDTO;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,4 +49,8 @@ public class EnvSensor extends BaseTimeEntity {
         this.outdoorMap = outdoorMap;
         outdoorMap.getEnvSensorList().add(this);
     }
+
+//    public EnvSensorDTO toFindEnvSensorDTO() {
+//        return new EnvSensorDTO.FindRequest(this.coordinate, this.serialNum, this.openingDate, this.model, this.isUsed, this.outdoorMap);
+//    }
 }
