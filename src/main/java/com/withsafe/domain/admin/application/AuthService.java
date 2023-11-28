@@ -1,5 +1,6 @@
-package com.withsafe.domain.admin.dao;
+package com.withsafe.domain.admin.application;
 
+import com.withsafe.domain.admin.dao.AdminRepository;
 import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
@@ -57,7 +58,7 @@ public class AuthService {
                 List<Department> departments = departmentRepository.findAllExceptDepartments(excepts);
                 departmentName = departments.get(0).getName();
             }
-            return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName);
+            return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName, admin.getAuthority());
         }catch (RuntimeException e){
             throw new RuntimeException("아이디나 비밀번호를 확인해주세요.");
         }

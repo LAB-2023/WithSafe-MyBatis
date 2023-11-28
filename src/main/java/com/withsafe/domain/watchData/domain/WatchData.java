@@ -2,6 +2,7 @@ package com.withsafe.domain.watchData.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.watch.domain.Watch;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -25,4 +26,12 @@ public class WatchData extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "watch_id")
     private Watch watch;
+
+    @Builder
+    public WatchData(Long id, String battery, String charge, Watch watch) {
+        this.id = id;
+        this.battery = battery;
+        this.charge = charge;
+        this.watch = watch;
+    }
 }

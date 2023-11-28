@@ -19,6 +19,7 @@ import com.withsafe.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -69,9 +70,10 @@ public class NoticeController {
     }
 
     @PostMapping
-    public NoticeSaveRequestDto saveNotice(@RequestBody NoticeSaveRequestDto saveRequest, @RequestParam String departmentName){
+    public ResponseEntity<NoticeSaveRequestDto> saveNotice(@RequestBody NoticeSaveRequestDto saveRequest,
+                                                           @RequestParam String departmentName){
         noticeService.saveNotice(saveRequest, departmentName);
-        return saveRequest;
+        return ResponseEntity.ok(saveRequest);
     }
 
     @PostMapping("/test")

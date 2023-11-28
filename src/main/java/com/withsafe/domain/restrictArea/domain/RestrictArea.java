@@ -3,6 +3,7 @@ package com.withsafe.domain.restrictArea.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
@@ -48,5 +49,16 @@ public class RestrictArea {
     public void setOutdoorMap(OutdoorMap outdoorMap) {
         this.outdoorMap = outdoorMap;
         outdoorMap.getRestrictAreaList().add(this);
+    }
+
+    @Builder
+    public RestrictArea(Long id, String name, String safetyRule, Point coordinate_left, Point coordinate_right, IndoorMap indoorMap, OutdoorMap outdoorMap) {
+        this.id = id;
+        this.name = name;
+        this.safetyRule = safetyRule;
+        this.coordinate_left = coordinate_left;
+        this.coordinate_right = coordinate_right;
+        this.indoorMap = indoorMap;
+        this.outdoorMap = outdoorMap;
     }
 }

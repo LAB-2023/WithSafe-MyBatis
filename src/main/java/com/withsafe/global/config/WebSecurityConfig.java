@@ -6,6 +6,7 @@ import com.withsafe.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,13 +34,16 @@ public class WebSecurityConfig {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .cors();
+
+        http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-                //권한 설정
+
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/department-test").permitAll()
@@ -47,7 +51,12 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
 
                 .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+
+                .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
-        return http.build();
+        return http.getOrBuild();
     }
 }

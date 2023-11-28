@@ -1,10 +1,8 @@
 package com.withsafe.domain.admin.api;
 
-import com.withsafe.domain.admin.dao.AuthService;
-import com.withsafe.domain.admin.dto.AdminDto;
+import com.withsafe.domain.admin.application.AuthService;
 import com.withsafe.domain.admin.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
