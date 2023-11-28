@@ -1,5 +1,7 @@
 package com.withsafe.domain.watch.application;
 
+import com.withsafe.domain.department.dao.DepartmentRepository;
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
@@ -7,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,16 +28,18 @@ import static com.withsafe.domain.watch.dto.WatchDTO.*;
 @RequiredArgsConstructor
 public class WatchService {
     private final WatchRepository watchRepository;
+    private final DepartmentRepository departmentRepository;
     //워치 등록
     @Transactional
-    public Long saveWatch(@RequestBody SaveRequest request) {
-        Watch savedWatch = watchRepository.save(request.toEntity());
+    public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName) {
+        Department department = departmentRepository.findByName(departmentName);
+        Watch savedWatch = watchRepository.save(request.toEntity(department));
         return savedWatch.getId();
     }
     //전체 워치 조회
     @Transactional
-    public List<FindRequest> findAllWatch(FindRequest request) {
-        List<Watch> watchList = watchRepository.findAll();
+    public List<FindRequest> findAllWatch(@RequestParam String departmentName) {
+        List<Watch> watchList = watchRepository.findWatchByDepartmentName(departmentName);
 
         List<FindRequest> findRequestList = watchList.stream()
                 .map(FindRequest::toFindRequest)

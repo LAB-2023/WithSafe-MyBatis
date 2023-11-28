@@ -23,20 +23,17 @@ public class WatchController {
      */
     @PostMapping
     @Transactional
-    public Long saveWatch(@RequestBody SaveRequest request){
-        Long watchId = watchService.saveWatch(request);
-//        System.out.println("request.getModel() = " + request.getModel());
+    public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName){
+        Long watchId = watchService.saveWatch(request, departmentName);
         return watchId;
     }
     /**
      * 모든 워치 조회
-     * @param request
      * @return
      */
     @GetMapping
-    public List<FindRequest> findWatch(@RequestBody FindRequest request){
-        List<FindRequest> findRequestList = watchService.findAllWatch(request);
+    public List<FindRequest> findWatch(@RequestParam String departmentName){
+        List<FindRequest> findRequestList = watchService.findAllWatch(departmentName);
         return findRequestList;
     }
 }
-
