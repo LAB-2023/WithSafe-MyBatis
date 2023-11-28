@@ -32,7 +32,7 @@ public class WatchService {
     //워치 등록
     @Transactional
     public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName) {
-        Department department = departmentRepository.findByName(departmentName);
+        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
         Watch savedWatch = watchRepository.save(request.toEntity(department));
         return savedWatch.getId();
     }
