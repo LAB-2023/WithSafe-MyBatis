@@ -49,7 +49,7 @@ public class DepartmentService {
 
     //모든 부서 이름 받기
     public List<String> findAllDepartmentName(){
-        List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
+        List<String> excepts = Arrays.asList("MASTER", "SBSystems");
         return departmentRepository.findAllExceptDepartments(excepts)
                 .stream()
                 .map(Department::getName)

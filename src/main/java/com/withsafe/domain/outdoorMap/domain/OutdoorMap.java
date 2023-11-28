@@ -1,13 +1,15 @@
 package com.withsafe.domain.outdoorMap.domain;
 
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.env.EnvSensor;
+
+import com.withsafe.domain.env.domain.EnvSensor;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class OutdoorMap {
     private Long id;    //PK
 
     private String name;    //지도 이름
-    private Point coordinate;   //실외 지도의 중심 위도, 경도
+    private org.locationtech.jts.geom.Point coordinate;   //실외 지도의 중심 위도, 경도
 
     @OneToMany(mappedBy = "outdoorMap")
     private List<EnvSensor> envSensorList = new ArrayList<>();  //실외에 설치된 환경센서 목록
@@ -38,5 +40,16 @@ public class OutdoorMap {
     public void setDepartment(Department department) {
         this.department = department;
         department.getOutdoorMapList().add(this);
+    }
+
+    @Builder
+    public OutdoorMap(Long id, String name, Point coordinate, List<EnvSensor> envSensorList,
+                      List<RestrictArea> restrictAreaList, Department department) {
+        this.id = id;
+        this.name = name;
+        this.coordinate = coordinate;
+        this.envSensorList = envSensorList;
+        this.restrictAreaList = restrictAreaList;
+        this.department = department;
     }
 }

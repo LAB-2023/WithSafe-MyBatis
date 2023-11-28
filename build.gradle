@@ -1,6 +1,8 @@
 buildscript {
 	ext{
 		queryDslVersion = "5.0.0"
+		jacksonDatabindVersion="2.15.2"
+		jacksonJaxbAnnotationsVersion="2.14.2"
 	}
 }
 
@@ -41,7 +43,7 @@ dependencies {
 
 	implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '5.6.15.Final'
 
-	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'
+	//implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'
 
 	runtimeOnly 'com.h2database:h2'
 
@@ -55,6 +57,16 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+
+	//hypersistence-utils for json to mysql
+	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.6.0'
+	//for parsing json
+//	implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+//	implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonJaxbAnnotationsVersion}"
+	//포인트형 json 반환위함
+	implementation 'org.n52.jackson:jackson-datatype-jts:1.2.4'
+
 
 }
 

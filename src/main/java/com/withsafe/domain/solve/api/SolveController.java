@@ -3,10 +3,8 @@ package com.withsafe.domain.solve.api;
 import com.withsafe.domain.solve.application.SolveService;
 import com.withsafe.domain.solve.dto.SolveDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import static com.withsafe.domain.solve.dto.SolveDto.*;
 
@@ -17,8 +15,8 @@ public class SolveController {
 
     private final SolveService solveService;
     @PostMapping
-    public SaveRequest createSolve(@RequestBody SaveRequest saveRequest){
+    public ResponseEntity<SaveRequest> createSolve(@RequestBody SaveRequest saveRequest){
         solveService.saveSolve(saveRequest);
-        return saveRequest;
+        return ResponseEntity.ok(saveRequest);
     }
 }

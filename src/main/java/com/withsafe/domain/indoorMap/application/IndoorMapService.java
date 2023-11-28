@@ -1,9 +1,14 @@
 package com.withsafe.domain.indoorMap.application;
 
+import com.querydsl.core.Tuple;
+import com.withsafe.domain.beacon.domain.Beacon;
+import com.withsafe.domain.indoorMap.dao.IndoorMapLocationRepository;
 import com.withsafe.domain.indoorMap.dao.IndoorMapRepository;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.indoorMap.dto.IndoorMapDto;
+import com.withsafe.domain.indoorMap.dto.IndoorMapDto.IndoorMapInfo;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import com.withsafe.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
@@ -29,71 +34,30 @@ import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
 public class IndoorMapService {
 
     private final IndoorMapRepository indoorMapRepository;
+    private final IndoorMapLocationRepository indoorMapLocationRepository;
 
-    //IndoorMap DTO로 변환
-    public List<IndoorMapInfo> getAllIndoorMap(){
-        List<IndoorMap> indoorMapList = indoorMapRepository.findAll();
 
-        return indoorMapList.stream()
-                .map(indoorMap -> IndoorMapInfo.builder()
-                        .id(indoorMap.getId())
-                        .name(indoorMap.getName())
-                        .URL(indoorMap.getImageUrl())
-                        .uwbMapId(indoorMap.getUwbMapId())
-                        .build())
+    //해당 부서의 실내 지도 리스트 반환
+    public List<IndoorMapInfo> getIndoorMapList(String departmentName){
+
+        List<IndoorMap> indoorMapList = indoorMapRepository.findByDepartmentName(departmentName);
+
+        List<IndoorMapInfo> indoorMapInfoList = indoorMapList.stream()
+                .map(indoorMap -> IndoorMapInfo.toIndoorMapInfo(
+                        indoorMap.getId(), indoorMap.getName(), indoorMap.getImageUrl()))
                 .collect(Collectors.toList());
+
+
+        return indoorMapInfoList;
+      
     }
 
-    //사용자가 선택한 구역의 지도 이미지 url 반환
-    public String getMap(String mapName){
-        IndoorMap byName = indoorMapRepository.findByName(mapName);
-        return byName.getImageUrl();
+
+    //해당 실내 지도의 모든 정보 반환 (위험 구역, 비콘, 사용자 위치)
+    public List<IndoorMapLocationInfo> getIndoorMapLocationList(SearchCondition searchCondition){
+        return indoorMapLocationRepository.findAllBySearchCondition(searchCondition);
     }
 
-    //사용자가 선택한 구역의 위험 구역 좌표 반환
-    public List<RestrictCoordinate> getRestrictArea(String mapName){
-        IndoorMap byName = indoorMapRepository.findByName(mapName);
 
-        List<RestrictArea> restrictAreaList = byName.getRestrictAreaList();
-        List<RestrictCoordinate> coordinateList = new ArrayList<>();
 
-        for (RestrictArea restrictArea : restrictAreaList) {
-            Point coordinate = restrictArea.getCoordinate();
-
-            RestrictCoordinate temp = new RestrictCoordinate();
-            temp.setCoordinate(coordinate); // 좌표 정보를 DTO에 설정
-
-            coordinateList.add(temp);
-        }
-
-        return coordinateList;
-
-    }
-
-    //사용자 위치 및 정보 반환
-    //경고 알림이랑 조치 현황은 일단 생략 ..
-//    public List<IndoorMapDto.UserInfo> getUserInfo(String mapName){
-//        IndoorMap byName = indoorMapRepository.findByName(mapName);
-//        String mapId = byName.getUwbMapId();
-//        List<IndoorUserLocation> indoorUserLocationList = indoorMapRepository.findLocationByMapId(mapId);
-//        List<IndoorMapDto.UserInfo> userList = new ArrayList<>();
-//
-//        for (IndoorUserLocation location : indoorUserLocationList) {
-//            String name = location.getUwbTag().getUser().getName();
-//            String phone_num = location.getUwbTag().getUser().getPhone_num();
-//            Point coordinate = location.getCoordinate();
-//            LocalDateTime time = location.getCreatedDate();
-//
-//            IndoorMapDto.UserInfo temp = IndoorMapDto.UserInfo.builder()
-//                    .name(name)
-//                    .phone_num(phone_num)
-//                    .coordinate(coordinate)
-//                    .time(time)
-//                    .build();
-//
-//            userList.add(temp);
-//        }
-//
-//        return userList;
-//    }
 }

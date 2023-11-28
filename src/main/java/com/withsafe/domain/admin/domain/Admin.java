@@ -1,5 +1,6 @@
 package com.withsafe.domain.admin.domain;
 
+
 import com.withsafe.domain.admin.dto.AdminDto;
 import com.withsafe.domain.department.domain.Department;
 import lombok.Builder;
@@ -22,12 +23,12 @@ public class Admin {
     private String loginId;
     private String loginPassword;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
 
     @Builder
     public Admin(Long id, String name, String loginId, String loginPassword, Authority authority, Department department) {

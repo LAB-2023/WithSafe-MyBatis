@@ -23,7 +23,6 @@ public class Notice extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private NoticeType noticeType; //알림 타입
     private String content; //내용
-    private LocalDateTime regDate; //알림 발생 시각
 
     //FK
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,15 +37,13 @@ public class Notice extends BaseTimeEntity {
     private Solve solve;    //경고 알림에 대한 조치
 
     @Builder
-    public Notice(Long id, NoticeType noticeType, String content, LocalDateTime regDate,
+    public Notice(Long id, NoticeType noticeType, String content,
                   WarningMessage warning_message, Watch watch, Solve solve) {
         this.id = id;
         this.noticeType = noticeType;
         this.content = content;
-        this.regDate = regDate;
         this.warning_message = warning_message;
         this.watch = watch;
         this.solve = solve;
     }
-
 }
