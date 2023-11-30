@@ -25,7 +25,7 @@ public class UserController {
     }
 
     //유저 조회
-    @RequestMapping
+    @GetMapping
     public List<User> findUser(@RequestBody UserDTO.FindRequest request) {
         return userService.findUser(request.getName());
     }

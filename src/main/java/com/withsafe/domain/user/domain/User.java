@@ -51,7 +51,8 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+    public User(Long id, String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.phoneNum = phoneNum;

@@ -27,8 +27,7 @@ public class EnvSensorController {
     @Transactional
     public Long saveEnvSensor(@RequestBody EnvSensorDTO.SaveRequest request){
 
-        Long envSensorId = envSensorService.saveEnvSensor(request);
-        return envSensorId;
+        return envSensorService.saveEnvSensor(request);
     }
 
     //부서로 검색 -> 실외지도 테이블에서 파라미터로 넘어오는 부서로 select 후 envsensor 테이블과 조인
