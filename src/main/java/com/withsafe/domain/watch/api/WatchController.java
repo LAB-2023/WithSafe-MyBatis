@@ -37,4 +37,12 @@ public class WatchController {
         List<FindRequest> findRequestList = watchService.findAllWatch(departmentName);
         return findRequestList;
     }
+    /**
+     * 워치에 유저 등록
+     */
+    @PutMapping
+    public Long saveUserToWatch(@RequestParam Long userId, @RequestParam String departmentName ,@RequestParam Long watchId){
+        Long savedUserToWatchId = watchService.saveUserToWatch(userId, watchId);
+        return savedUserToWatchId;
+    }
 }
