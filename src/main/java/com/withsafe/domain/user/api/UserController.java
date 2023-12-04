@@ -30,4 +30,8 @@ public class UserController {
         return userService.findUser(request.getName());
     }
 
+    @GetMapping
+    public List<UserDTO.FindRequest> requestList(){
+        return userService.findAll();
+    }
 }
