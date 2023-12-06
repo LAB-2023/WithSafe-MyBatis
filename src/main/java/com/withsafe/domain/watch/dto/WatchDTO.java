@@ -90,6 +90,7 @@ public class WatchDTO {
                     .model(watch.getModel())
                     .is_used(watch.getIs_used())
                     .serialNum(watch.getSerialNum())
+                    .watchId(watch.getId())
                     .build();
         }
     }

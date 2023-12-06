@@ -49,7 +49,6 @@ public class WatchService {
                 .collect(Collectors.toList());
         return findRequestList;
     }
-
     //워치에 유저 매핑
     @Transactional
     public Long saveUserToWatch(@RequestParam Long userId, @RequestParam Long watchId) {

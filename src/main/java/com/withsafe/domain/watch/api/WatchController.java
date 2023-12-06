@@ -41,7 +41,7 @@ public class WatchController {
      * 워치에 유저 등록
      */
     @PutMapping
-    public Long saveUserToWatch(@RequestParam Long userId, @RequestParam String departmentName ,@RequestParam Long watchId){
+    public Long saveUserToWatch(@RequestParam Long userId ,@RequestParam Long watchId){
         Long savedUserToWatchId = watchService.saveUserToWatch(userId, watchId);
         return savedUserToWatchId;
     }
