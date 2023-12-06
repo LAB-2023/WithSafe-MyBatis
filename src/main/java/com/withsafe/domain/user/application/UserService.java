@@ -60,6 +60,7 @@ public class UserService {
         List<FindRequest> result = userRepository.findAll()
                 .stream()
                 .map(user -> FindRequest.builder()
+                        .id(user.getId())
                         .name(user.getName())
                         .age(user.getAge())
                         .phoneNum(user.getPhoneNum())

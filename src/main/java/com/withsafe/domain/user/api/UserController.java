@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO.FindRequest> requestList(){
+    public List<UserDTO.FindRequest> findAllUser(){
         return userService.findAll();
     }
 }
