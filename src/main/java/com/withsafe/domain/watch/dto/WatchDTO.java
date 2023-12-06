@@ -40,7 +40,7 @@ public class WatchDTO {
         public SaveRequest(String serialNum, String model, Boolean is_used, Integer deviceNum, LocalDateTime regDate) {
             this.serialNum = serialNum;
             this.model = model;
-            this.is_used = is_used;
+            this.is_used = false;
             this.deviceNum = deviceNum;
             this.regDate = regDate;
         }
@@ -48,7 +48,7 @@ public class WatchDTO {
             return Watch.builder()
                     .serialNum(this.serialNum)
                     .model(this.model)
-                    .is_used(this.is_used)
+                    .is_used(false)
                     .deviceNum(this.deviceNum)
                     .department(department)
                     .build();
@@ -84,12 +84,13 @@ public class WatchDTO {
                     .build();
         }
 
-        public static FindRequest toFindRequest(Watch watch){
+        public static FindRequest toFindRequest(Watch watch, String username){
             return FindRequest.builder().
                     deviceNum(watch.getDeviceNum())
                     .model(watch.getModel())
                     .is_used(watch.getIs_used())
                     .serialNum(watch.getSerialNum())
+                    .userName(username)
                     .watchId(watch.getId())
                     .build();
         }

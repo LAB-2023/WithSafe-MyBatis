@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,12 +43,15 @@ public class WatchService {
     //전체 워치 조회
     @Transactional
     public List<FindRequest> findAllWatch(@RequestParam String departmentName) {
-        List<Watch> watchList = watchRepository.findWatchByDepartmentName(departmentName);
+        List<Object[]> watchList = watchRepository.findByDepartmentName(departmentName);
 
-        List<FindRequest> findRequestList = watchList.stream()
-                .map(FindRequest::toFindRequest)
+        return watchList.stream()
+                .map(objects -> {
+                    Watch watch = (Watch) objects[0];
+                    String username = (String) objects[1];
+                    return FindRequest.toFindRequest(watch, username);
+                })
                 .collect(Collectors.toList());
-        return findRequestList;
     }
     //워치에 유저 매핑
     @Transactional
@@ -55,6 +59,7 @@ public class WatchService {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
         Watch watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
         watch.setUser(user);
+        watch.setIs_used(true);
         return watch.getId();
     }
 }
