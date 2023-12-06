@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface WatchRepository extends JpaRepository<Watch, Long> {
 
-    @Query("select w, u.name from Watch w join w.user u join w.department d")
-    List<Object[]> findByDepartmentName(@Param("paramValue") String departmentName);
+    @Query("select w, u.name from Watch w left join w.user u join w.department d where d.name = :departmentName")
+    List<Object[]> findByDepartmentName(@Param("departmentName") String departmentName);
 }

@@ -20,7 +20,7 @@ public class UserController {
      * 유저 등록(생성)
      */
     @PostMapping
-    public Long saveUser(@RequestBody UserDTO.SaveRequest request) {
+    public Long saveUser(@RequestBody UserDTO.SaveRequest request  ) {
         return userService.saveUser(request);
     }
 
@@ -30,7 +30,7 @@ public class UserController {
         return userService.findUser(request.getName());
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<UserDTO.FindRequest> findAllUser(){
         return userService.findAll();
     }
