@@ -11,6 +11,5 @@ import java.util.List;
 @Primary
 @Repository
 public interface WatchRepository extends JpaRepository<Watch, Long> {
-
     List<Watch> findWatchByDepartmentName(@Param("paramValue") String departmentName);
 }
