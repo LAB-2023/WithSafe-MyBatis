@@ -61,4 +61,12 @@ public class WatchService {
         watch.setUser(user);
         return watch.getId();
     }
+    //워치에 유저 매핑
+    @Transactional
+    public Long saveUserToWatch(@RequestParam Long userId, @RequestParam Long watchId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        Watch watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        watch.setUser(user);
+        return watch.getId();
+    }
 }

@@ -28,26 +28,26 @@ public class EnvSensorService {
     @Transactional
     public List<EnvSensorDTO.FindRequest> findByDept(String deptName){
         List<EnvSensor> findSensorList = envSensorRepository.findEnvSensorByDept(deptName);
-        List<EnvSensorDTO.FindRequest> findSensorDTO = new ArrayList<>();
+        List<EnvSensorDTO.FindRequest> findSensorDTOList = new ArrayList<>();
 
         for (EnvSensor envSensor : findSensorList) {
-            findSensorDTO.add(EnvSensorDTO.FindRequest.toFindRequestDTO(envSensor));
+            findSensorDTOList.add(EnvSensorDTO.FindRequest.toFindRequestDTO(envSensor));
         }
 
-        return findSensorDTO;
+        return findSensorDTOList;
     }
 
     //시리얼 번호로 검색
     @Transactional
     public List<EnvSensorDTO.FindRequest> findBySerialNum(String deptName){
         List<EnvSensor> findSensorList = envSensorRepository.findBySerialNum(deptName);
-        List<EnvSensorDTO.FindRequest> findSensorDTO = new ArrayList<>();
+        List<EnvSensorDTO.FindRequest> findSensorDTOList = new ArrayList<>();
 
         for (EnvSensor envSensor : findSensorList) {
-            findSensorDTO.add(EnvSensorDTO.FindRequest.toFindRequestDTO(envSensor));
+            findSensorDTOList.add(EnvSensorDTO.FindRequest.toFindRequestDTO(envSensor));
         }
 
-        return findSensorDTO;
+        return findSensorDTOList;
     }
 
 }
