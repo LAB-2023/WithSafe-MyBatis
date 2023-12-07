@@ -1,9 +1,14 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://27.96.135.39:3306/mydb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/withsafe
     username: root
-    password: '!My123456!'
+    password: 1220
+        
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://27.96.135.39:3306/mydb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+#    username: root
+#    password: '!My123456!'
 
 #    url: jdbc:h2:tcp://localhost/~/withsafe
 #    username: sa
