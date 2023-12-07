@@ -84,12 +84,14 @@ public class WatchDTO {
                     .build();
         }
 
-        public static FindRequest toFindRequest(Watch watch){
+        public static FindRequest toFindRequest(Watch watch, String username){
             return FindRequest.builder().
                     deviceNum(watch.getDeviceNum())
                     .model(watch.getModel())
                     .is_used(watch.getIs_used())
                     .serialNum(watch.getSerialNum())
+                    .userName(username)
+                    .watchId(watch.getId())
                     .build();
         }
     }

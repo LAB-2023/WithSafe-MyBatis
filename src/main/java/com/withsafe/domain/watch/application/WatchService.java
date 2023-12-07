@@ -2,6 +2,8 @@ package com.withsafe.domain.watch.application;
 
 import com.withsafe.domain.department.dao.DepartmentRepository;
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.user.dao.UserRepository;
+import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +32,7 @@ import static com.withsafe.domain.watch.dto.WatchDTO.*;
 public class WatchService {
     private final WatchRepository watchRepository;
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
     //워치 등록
     @Transactional
     public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName) {
@@ -39,11 +43,22 @@ public class WatchService {
     //전체 워치 조회
     @Transactional
     public List<FindRequest> findAllWatch(@RequestParam String departmentName) {
-        List<Watch> watchList = watchRepository.findWatchByDepartmentName(departmentName);
+        List<Object[]> watchList = watchRepository.findByDepartmentName(departmentName);
 
-        List<FindRequest> findRequestList = watchList.stream()
-                .map(FindRequest::toFindRequest)
+        return watchList.stream()
+                .map(objects -> {
+                    Watch watch = (Watch) objects[0];
+                    String username = (String) objects[1];
+                    return FindRequest.toFindRequest(watch, username);
+                })
                 .collect(Collectors.toList());
-        return findRequestList;
+    }
+    //워치에 유저 매핑
+    @Transactional
+    public Long saveUserToWatch(@RequestParam Long userId, @RequestParam Long watchId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        Watch watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        watch.setUser(user);
+        return watch.getId();
     }
 }

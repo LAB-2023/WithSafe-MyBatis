@@ -1,5 +1,6 @@
 package com.withsafe.domain.user.dto;
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.domain.Sex;
 import com.withsafe.domain.user.domain.User;
 import lombok.Builder;
@@ -13,8 +14,6 @@ public class UserDTO {
     @Getter
     @NoArgsConstructor
     public static class SaveRequest {
-        private Long id;
-
         private String name;    //이름
         private int age;    //나이
         private String phoneNum;   //전화번호
@@ -31,9 +30,13 @@ public class UserDTO {
         private Integer bloodPressure_low;
         private Integer diabetes;
         private Double heartDisease;
+        private String departmentName;
 
         @Builder
-        public SaveRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+        public SaveRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation,
+                           int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height,
+                           double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low,
+                           Integer diabetes, Double heartDisease, String departmentName) {
             this.name = name;
             this.age = age;
             this.phoneNum = phoneNum;
@@ -49,9 +52,10 @@ public class UserDTO {
             this.bloodPressure_low = bloodPressure_low;
             this.diabetes = diabetes;
             this.heartDisease = heartDisease;
+            this.departmentName = departmentName;
         }
 
-        public User toEntity() {
+        public User toEntity(Department department) {
             return User.builder()
                     .name(this.name)
                     .age(this.age)
@@ -68,6 +72,7 @@ public class UserDTO {
                     .bloodPressure_low(this.bloodPressure_low)
                     .diabetes(this.diabetes)
                     .heartDisease(this.heartDisease)
+                    .department(department)
                     .build();
         }
     }
@@ -93,7 +98,8 @@ public class UserDTO {
         private Double heartDisease;
 
         @Builder
-        public FindRequest(String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+        public FindRequest(Long id, String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+            this.id = id;
             this.name = name;
             this.age = age;
             this.phoneNum = phoneNum;
@@ -114,6 +120,7 @@ public class UserDTO {
 
         public User toEntity() {
             return User.builder()
+                    .id(this.id)
                     .name(this.name)
                     .age(this.age)
                     .phoneNum(this.phoneNum)
