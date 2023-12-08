@@ -20,6 +20,7 @@ public class EnvSensor extends BaseTimeEntity {
     @Column(name = "env_sensor_id")
     private Long id;
 
+    @Column(columnDefinition = "geometry(Point, 4326)")
     private Point coordinate;   //환경센서 설치된 좌표
 
     private String serialNum;   //시리얼번호

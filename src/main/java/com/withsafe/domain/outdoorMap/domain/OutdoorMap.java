@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Getter
 @RequiredArgsConstructor
@@ -23,7 +24,9 @@ public class OutdoorMap {
     private Long id;    //PK
 
     private String name;    //지도 이름
-    private org.locationtech.jts.geom.Point coordinate;   //실외 지도의 중심 위도, 경도
+
+    @Column(columnDefinition = "geometry(Point, 4326)")
+    private Point coordinate;   //실외 지도의 중심 위도, 경도
 
     @OneToMany(mappedBy = "outdoorMap")
     private List<EnvSensor> envSensorList = new ArrayList<>();  //실외에 설치된 환경센서 목록
