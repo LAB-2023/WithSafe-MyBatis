@@ -1,12 +1,10 @@
 package com.withsafe.domain.deviceSetting.dto;
 
 import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @Builder
 public class DeviceSettingDTO {
 

@@ -1,20 +1,20 @@
 package com.withsafe.domain.deviceSetting.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.withsafe.domain.warning.dto.WarningMessageDto;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.*;
 
 @Entity
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class DeviceSetting extends BaseTimeEntity {    //워치 데이터 세팅(임계치, 데이터 업로드 주기 등)
     @Id @GeneratedValue
@@ -36,24 +36,46 @@ public class DeviceSetting extends BaseTimeEntity {    //워치 데이터 세팅
     private Integer warning_upload; //경고알림 등록 주기
     private Integer safe_upload;    //구역별 안전수칙 전송 주기
 
-    @Builder
-    public DeviceSetting(Long id, Integer heart_rate_min, Integer heart_rate_max, Integer bio_store, Integer sensor_upload, Integer gps_upload, Integer gps_store, Integer ble_upload, String ble_filter_type, String ble_filter_value, String ble_scan_type, Integer ble_scan_value, Integer battery_upload, Integer charge_upload, Integer warning_upload, Integer safe_upload) {
-//        this.id = id;
-        this.heart_rate_min = heart_rate_min;
-        this.heart_rate_max = heart_rate_max;
-        this.bio_store = bio_store;
-        this.sensor_upload = sensor_upload;
-        this.gps_upload = gps_upload;
-        this.gps_store = gps_store;
-        this.ble_upload = ble_upload;
-        this.ble_filter_type = ble_filter_type;
-        this.ble_filter_value = ble_filter_value;
-        this.ble_scan_type = ble_scan_type;
-        this.ble_scan_value = ble_scan_value;
-        this.battery_upload = battery_upload;
-        this.charge_upload = charge_upload;
-        this.warning_upload = warning_upload;
-        this.safe_upload = safe_upload;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+//    @Builder
+//    public DeviceSetting(Long id, Integer heart_rate_min, Integer heart_rate_max, Integer bio_store, Integer sensor_upload, Integer gps_upload, Integer gps_store, Integer ble_upload, String ble_filter_type, String ble_filter_value, String ble_scan_type, Integer ble_scan_value, Integer battery_upload, Integer charge_upload, Integer warning_upload, Integer safe_upload) {
+////        this.id = id;
+//        this.heart_rate_min = heart_rate_min;
+//        this.heart_rate_max = heart_rate_max;
+//        this.bio_store = bio_store;
+//        this.sensor_upload = sensor_upload;
+//        this.gps_upload = gps_upload;
+//        this.gps_store = gps_store;
+//        this.ble_upload = ble_upload;
+//        this.ble_filter_type = ble_filter_type;
+//        this.ble_filter_value = ble_filter_value;
+//        this.ble_scan_type = ble_scan_type;
+//        this.ble_scan_value = ble_scan_value;
+//        this.battery_upload = battery_upload;
+//        this.charge_upload = charge_upload;
+//        this.warning_upload = warning_upload;
+//        this.safe_upload = safe_upload;
+//    }
+
+    public void update(SaveDeviceSettingRequestDTO updateRequest){
+        this.heart_rate_max= updateRequest.getHeart_rate_min();
+        this.heart_rate_min = updateRequest.getHeart_rate_max();
+        this.bio_store = updateRequest.getBio_store();
+        this.sensor_upload = updateRequest.getSensor_upload();
+        this.gps_store = updateRequest.getGps_store();
+        this.gps_upload = updateRequest.getGps_upload();
+        this.ble_filter_type = updateRequest.getBle_filter_type();
+        this.ble_filter_value = updateRequest.getBle_filter_value();
+        this.ble_scan_type = updateRequest.getBle_scan_type();
+        this.ble_scan_value = updateRequest.getBle_scan_value();
+        this.battery_upload = updateRequest.getBattery_upload();
+        this.charge_upload = updateRequest.getCharge_upload();
+        this.safe_upload = updateRequest.getSafe_upload();
+        this.warning_upload = updateRequest.getWarning_upload();
+
     }
 
     public FindDeviceSettingRequestDTO toFindDeviceSettingDTO(){
