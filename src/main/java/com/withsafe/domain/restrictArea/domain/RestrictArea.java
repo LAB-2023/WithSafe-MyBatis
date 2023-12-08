@@ -26,8 +26,10 @@ public class RestrictArea {
 
     //의존성 추가, yml 수정필요
     //import org.locationtech.jts.geom.Point 사용할 것 (awt 아님)
+    @Column(columnDefinition = "geometry(Point, 4326)")
     private Point coordinate_left;   //제한구역 좌표(왼쪽 위)
 
+    @Column(columnDefinition = "geometry(Point, 4326)")
     private Point coordinate_right;   //제한구역 좌표(오른쪽 아래)
 
 

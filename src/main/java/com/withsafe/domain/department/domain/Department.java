@@ -37,5 +37,16 @@ public class Department {
     public Department(String name) {
         this.name = name;
     }
+
+    public boolean containsIndoorMap(String mapName) {
+        if (indoorMapList != null) {
+            for (IndoorMap indoorMap : indoorMapList) {
+                if (indoorMap.getName().equals(mapName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
