@@ -51,12 +51,15 @@ public class AuthService {
             Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
             Admin admin = adminRepository.findById(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자 입니다."));
-            Department department = admin.getDepartment();
-            String departmentName = department.getName();
+
+            String departmentName;
             if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
                 List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
                 List<Department> departments = departmentRepository.findAllExceptDepartments(excepts);
                 departmentName = departments.get(0).getName();
+            }else{
+                Department department = admin.getDepartment();
+                departmentName = department.getName();
             }
             return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName, admin.getAuthority());
         }catch (RuntimeException e){

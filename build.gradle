@@ -62,8 +62,8 @@ dependencies {
 	//hypersistence-utils for json to mysql
 	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.6.0'
 	//for parsing json
-	implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
-	implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonJaxbAnnotationsVersion}"
+//	implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+//	implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonJaxbAnnotationsVersion}"
 	//포인트형 json 반환위함
 	implementation 'org.n52.jackson:jackson-datatype-jts:1.2.4'
 

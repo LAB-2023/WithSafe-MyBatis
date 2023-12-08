@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("http://localhost:3000")
@@ -18,7 +19,7 @@ public class EnvSensorDataController {
     private final EnvSensorDataService envSensorDataService;
 
     @GetMapping
-    public Map<String, Object> findEnvData() {
+    public List<Map<String, Object>> findEnvData() {
         return envSensorDataService.findEnvData();
     }
 }

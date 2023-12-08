@@ -49,9 +49,16 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Watch> watchList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
 
     @Builder
-    public User(Long id, String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+    public User(Long id, String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation,
+                Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height,
+                Double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes,
+                Double heartDisease, Department department) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -68,13 +75,14 @@ public class User extends BaseTimeEntity {
         this.bloodPressure_low = bloodPressure_low;
         this.diabetes = diabetes;
         this.heartDisease = heartDisease;
+        this.department = department;
     }
 
     public SaveRequest toUserSaveRequestDTO() {
-        return new SaveRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
+        return new SaveRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease, this.department.getName());
     }
     public FindRequest toUserFindRequestDTO() {
-        return new FindRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
+        return new FindRequest(this.id, this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
     }
 
 //    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {
