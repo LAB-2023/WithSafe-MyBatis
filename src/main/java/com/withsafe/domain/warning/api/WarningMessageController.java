@@ -31,6 +31,7 @@ public class WarningMessageController {
         return updateRequestList;
     }
 
+
     //경고 추가 -> 원래는 ppt에 없는데 postman 테스트 용
     @PostMapping
     public SaveRequest saveMessage(@RequestBody SaveRequest saveRequest, @RequestParam String departmentName){
