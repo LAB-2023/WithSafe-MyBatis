@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
+import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.FindDeviceSettingRequestDTO;
 import com.withsafe.domain.user.domain.Sex;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
@@ -18,6 +20,7 @@ public class WatchDTO {
     private Integer deviceNum; //Watch 디바이스 번호
     private LocalDateTime regDate; //Watch 등록일
     private Long userId; //Watch에 매핑될 User id
+    private Department department; //Watch에 매핑될 Department
     //Watch 저장시 사용
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +36,6 @@ public class WatchDTO {
         @NotBlank(message = "디바이스 등록일을 입력해주세요.")
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
         private LocalDateTime regDate; //Watch 등록일
-
         private Long userId; //Watch 에 매핑된 User id
 
         @Builder
@@ -74,7 +76,6 @@ public class WatchDTO {
             this.userName = userName;
             this.watchId = watchId;
         }
-
         public static Watch toEntity(Watch watch){
             return Watch.builder()
                     .serialNum(watch.getSerialNum())
@@ -83,7 +84,6 @@ public class WatchDTO {
                     .deviceNum(watch.getDeviceNum())
                     .build();
         }
-
         public static FindRequest toFindRequest(Watch watch, String username){
             return FindRequest.builder().
                     deviceNum(watch.getDeviceNum())
@@ -92,6 +92,34 @@ public class WatchDTO {
                     .serialNum(watch.getSerialNum())
                     .userName(username)
                     .watchId(watch.getId())
+                    .build();
+        }
+    }
+    @Getter @Setter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class StartRequest{
+        private Long watchId;
+        private Long userId;
+        private String userName;
+        private String departmentName;
+        private Integer uploadInterval;
+
+        @Builder
+        public StartRequest(Long watchId, Long userId, String userName, String departmentName, Integer uploadInterval) {
+            this.watchId = watchId;
+            this.userId = userId;
+            this.userName = userName;
+            this.departmentName = departmentName;
+            this.uploadInterval = 1; //1분
+        }
+
+        public static StartRequest toStartRequest(Watch watch, String username) {
+            return StartRequest.builder()
+                    .watchId(watch.getId())
+                    .userId(watch.getUser().getId())
+                    .userName(username)
+                    .departmentName(watch.getDepartment().getName())
+                    .uploadInterval(1)
                     .build();
         }
     }
