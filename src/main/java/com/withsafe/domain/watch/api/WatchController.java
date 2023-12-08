@@ -2,6 +2,7 @@
 package com.withsafe.domain.watch.api;
 
 import com.withsafe.domain.watch.application.WatchService;
+import com.withsafe.domain.watch.dto.WatchDTO;
 import com.withsafe.domain.watch.dto.WatchDTO.FindRequest;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.withsafe.domain.watch.dto.WatchDTO.*;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -29,7 +32,7 @@ public class WatchController {
         return watchId;
     }
     /**
-     * 모든 워치 조회
+     * 모든 워치 조회 프론트용
      * @return
      */
     @GetMapping
@@ -38,11 +41,16 @@ public class WatchController {
         return findRequestList;
     }
     /**
-     * 워치에 유저 등록
+     * 워치에 유저 등록 프론트용
      */
     @PutMapping
     public Long saveUserToWatch(@RequestParam Long userId ,@RequestParam Long watchId){
         Long savedUserToWatchId = watchService.saveUserToWatch(userId, watchId);
         return savedUserToWatchId;
+    }
+    @GetMapping("/initial")
+    public StartRequest startWatch(@RequestParam String SerialNum){
+        StartRequest startRequest = watchService.initializeWatch(SerialNum);
+        return startRequest;
     }
 }

@@ -26,7 +26,7 @@ public class Watch extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User user;  //워치가 매핑된 유저 id
+    private User user;  //워치가 매핑된 유저
 
     private String serialNum;  //시리얼 번호
 
