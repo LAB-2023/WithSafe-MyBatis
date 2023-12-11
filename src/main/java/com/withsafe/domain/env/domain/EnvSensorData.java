@@ -2,6 +2,7 @@ package com.withsafe.domain.env.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,9 @@ import java.util.Map;
 
 @Entity
 @Getter
+@Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 @TypeDef(name = "json", typeClass = JsonType.class)
 public class EnvSensorData extends BaseTimeEntity {
 
@@ -37,16 +40,6 @@ public class EnvSensorData extends BaseTimeEntity {
     @Column(columnDefinition = "json")
     private Map<String, Object> dataValues = new HashMap<>();
 
-    @Builder
-    public EnvSensorData(Long id, EnvSensor envSensor, String assetCode, String device, Float version, String name, Map<String, Object> dataValues) {
-        this.id = id;
-        this.envSensor = envSensor;
-        this.assetCode = assetCode;
-        this.device = device;
-        this.version = version;
-        this.name = name;
-        this.dataValues = dataValues;
-    }
 
     public EnvSensorData(Map<String, Object> dataValues) {
         this.dataValues = dataValues;
