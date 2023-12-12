@@ -7,20 +7,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class NoticeEmergencyContactDto {
-    private String department;
+    private String departmentName;
     private String name;
     private String phoneNumber;
 
     @Builder
-    public NoticeEmergencyContactDto(String department, String name, String phoneNumber) {
-        this.department = department;
+    public NoticeEmergencyContactDto(String departmentName, String name, String phoneNumber) {
+        this.departmentName = departmentName;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
-    public static NoticeEmergencyContactDto toNoticeEmergencyContactDto(String department, String name, String phoneNumber){
+    public static NoticeEmergencyContactDto toNoticeEmergencyContactDto(String departmentName, String name, String phoneNumber){
         return NoticeEmergencyContactDto.builder()
-                .department(department)
+                .departmentName(departmentName)
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .build();

@@ -6,6 +6,8 @@ import com.withsafe.domain.notice.exception.NoticeNotFoundException;
 import com.withsafe.domain.solve.dao.SolveRepository;
 import com.withsafe.domain.solve.domain.Solve;
 import com.withsafe.domain.solve.dto.SolveDto;
+import com.withsafe.domain.watch.dao.WatchRepository;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.withsafe.domain.solve.dto.SolveDto.*;
 
 /*
     minimum ppt p.8
@@ -27,19 +31,15 @@ public class SolveService {
 
     private final SolveRepository solveRepository;
     private final NoticeRepository noticeRepository;
+    private final WatchRepository watchRepository;
 
     //조치 저장
     @Transactional
-    public Long saveSolve(SolveDto.SaveRequest saveRequest){
+    public Long saveSolve(SaveRequest saveRequest){
         Notice notice =
                 noticeRepository.findById(saveRequest.getNoticeId()).orElseThrow(() -> new NoticeNotFoundException());
         Solve solve = saveRequest.toEntity(notice);
         solveRepository.save(solve);
         return solve.getId();
-    }
-
-    //테스트용 solve 아이디로 엔티티 찾기
-    public Solve findById(Long id){
-        return solveRepository.findById(id).get();
     }
 }

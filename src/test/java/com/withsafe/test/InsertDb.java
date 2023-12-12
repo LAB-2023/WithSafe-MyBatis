@@ -232,7 +232,6 @@ public class InsertDb {
 
         envSensorRepository.save(makeEnvSensor(true, "testModel", "testSerialNum", outdoorMap));
         envSensorRepository.save(makeEnvSensor(true, "testModel2", "testSerialNum2", outdoorMap1));
-
     }
 
     @Test

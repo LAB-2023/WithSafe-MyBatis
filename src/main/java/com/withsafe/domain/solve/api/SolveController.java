@@ -15,6 +15,7 @@ import static com.withsafe.domain.solve.dto.SolveDto.*;
 public class SolveController {
 
     private final SolveService solveService;
+
     @PostMapping
     public ResponseEntity<SaveRequest> createSolve(@RequestBody SaveRequest saveRequest){
         solveService.saveSolve(saveRequest);

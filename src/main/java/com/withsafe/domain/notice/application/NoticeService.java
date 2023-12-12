@@ -27,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static com.withsafe.domain.notice.dto.NoticeWarningResponseDto.*;
+
 /*
     필요기능
     1. 경고 알림 현황 및 조치 사항 출력
@@ -53,7 +55,7 @@ public class NoticeService {
                 watchRepository.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
         WarningMessage warningMessage =
                 warningMessageRepository.findWarningMessageByTypeAndDepartmentName(saveRequest.getWarningMessageType(), departmentName)
-                        .orElseThrow(WatchNotFoundException::new);
+                        .orElseThrow(() -> new RuntimeException("경고 메시지가 존재하지 않습니다."));
 
         Notice notice = saveRequest.toEntity(warningMessage, watch);
 

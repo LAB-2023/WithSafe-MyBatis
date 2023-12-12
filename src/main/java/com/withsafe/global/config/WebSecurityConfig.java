@@ -48,6 +48,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/test/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/watch/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

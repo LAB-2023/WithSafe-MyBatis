@@ -10,6 +10,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/user")
+@RestController
 @RequiredArgsConstructor
 public class UserController {
 

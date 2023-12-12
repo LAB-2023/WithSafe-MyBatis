@@ -57,7 +57,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<FindRequest> findAll(){
-        List<FindRequest> result = userRepository.findAll()
+
+        return userRepository.findAll()
                 .stream()
                 .map(user -> FindRequest.builder()
                         .id(user.getId())
@@ -78,7 +79,5 @@ public class UserService {
                         .heartDisease(user.getHeartDisease())
                         .build())
                 .collect(Collectors.toList());
-
-        return result;
     }
 }
