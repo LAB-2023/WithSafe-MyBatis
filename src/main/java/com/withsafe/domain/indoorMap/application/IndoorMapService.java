@@ -31,7 +31,7 @@ import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
  */
 @Service
 @RequiredArgsConstructor
-public class IndoorMapService {
+    public class IndoorMapService {
 
     private final IndoorMapRepository indoorMapRepository;
     private final IndoorMapLocationRepository indoorMapLocationRepository;

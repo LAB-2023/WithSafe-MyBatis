@@ -1,5 +1,6 @@
 package com.withsafe.domain.deviceSetting.api;
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.deviceSetting.application.DeviceSettingService;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
 import lombok.RequiredArgsConstructor;
@@ -26,19 +27,25 @@ public class DeviceSettingController {
      * @return
      */
     @GetMapping
-    public FindDeviceSettingRequestDTO findDeviceSetting(){
-        return deviceSettingService.findDeviceSetting();
+    public FindDeviceSettingRequestDTO findDeviceSetting(@RequestParam String departmentName){
+        return deviceSettingService.findDeviceSetting(departmentName);
     }
 
-    /**
-     * 디바이스 세팅 저장
-     * @param request
-     * @return
-     */
-    @PostMapping("/save")
-    public SaveDeviceSettingRequestDTO saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request) {
-        deviceSettingService.saveDeviceSetting(request);
-        return request;
+//    /**
+//     * @param request
+//     * @return
+//     */
+//    @PostMapping
+//    public SaveDeviceSettingRequestDTO saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request) {
+//        deviceSettingService.saveDeviceSetting(request);
+//        return request;
+//    }
+
+    @PutMapping
+    public Long updateDeviceSetting(@RequestParam String departmentName,
+                                    @RequestBody SaveDeviceSettingRequestDTO requestDTO) {
+
+        return deviceSettingService.updateDeviceSetting(departmentName, requestDTO);
     }
 
 }

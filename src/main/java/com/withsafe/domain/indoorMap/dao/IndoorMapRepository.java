@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.withsafe.domain.indoorMap.dto.IndoorMapDto.*;
 
@@ -15,6 +16,8 @@ public interface IndoorMapRepository extends JpaRepository<IndoorMap,Long> {
 
 
     List<IndoorMap> findByDepartmentName(String departmentName);
+
+    Optional<IndoorMap> findByName(String mapName);
 
 //    @Query("select i from IndoorUserLocation i where i.mapId = :mapId")
 //    List<IndoorUserLocation> findLocationByMapId(String mapId);

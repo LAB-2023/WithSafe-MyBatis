@@ -59,6 +59,14 @@ public class WatchService {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
         Watch watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
         watch.setUser(user);
+        watch.setIs_used(true);
         return watch.getId();
+    }
+
+    @Transactional
+    public StartRequest initializeWatch(@RequestParam String SerialNum) {
+        Watch watch = (Watch) watchRepository.findBySerialNum(SerialNum).orElseThrow(() -> new IllegalArgumentException("해당 시리얼넘버에 해당하는 기기가 없습니다."));
+        String username = watch.getUser().getName();
+        return StartRequest.toStartRequest(watch, username);
     }
 }

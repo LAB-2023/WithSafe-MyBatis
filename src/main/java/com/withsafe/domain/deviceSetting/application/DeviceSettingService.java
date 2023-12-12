@@ -1,5 +1,7 @@
 package com.withsafe.domain.deviceSetting.application;
 
+import com.withsafe.domain.department.dao.DepartmentRepository;
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.deviceSetting.dao.DeviceSettingRepository;
 import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
@@ -20,15 +22,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DeviceSettingService {
     private final DeviceSettingRepository deviceSettingRepository;
+    private final DepartmentRepository departmentRepository;
 
 
     /**
      * 기존 디바이스 세팅 조회
      */
     @Transactional
-    public FindDeviceSettingRequestDTO findDeviceSetting() {
-        DeviceSetting settingData = deviceSettingRepository.findTopByOrderByIdDesc();
-        return settingData.toFindDeviceSettingDTO();
+    public FindDeviceSettingRequestDTO findDeviceSetting(String departmentName) {
+        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartment(department);
+        return deviceSetting.toFindDeviceSettingDTO();
     }
 
     /**
@@ -38,6 +42,15 @@ public class DeviceSettingService {
     public Long saveDeviceSetting(SaveDeviceSettingRequestDTO saveRequest) {
         DeviceSetting deviceSetting = saveRequest.toEntity();
         deviceSettingRepository.save(deviceSetting);
+        return deviceSetting.getId();
+    }
+
+    //디바이스 세팅 수정 (업데이트)
+    @Transactional
+    public Long updateDeviceSetting(String departmentName, SaveDeviceSettingRequestDTO updateRequest) {
+        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartment(department);
+        deviceSetting.update(updateRequest);
         return deviceSetting.getId();
     }
 
