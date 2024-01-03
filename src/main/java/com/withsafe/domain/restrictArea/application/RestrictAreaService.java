@@ -54,8 +54,7 @@ public class RestrictAreaService {
     private Point getPoint(double x, double y){
         GeometryFactory geometryFactory;
         geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
-        Point point = geometryFactory.createPoint(new Coordinate(x, y));
-        return point;
+        return geometryFactory.createPoint(new Coordinate(x, y));
     }
 
 
