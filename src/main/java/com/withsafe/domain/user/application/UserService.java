@@ -26,6 +26,7 @@ import static com.withsafe.domain.user.dto.UserDTO.*;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
     private final DepartmentRepository departmentRepository;
@@ -39,25 +40,29 @@ public class UserService {
             throw new PhoneNumberDuplicateException("해당 전화번호로 등록된 사용자가 존재합니다.");
         }
 
-        Department department = departmentRepository.findByName(saveRequest.getDepartmentName()).orElseThrow(() -> new RuntimeException("부서가 존재하지 않습니다."));
+        Department department = departmentRepository.findByName(saveRequest.getDepartmentName()).orElseThrow(() ->
+                new RuntimeException("부서가 존재하지 않습니다."));
         User user = saveRequest.toEntity(department);
         userRepository.save(user);
         return user.getId();
     }
 
     //이름으로 조회
-    @Transactional(readOnly = true)
-    public List<User> findUser(String username) {
-        List<User> foundUserList = userRepository.findByName(username);
-        if (foundUserList.isEmpty()) {
+
+    public List<FindRequest> findUser(String username) {
+        List<FindRequest> result = userRepository.findByName(username)
+                .stream()
+                .map(User::toUserFindRequestDTO)
+                .collect(Collectors.toList());
+
+        if (result.isEmpty()) {
             throw new NoSuchElementException("해당 이름의 사용자를 찾지 못했습니다.");
         }
-        return foundUserList;
+
+        return result;
     }
 
-    @Transactional(readOnly = true)
     public List<FindRequest> findAll(){
-
         return userRepository.findAll()
                 .stream()
                 .map(user -> FindRequest.builder()

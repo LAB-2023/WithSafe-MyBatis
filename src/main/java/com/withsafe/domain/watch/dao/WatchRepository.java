@@ -3,6 +3,8 @@ package com.withsafe.domain.watch.dao;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watch.dto.StartRequestDto;
+import com.withsafe.domain.watch.dto.WatchDTO;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +24,9 @@ public interface WatchRepository extends JpaRepository<Watch, Long> {
     Optional<Object> findByUserAndDepartment(User user, Department department);
 
     Optional<Object> findBySerialNum(String serialNum);
+
+    @Query("select new com.withsafe.domain.watch.dto.StartRequestDto(w.id, u.id, u.name, d.name) " +
+            "from Watch w left join w.user u left join w.department d " +
+            "where w.serialNum = :serialNum")
+    Optional<StartRequestDto> findDtoBySerialNum(@Param("serialNum") String serialNum);
 }

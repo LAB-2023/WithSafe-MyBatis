@@ -2,9 +2,12 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     #url: jdbc:postgresql://localhost:5432/withsafe
-    url: jdbc:postgresql://localhost:5432/withsafe?currentSchema=public
-    username: root
-    password: 1220
+#    url: jdbc:postgresql://localhost:5432/test2
+#    username: lych0918
+#    password: 191811
+    url: jdbc:postgresql://27.96.135.39:5432/withtest?currentSchema=public
+    username: postgres
+    password: '!My123456!'
 
   #    driver-class-name: com.mysql.cj.jdbc.Driver
   #    url: jdbc:mysql://27.96.135.39:3306/mydb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
@@ -32,6 +35,7 @@ spring:
         #show_sql: true
         format_sql: true
         default_batch_fetch_size: 1000 #최적화 옵션
+        #dialect: org.hibernate.dialect.PostgreSQLDialect
 
 #  jpa:
 #    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect

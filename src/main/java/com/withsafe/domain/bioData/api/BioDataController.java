@@ -23,8 +23,7 @@ public class BioDataController {
     @PostMapping
     @Transactional
     public Long saveBioData(@RequestBody SaveRequest request){
-        Long bioDataId = bioDataService.saveBioData(request);
-        return bioDataId;
+        return bioDataService.saveBioData(request);
     }
     /**
      * 생체 세부 데이터 조회

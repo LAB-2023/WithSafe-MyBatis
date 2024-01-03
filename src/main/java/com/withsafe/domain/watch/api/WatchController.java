@@ -2,6 +2,7 @@
 package com.withsafe.domain.watch.api;
 
 import com.withsafe.domain.watch.application.WatchService;
+import com.withsafe.domain.watch.dto.StartRequestDto;
 import com.withsafe.domain.watch.dto.WatchDTO;
 import com.withsafe.domain.watch.dto.WatchDTO.FindRequest;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
@@ -28,8 +29,7 @@ public class WatchController {
     @PostMapping
     @Transactional
     public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName){
-        Long watchId = watchService.saveWatch(request, departmentName);
-        return watchId;
+        return watchService.saveWatch(request, departmentName);
     }
     /**
      * 모든 워치 조회 프론트용
@@ -37,20 +37,18 @@ public class WatchController {
      */
     @GetMapping
     public List<FindRequest> findWatch(@RequestParam String departmentName){
-        List<FindRequest> findRequestList = watchService.findAllWatch(departmentName);
-        return findRequestList;
+        return watchService.findAllWatch(departmentName);
     }
     /**
      * 워치에 유저 등록 프론트용
      */
     @PutMapping
     public Long saveUserToWatch(@RequestParam Long userId ,@RequestParam Long watchId){
-        Long savedUserToWatchId = watchService.saveUserToWatch(userId, watchId);
-        return savedUserToWatchId;
+        return watchService.saveUserToWatch(userId, watchId);
     }
+
     @GetMapping("/initial")
-    public StartRequest startWatch(@RequestParam String SerialNum){
-        StartRequest startRequest = watchService.initializeWatch(SerialNum);
-        return startRequest;
+    public StartRequestDto startWatch(@RequestParam String SerialNum){
+        return watchService.initializeWatch(SerialNum);
     }
 }

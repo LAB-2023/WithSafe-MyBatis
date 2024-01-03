@@ -22,8 +22,7 @@ public class BioDataService {
 
     @Transactional
     public Long saveBioData(SaveRequest request) {
-        Long savedBioData = bioDataRepository.save(request.toEntity()).getId();
-        return savedBioData;
+        return bioDataRepository.save(request.toEntity()).getId();
     }
 
 //    @Transactional

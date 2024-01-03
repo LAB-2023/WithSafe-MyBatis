@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.withsafe.domain.user.dto.UserDTO.*;
+
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/user")
 @RestController
@@ -20,18 +22,18 @@ public class UserController {
      * 유저 등록(생성)
      */
     @PostMapping
-    public Long saveUser(@RequestBody UserDTO.SaveRequest request  ) {
+    public Long saveUser(@RequestBody SaveRequest request  ) {
         return userService.saveUser(request);
     }
 
     //유저 조회
     @GetMapping
-    public List<User> findUser(@RequestBody UserDTO.FindRequest request) {
-        return userService.findUser(request.getName());
+    public List<FindRequest> findUser(@RequestParam("username") String username) {
+        return userService.findUser(username);
     }
 
     @GetMapping("/all")
-    public List<UserDTO.FindRequest> findAllUser(){
+    public List<FindRequest> findAllUser(){
         return userService.findAll();
     }
 }

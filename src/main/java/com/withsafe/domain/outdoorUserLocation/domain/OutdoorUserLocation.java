@@ -18,6 +18,7 @@ public class OutdoorUserLocation extends BaseTimeEntity {
     @Column(name = "outdoor_user_location_id")
     private Long id;    //PK
 
+    @Column(columnDefinition = "geometry(Point, 4326)")
     private Point coordinate;   //실외에서 유저의 위치정보(위도, 경도)
 
     //private LocalDateTime date; //해당 위치 정보가 전송된 시간

@@ -117,7 +117,6 @@ public class UserDTO {
             this.heartDisease = heartDisease;
         }
 
-
         public User toEntity() {
             return User.builder()
                     .id(this.id)

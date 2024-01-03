@@ -6,6 +6,7 @@ import com.withsafe.domain.user.dao.UserRepository;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watch.dto.StartRequestDto;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,9 +66,9 @@ public class WatchService {
     }
 
     @Transactional
-    public StartRequest initializeWatch(@RequestParam String SerialNum) {
-        Watch watch = (Watch) watchRepository.findBySerialNum(SerialNum).orElseThrow(() -> new IllegalArgumentException("해당 시리얼넘버에 해당하는 기기가 없습니다."));
-        String username = watch.getUser().getName();
-        return StartRequest.toStartRequest(watch, username);
+    public StartRequestDto initializeWatch(@RequestParam String SerialNum) {
+        return watchRepository.findDtoBySerialNum(SerialNum).orElseThrow(() ->
+                new RuntimeException("해당 워치가 존재하지 않습니다."));
+
     }
 }

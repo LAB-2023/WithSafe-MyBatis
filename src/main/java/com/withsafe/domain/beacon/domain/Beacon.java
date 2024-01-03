@@ -35,6 +35,7 @@ public class Beacon extends BaseTimeEntity {
     @OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
     private List<IndoorEntrance> indoorEntranceList = new ArrayList<>();
 
+    @Column(columnDefinition = "geometry(Point, 4326)")
     private Point coordinate;
 
     private String macAddress;
