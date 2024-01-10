@@ -29,14 +29,12 @@ public class IndoorMapController {
 
     @GetMapping("/location-info")
     public List<IndoorMapLocationInfo> getIndoorMapLocationInfo(@RequestParam String departmentName,
+                                                                @RequestParam Long indoorMapId,
                                                                 @RequestParam(required = false) String userName,
                                                                 @RequestParam(required = false) Integer deviceNum){
 
-        SearchCondition searchCondition = SearchCondition.toSearchCondition(departmentName, userName, deviceNum);
+        SearchCondition searchCondition = SearchCondition.toSearchCondition(departmentName, indoorMapId, userName, deviceNum);
 
         return indoorMapService.getIndoorMapLocationList(searchCondition);
-
     }
-
-
 }

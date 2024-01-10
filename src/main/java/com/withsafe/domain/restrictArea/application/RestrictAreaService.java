@@ -56,6 +56,4 @@ public class RestrictAreaService {
         geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new Coordinate(x, y));
     }
-
-
 }

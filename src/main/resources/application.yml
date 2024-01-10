@@ -29,7 +29,7 @@ spring:
     database: postgresql
     database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         #show_sql: true

@@ -18,7 +18,6 @@ public class RestrictAreaController {
     @PostMapping
     public Long saveRestrictArea(@RequestParam String departmentName, @RequestBody SaveRequest request){
         Long restrictAreaId = restrictAreaService.saveRestrictArea(departmentName, request);
-        System.out.println("=============");
         return restrictAreaId;
     }
 }

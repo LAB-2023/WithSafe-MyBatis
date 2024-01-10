@@ -71,12 +71,14 @@ public class IndoorMapDto {
     @Builder
     public static class SearchCondition{
         private String departmentName;
+        private Long indoorMapId;
         private String userName;
         private Integer deviceNum;
 
-        public static SearchCondition toSearchCondition(String departmentName, String userName, Integer deviceNum) {
+        public static SearchCondition toSearchCondition(String departmentName, Long indoorMapId, String userName, Integer deviceNum) {
             return SearchCondition.builder()
                     .departmentName(departmentName)
+                    .indoorMapId(indoorMapId)
                     .userName(userName)
                     .deviceNum(deviceNum)
                     .build();

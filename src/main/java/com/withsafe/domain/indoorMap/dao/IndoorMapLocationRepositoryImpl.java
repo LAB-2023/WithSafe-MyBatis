@@ -57,7 +57,9 @@ public class IndoorMapLocationRepositoryImpl extends QuerydslRepositorySupport i
 //                        .or(eqDeviceNum(searchCondition.getDeviceNum())))
                 .where(eqDepartmentName(searchCondition.getDepartmentName())
                         ,eqUserName(searchCondition.getUserName())
-                        ,eqDeviceNum(searchCondition.getDeviceNum()))
+                        ,eqDeviceNum(searchCondition.getDeviceNum())
+                        ,eqMapId(searchCondition.getIndoorMapId())
+                )
                 .fetch();
 
 
@@ -115,4 +117,11 @@ public class IndoorMapLocationRepositoryImpl extends QuerydslRepositorySupport i
             return watch.deviceNum.eq(deviceNum);
     }
 
+    //맵 아이디 비교
+    private BooleanExpression eqMapId(Long indoorMapId){
+        System.out.println(indoorMapId);
+        if(indoorMapId == null)
+            return null;
+        else return indoorMap.id.eq(indoorMapId);
+    }
 }
