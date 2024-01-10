@@ -7,10 +7,9 @@ import com.withsafe.domain.watchData.domain.WatchData;
 import com.withsafe.domain.watchData.dto.WatchDataDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

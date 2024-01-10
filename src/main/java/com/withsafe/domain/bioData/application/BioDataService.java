@@ -1,13 +1,17 @@
 package com.withsafe.domain.bioData.application;
 
 import com.withsafe.domain.bioData.dao.BioDataRepository;
+import com.withsafe.domain.bioData.domain.BioData;
 import com.withsafe.domain.bioData.dto.BioDataDto;
 import com.withsafe.domain.bioData.dto.BioDataDto.FindRequest;
 import com.withsafe.domain.bioData.dto.BioDataDto.SaveRequest;
+import com.withsafe.domain.user.application.UserService;
+import com.withsafe.domain.user.dao.UserRepository;
+import com.withsafe.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -19,10 +23,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BioDataService {
     private final BioDataRepository bioDataRepository;
-
+    private final UserRepository userRepository;
     @Transactional
-    public Long saveBioData(SaveRequest request) {
-        return bioDataRepository.save(request.toEntity()).getId();
+    public Long saveBioData(SaveRequest request, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+        BioData bioData = request.toEntity(user);
+        return bioDataRepository.save(bioData).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<FindRequest> findRequest(Long userId){
+        return bioDataRepository.findUserBioData(userId);
     }
 
 //    @Transactional
@@ -30,4 +41,5 @@ public class BioDataService {
 //        List<FindRequest> findRequestList = bioDataRepository.findByUserId(userId);
 //        return findRequestList;
 //    }
+
 }
