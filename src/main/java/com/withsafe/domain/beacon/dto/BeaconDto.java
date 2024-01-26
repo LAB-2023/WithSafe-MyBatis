@@ -2,8 +2,6 @@ package com.withsafe.domain.beacon.dto;
 
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
-import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
-import com.withsafe.domain.warning.domain.WarningMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,14 +1,14 @@
 package com.withsafe.domain.department.application;
 
-import com.withsafe.domain.department.dao.DepartmentRepository;
+import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.domain.department.dto.DepartmentDTO;
 import com.withsafe.domain.department.exception.DepartmentAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DepartmentService {
 
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
 
     //부서 생성
     @Transactional
@@ -32,11 +32,11 @@ public class DepartmentService {
         Department newDepartment = request.toEntity();
 
         // 같은 이름의 부서가 존재하는지 확인
-        if (departmentRepository.existsByName(newDepartment.getName())) {
+        if (departmentMapper.existsByName(newDepartment.getName()) > 0) {
             throw new DepartmentAlreadyExistsException("같은 이름을 가진 부서가 이미 존재합니다.");
         }
 
-        departmentRepository.save(newDepartment);
+        departmentMapper.save(newDepartment);
         return newDepartment.getId();
     }
 
@@ -50,7 +50,7 @@ public class DepartmentService {
     //모든 부서 이름 받기
     public List<String> findAllDepartmentName(){
         List<String> excepts = Arrays.asList("MASTER", "SBSystems");
-        return departmentRepository.findAllExceptDepartments(excepts)
+        return departmentMapper.findAllExceptDepartments(excepts)
                 .stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());

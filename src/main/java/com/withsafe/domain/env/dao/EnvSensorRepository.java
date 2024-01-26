@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EnvSensorRepository extends JpaRepository<EnvSensor, Long> {
-    @Query("SELECT es FROM EnvSensor es JOIN es.outdoorMap om WHERE om.department.name = :dept_name")
+    @Query("SELECT es FROM EnvSensor es JOIN es.outdoorMap om WHERE om.departmentJpa.name = :dept_name")
     List<EnvSensor> findEnvSensorByDept(
             @Param("dept_name") String deptName);
 //    @Query("SELECT esd\n" +

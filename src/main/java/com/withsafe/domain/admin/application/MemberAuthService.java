@@ -1,6 +1,6 @@
 package com.withsafe.domain.admin.application;
 
-import com.withsafe.domain.admin.dao.AdminRepository;
+import com.withsafe.domain.admin.dao.AdminMapper;
 import com.withsafe.domain.admin.domain.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,11 +17,11 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class MemberAuthService implements UserDetailsService {
 
-    private final AdminRepository adminRepository;
+    private final AdminMapper adminMapper;
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        return adminRepository.findByLoginId(loginId)
+        return adminMapper.findByLoginId(loginId)
                 .map(this::createUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException(loginId + "을 찾을 수 없습니다."));
     }

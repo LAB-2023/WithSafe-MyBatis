@@ -1,6 +1,6 @@
 package com.withsafe.domain.department.dao;
 
-import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+public interface DepartmentRepository extends JpaRepository<DepartmentJpa, Long> {
 
     boolean existsByName(String name);
 
-    Optional<Department> findByName(String name);
+    Optional<DepartmentJpa> findByName(String name);
 
-    @Query("SELECT d FROM Department d WHERE d.name NOT IN :excludedDepartments")
-    List<Department> findAllExceptDepartments(@Param("excludedDepartments") List<String> departmentNames);
+    @Query("SELECT d FROM DepartmentJpa d WHERE d.name NOT IN :excludedDepartments")
+    List<DepartmentJpa> findAllExceptDepartments(@Param("excludedDepartments") List<String> departmentNames);
 }
 

@@ -2,7 +2,7 @@ package com.withsafe.domain.indoorMap.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withsafe.domain.beacon.domain.Beacon;
-import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,22 +35,22 @@ public class IndoorMap {
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;  //지도를 포함하고 있는 부서
+    private DepartmentJpa departmentJpa;  //지도를 포함하고 있는 부서
 
 
     /*연관관계 편의 메서드*/
-    public void setDepartment(Department department) {
-        this.department = department;
-        department.getIndoorMapList().add(this);
+    public void setDepartmentJpa(DepartmentJpa departmentJpa) {
+        this.departmentJpa = departmentJpa;
+        departmentJpa.getIndoorMapList().add(this);
     }
 
     @Builder
-    public IndoorMap(Long id, String name, String imageUrl, List<Beacon> beaconList, List<RestrictArea> restrictAreaList, Department department) {
+    public IndoorMap(Long id, String name, String imageUrl, List<Beacon> beaconList, List<RestrictArea> restrictAreaList, DepartmentJpa departmentJpa) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.beaconList = beaconList;
         this.restrictAreaList = restrictAreaList;
-        this.department = department;
+        this.departmentJpa = departmentJpa;
     }
 }

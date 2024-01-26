@@ -1,9 +1,7 @@
 package com.withsafe.domain.watchData.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.warning.dto.WarningMessageDto;
-import com.withsafe.domain.watch.domain.Watch;
-import com.withsafe.domain.watchData.dto.WatchDataDTO;
+import com.withsafe.domain.watch.domain.WatchJpa;
 import com.withsafe.domain.watchData.dto.WatchDataDTO.SaveRequest;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,10 +25,10 @@ public class WatchData extends BaseTimeEntity {
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "watch_id")
-    private Watch watch;
+    private WatchJpa watch;
 
     @Builder
-    public WatchData(Long id, String battery, String charge, Watch watch) {
+    public WatchData(Long id, String battery, String charge, WatchJpa watch) {
         this.id = id;
         this.battery = battery;
         this.charge = charge;

@@ -71,7 +71,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
 
-
+	// MyBatis
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
 }
 
 tasks.named('test') {

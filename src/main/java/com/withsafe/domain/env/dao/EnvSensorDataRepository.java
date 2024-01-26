@@ -30,14 +30,14 @@ public interface EnvSensorDataRepository extends JpaRepository<EnvSensorData, Lo
 //            "    GROUP BY esInner.id\n" +
 //            ")")
     @Query("SELECT esd\n" +
-            "FROM Department d\n" +
+            "FROM DepartmentJpa d\n" +
             "JOIN d.outdoorMapList om\n" +
             "JOIN om.envSensorList es\n" +
             "JOIN es.envSensorDataList esd\n" +
             "WHERE d.name = :deptName\n" +
             "AND esd.createdDate = (\n" +
             "    SELECT MAX(esdInner.createdDate)\n" +
-            "    FROM Department dInner\n" +
+            "    FROM DepartmentJpa dInner\n" +
             "    JOIN dInner.outdoorMapList omInner\n" +
             "    JOIN omInner.envSensorList esInner\n" +
             "    JOIN esInner.envSensorDataList esdInner\n" +

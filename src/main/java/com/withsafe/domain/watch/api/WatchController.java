@@ -2,17 +2,14 @@
 package com.withsafe.domain.watch.api;
 
 import com.withsafe.domain.watch.application.WatchService;
-import com.withsafe.domain.watch.dto.StartRequestDto;
-import com.withsafe.domain.watch.dto.WatchDTO;
-import com.withsafe.domain.watch.dto.WatchDTO.FindRequest;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
+import com.withsafe.domain.watch.dto.WatchListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.withsafe.domain.watch.dto.WatchDTO.*;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -36,19 +33,27 @@ public class WatchController {
      * @return
      */
     @GetMapping
-    public List<FindRequest> findWatch(@RequestParam String departmentName){
+    public List<WatchListDto> findWatch(@RequestParam String departmentName){
         return watchService.findAllWatch(departmentName);
     }
     /**
      * 워치에 유저 등록 프론트용
      */
-    @PutMapping
+    @PutMapping("/user")
     public Long saveUserToWatch(@RequestParam Long userId ,@RequestParam Long watchId){
         return watchService.saveUserToWatch(userId, watchId);
     }
 
-    @GetMapping("/initial")
-    public StartRequestDto startWatch(@RequestParam String SerialNum){
-        return watchService.initializeWatch(SerialNum);
+    /**
+     * 워치에 헬멧 등록 프론트용
+     */
+    @PutMapping("/helmet")
+    public Long saveHelmetToWatch(@RequestParam Long helmetId, @RequestParam Long watchId){
+        return watchService.saveHelmetToWatch(helmetId, watchId);
     }
+//
+//    @GetMapping("/initial")
+//    public StartRequestDto startWatch(@RequestParam String SerialNum){
+//        return watchService.initializeWatch(SerialNum);
+//    }
 }

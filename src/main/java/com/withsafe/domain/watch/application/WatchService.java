@@ -1,25 +1,25 @@
 package com.withsafe.domain.watch.application;
 
-import com.withsafe.domain.department.dao.DepartmentRepository;
+import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.user.dao.UserRepository;
+import com.withsafe.domain.helmet.dao.HelmetMapper;
+import com.withsafe.domain.helmet.domain.Helmet;
+import com.withsafe.domain.user.dao.UserMapper;
 import com.withsafe.domain.user.domain.User;
-import com.withsafe.domain.watch.dao.WatchRepository;
+import com.withsafe.domain.watch.dao.WatchMapper;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.dto.StartRequestDto;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
+import com.withsafe.domain.watch.dto.WatchListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.Serial;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.withsafe.domain.watch.dto.WatchDTO.*;
 
 /**
  * 필요한 기능 CRUD
@@ -32,43 +32,51 @@ import static com.withsafe.domain.watch.dto.WatchDTO.*;
 @Service
 @RequiredArgsConstructor
 public class WatchService {
-    private final WatchRepository watchRepository;
-    private final DepartmentRepository departmentRepository;
-    private final UserRepository userRepository;
+
+    private final WatchMapper watchMapper;
+    private final DepartmentMapper departmentMapper;
+    private final UserMapper userMapper;
+    private final HelmetMapper helmetMapper;
+
     //워치 등록
     @Transactional
-    public Long saveWatch(@RequestBody SaveRequest request, @RequestParam String departmentName) {
-        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
-        Watch savedWatch = watchRepository.save(request.toEntity(department));
+    public Long saveWatch(SaveRequest request, String departmentName) {
+        Department department = departmentMapper.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        Watch savedWatch = request.toEntity(department);
+        watchMapper.save(savedWatch);
         return savedWatch.getId();
     }
     //전체 워치 조회
     @Transactional
-    public List<FindRequest> findAllWatch(@RequestParam String departmentName) {
-        List<Object[]> watchList = watchRepository.findByDepartmentName(departmentName);
-
-        return watchList.stream()
-                .map(objects -> {
-                    Watch watch = (Watch) objects[0];
-                    String username = (String) objects[1];
-                    return FindRequest.toFindRequest(watch, username);
-                })
-                .collect(Collectors.toList());
+    public List<WatchListDto> findAllWatch(String departmentName) {
+        List<WatchListDto> watchList = watchMapper.findByDepartmentName(departmentName);
+        return watchList;
     }
+
     //워치에 유저 매핑
     @Transactional
-    public Long saveUserToWatch(@RequestParam Long userId, @RequestParam Long watchId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
-        Watch watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
-        watch.setUser(user);
-        watch.setIs_used(true);
+    public Long saveUserToWatch(Long userId, Long watchId) {
+        User user = userMapper.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        Watch watch = watchMapper.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        watch.updateUser(user);
+        watchMapper.updateUser(watch);
         return watch.getId();
     }
 
-    @Transactional
-    public StartRequestDto initializeWatch(@RequestParam String SerialNum) {
-        return watchRepository.findDtoBySerialNum(SerialNum).orElseThrow(() ->
-                new RuntimeException("해당 워치가 존재하지 않습니다."));
-
+    public Long saveHelmetToWatch(Long helmetId, Long watchId) {
+        Helmet helmet = helmetMapper.findById(helmetId).orElseThrow(() -> new IllegalArgumentException("해당 헬멧이 없습니다."));
+        Watch watch = watchMapper.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        watch.updateHelmet(helmet);
+        watchMapper.updateWatch(watch);
+        helmet.updateUsed();
+        helmetMapper.update(helmet);
+        return watch.getId();
     }
+//
+//    @Transactional
+//    public StartRequestDto initializeWatch(@RequestParam String SerialNum) {
+//        return watchRepository.findDtoBySerialNum(SerialNum).orElseThrow(() ->
+//                new RuntimeException("해당 워치가 존재하지 않습니다."));
+//
+//    }
 }

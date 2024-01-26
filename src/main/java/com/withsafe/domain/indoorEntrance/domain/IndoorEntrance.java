@@ -2,7 +2,7 @@ package com.withsafe.domain.indoorEntrance.domain;
 
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watch.domain.WatchJpa;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class IndoorEntrance extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "watch_id")
-    private Watch watch;    //실내 구역에 출입한 워치 id
+    private WatchJpa watch;    //실내 구역에 출입한 워치 id
 
 //    @Builder
 //    public IndoorEntrance(Long id, Beacon beacon, Watch watch) {
@@ -41,7 +41,7 @@ public class IndoorEntrance extends BaseTimeEntity {
 //    }
 
     @Builder
-    public IndoorEntrance(Long id, Beacon beacon, Watch watch) {
+    public IndoorEntrance(Long id, Beacon beacon, WatchJpa watch) {
         this.id = id;
         this.beacon = beacon;
         this.watch = watch;

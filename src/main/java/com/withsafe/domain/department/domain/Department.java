@@ -1,52 +1,32 @@
 package com.withsafe.domain.department.domain;
 
-import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
-import com.withsafe.domain.watch.domain.Watch;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.withsafe.domain.watch.domain.WatchJpa;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
-@Entity
-@Getter @Setter
+@Getter
 @RequiredArgsConstructor
 public class Department {
 
-    @Id @GeneratedValue
-    @Column(name = "department_id")
+
     private Long id;
 
     private String name;    //부서 이름
 
-    @OneToMany(mappedBy = "department")
-    private List<Watch> watchList = new ArrayList<>();    //부서에 포함된 유저 목록
+    private List<WatchJpa> watchList = new ArrayList<>();    //부서에 포함된 유저 목록
 
-    @OneToMany(mappedBy = "department")
     private List<OutdoorMap> outdoorMapList = new ArrayList<>();    //부서에 포함된 실외지도 목록
 
-    @OneToMany(mappedBy = "department")
     private List<IndoorMap> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
 
     @Builder
-    public Department(String name) {
+    public Department(Long id, String name) {
+        this.id = id;
         this.name = name;
-    }
-
-    public boolean containsIndoorMap(String mapName) {
-        if (indoorMapList != null) {
-            for (IndoorMap indoorMap : indoorMapList) {
-                if (indoorMap.getName().equals(mapName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
 

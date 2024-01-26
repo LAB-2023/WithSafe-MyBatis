@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.admin.dao.AdminMapper">
+    <resultMap id="adminResultMap" type="com.withsafe.domain.admin.domain.Admin">
+        <id property="id" column="admin_id" />
+        <result property="authority" column="authority" javaType="com.withsafe.domain.admin.domain.Authority"/>
+        <result property="loginId" column="login_id" />
+        <result property="loginPassword" column="login_password" />
+        <result property="name" column="name" />
+        <!-- department 열에 매핑되어야 합니다. -->
+        <association property="department" column="department_id" javaType="com.withsafe.domain.department.domain.Department">
+            <id property="id" column="department_id" />
+            <result property="name" column="name"/>
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+    </resultMap>
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+    <select id="findById" resultMap="adminResultMap" resultType="com.withsafe.domain.admin.domain.Admin">
+        SELECT *
+        FROM admin
+        WHERE admin_id = #{id}
+    </select>
+
+    <select id="findByLoginId" resultMap="adminResultMap" resultType="com.withsafe.domain.admin.domain.Admin">
+        SELECT *
+        FROM admin
+        WHERE login_id = #{loginId}
+    </select>
+</mapper>

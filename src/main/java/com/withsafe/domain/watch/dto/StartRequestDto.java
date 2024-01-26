@@ -1,6 +1,6 @@
 package com.withsafe.domain.watch.dto;
 
-import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watch.domain.WatchJpa;
 import lombok.*;
 
 @Getter
@@ -21,12 +21,12 @@ public class StartRequestDto {
         this.uploadInterval = 1; //1분
     }
 
-    public static WatchDTO.StartRequest toStartRequest(Watch watch, String username) {
+    public static WatchDTO.StartRequest toStartRequest(WatchJpa watch, String username) {
         return WatchDTO.StartRequest.builder()
                 .watchId(watch.getId())
                 .userId(watch.getUser().getId())
                 .userName(username)
-                .departmentName(watch.getDepartment().getName())
+                .departmentName(watch.getDepartmentJpa().getName())
                 .uploadInterval(1)
                 .build();
     }

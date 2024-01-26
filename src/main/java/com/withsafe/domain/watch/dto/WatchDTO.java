@@ -1,13 +1,8 @@
 package com.withsafe.domain.watch.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
-import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.FindDeviceSettingRequestDTO;
-import com.withsafe.domain.user.domain.Sex;
-import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

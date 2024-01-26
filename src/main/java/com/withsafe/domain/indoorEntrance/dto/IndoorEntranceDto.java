@@ -1,16 +1,10 @@
 package com.withsafe.domain.indoorEntrance.dto;
 
 import com.withsafe.domain.beacon.domain.Beacon;
-import com.withsafe.domain.watch.domain.Watch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter

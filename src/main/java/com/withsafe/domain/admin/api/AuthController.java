@@ -18,8 +18,8 @@ public class AuthController {
 
     //회원가임
     @PostMapping("/signup")
-    public ResponseEntity<LoginResponseDto> signup(@RequestBody AdminSaveRequestDto requestDto){
-        return ok(authService.signup(requestDto));
+    public int signup(@RequestBody AdminSaveRequestDto requestDto){
+        return authService.signup(requestDto);
     }
 
     //로그인
@@ -27,5 +27,4 @@ public class AuthController {
     public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto loginRequestDto){
         return ok(authService.login(loginRequestDto));
     }
-
 }

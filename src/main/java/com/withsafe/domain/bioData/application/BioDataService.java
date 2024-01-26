@@ -1,12 +1,9 @@
 package com.withsafe.domain.bioData.application;
 
-import com.withsafe.domain.bioData.dao.BioDataRepository;
+import com.withsafe.domain.bioData.dao.BioDataMapper;
 import com.withsafe.domain.bioData.domain.BioData;
-import com.withsafe.domain.bioData.dto.BioDataDto;
-import com.withsafe.domain.bioData.dto.BioDataDto.FindRequest;
-import com.withsafe.domain.bioData.dto.BioDataDto.SaveRequest;
-import com.withsafe.domain.user.application.UserService;
-import com.withsafe.domain.user.dao.UserRepository;
+import com.withsafe.domain.bioData.dto.BioDataSaveDto;
+import com.withsafe.domain.user.dao.UserMapper;
 import com.withsafe.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,20 +19,21 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BioDataService {
-    private final BioDataRepository bioDataRepository;
-    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final BioDataMapper bioDataMapper;
     @Transactional
-    public Long saveBioData(SaveRequest request, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+    public Long saveBioData(BioDataSaveDto request, Long userId) {
+        User user = userMapper.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
         BioData bioData = request.toEntity(user);
-        return bioDataRepository.save(bioData).getId();
+        bioDataMapper.save(bioData);
+        return bioData.getId();
     }
 
     @Transactional(readOnly = true)
-    public List<FindRequest> findRequest(Long userId){
-        return bioDataRepository.findUserBioData(userId);
+    public List<BioDataSaveDto> findRequest(Long userId){
+        return bioDataMapper.findUserBioData(userId);
     }
-
+//
 //    @Transactional
 //    public List<FindRequest> findWeekBioData(Long userId,FindRequest request) {
 //        List<FindRequest> findRequestList = bioDataRepository.findByUserId(userId);

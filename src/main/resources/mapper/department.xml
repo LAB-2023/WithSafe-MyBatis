@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.department.dao.DepartmentMapper">
+    <resultMap id="departmentResultMap" type="com.withsafe.domain.department.domain.Department">
+        <id property="id" column="department_id" />
+        <result property="name" column="name"/>
+        <!-- department 열에 매핑되어야 합니다. -->
+        <collection property="watchList" ofType="com.withsafe.domain.watch.domain.WatchJpa">
+            <id property="watchId" column="watch_id"/>
+            <result property="watchName" column="watch_name"/>
+            <!-- 나머지 Watch 필드들의 매핑 -->
+        </collection>
+        <collection property="outdoorMapList" ofType="com.withsafe.domain.outdoorMap.domain.OutdoorMap">
+            <id property="outdoorMapId" column="outdoor_map_id"/>
+<!--            <result property="watchName" column="watch_name"/>-->
+            <!-- 나머지 Watch 필드들의 매핑 -->
+        </collection>
+        <collection property="indoorMapList" ofType="com.withsafe.domain.indoorMap.domain.IndoorMap">
+            <id property="indoorMapId" column="indoor_map_id"/>
+<!--            <result property="watchName" column="watch_name"/>-->
+            <!-- 나머지 Watch 필드들의 매핑 -->
+        </collection>
+    </resultMap>
+
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+    <select id="findAllExceptDepartments" resultMap="departmentResultMap" resultType="com.withsafe.domain.department.domain.Department">
+        SELECT *
+        FROM department
+        WHERE name NOT IN
+        <foreach item="excepts" collection="excepts" open="(" separator="," close=")">
+            #{excepts}
+        </foreach>
+    </select>
+</mapper>

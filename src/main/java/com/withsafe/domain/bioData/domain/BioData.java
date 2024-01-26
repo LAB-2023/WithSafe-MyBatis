@@ -2,7 +2,7 @@ package com.withsafe.domain.bioData.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.user.domain.User;
-import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.global.BaseTimeDomain;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,12 +10,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class BioData extends BaseTimeEntity {  //워치에서 넘어오는 유저의 생체 데이터
-    @Id @GeneratedValue
-    @Column(name = "bio_data_id")
+public class BioData extends BaseTimeDomain {  //워치에서 넘어오는 유저의 생체 데이터
+
     private Long id;
     private Integer heartRate;     //심장박동수
     private Double temperature; //체온
@@ -23,8 +21,6 @@ public class BioData extends BaseTimeEntity {  //워치에서 넘어오는 유�
     private Double oxygen;  //산소포화도
     private Integer calorie; //칼로리
     private Boolean isFall; //낙상 여부
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Builder

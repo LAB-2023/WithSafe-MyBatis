@@ -1,10 +1,9 @@
 package com.withsafe.domain.deviceSetting.application;
 
 import com.withsafe.domain.department.dao.DepartmentRepository;
-import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.domain.deviceSetting.dao.DeviceSettingRepository;
 import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
-import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.FindDeviceSettingRequestDTO;
 import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.SaveDeviceSettingRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +29,8 @@ public class DeviceSettingService {
      */
     @Transactional
     public FindDeviceSettingRequestDTO findDeviceSetting(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
-        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartment(department);
+        DepartmentJpa departmentJpa = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartmentJpa(departmentJpa);
         return deviceSetting.toFindDeviceSettingDTO();
     }
 
@@ -48,8 +47,8 @@ public class DeviceSettingService {
     //디바이스 세팅 수정 (업데이트)
     @Transactional
     public Long updateDeviceSetting(String departmentName, SaveDeviceSettingRequestDTO updateRequest) {
-        Department department = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
-        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartment(department);
+        DepartmentJpa departmentJpa = departmentRepository.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        DeviceSetting deviceSetting = deviceSettingRepository.findByDepartmentJpa(departmentJpa);
         deviceSetting.update(updateRequest);
         return deviceSetting.getId();
     }

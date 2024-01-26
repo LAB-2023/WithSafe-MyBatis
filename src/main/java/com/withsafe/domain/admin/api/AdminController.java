@@ -1,6 +1,5 @@
 package com.withsafe.domain.admin.api;
 
-import com.withsafe.domain.admin.application.AdminService;
 import com.withsafe.domain.department.application.DepartmentService;
 import com.withsafe.domain.department.dto.DepartmentDTO;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +22,17 @@ public class AdminController {
 
     private final DepartmentService departmentService;
 
-    @PostMapping("/department-test")
-    public void test(){
-        //테스트용 DEPARTMENT INPUT
-        DepartmentDTO.saveDepartment saveDepartment = new DepartmentDTO.saveDepartment("TEST_DEPARTMENT");
-        departmentService.saveDepartment(saveDepartment);
-        DepartmentDTO.saveDepartment saveDepartment2 = new DepartmentDTO.saveDepartment("SBSYSTEMS");
-        departmentService.saveDepartment(saveDepartment2);
-        DepartmentDTO.saveDepartment saveDepartment3 = new DepartmentDTO.saveDepartment("MAINCOMPANY");
-        departmentService.saveDepartment(saveDepartment3);
-        DepartmentDTO.saveDepartment saveDepartment4 = new DepartmentDTO.saveDepartment("TESTCOMPANY");
-        departmentService.saveDepartment(saveDepartment4);
-        //
-    }
+//    @PostMapping("/department-test")
+//    public void test(){
+//        //테스트용 DEPARTMENT INPUT
+//        DepartmentDTO.saveDepartment saveDepartment = new DepartmentDTO.saveDepartment("TEST_DEPARTMENT");
+//        departmentService.saveDepartment(saveDepartment);
+//        DepartmentDTO.saveDepartment saveDepartment2 = new DepartmentDTO.saveDepartment("SBSYSTEMS");
+//        departmentService.saveDepartment(saveDepartment2);
+//        DepartmentDTO.saveDepartment saveDepartment3 = new DepartmentDTO.saveDepartment("MAINCOMPANY");
+//        departmentService.saveDepartment(saveDepartment3);
+//        DepartmentDTO.saveDepartment saveDepartment4 = new DepartmentDTO.saveDepartment("TESTCOMPANY");
+//        departmentService.saveDepartment(saveDepartment4);
+//        //
+//    }
 }

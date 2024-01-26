@@ -1,9 +1,7 @@
 package com.withsafe.domain.deviceSetting.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
-import com.withsafe.domain.warning.dto.WarningMessageDto;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,7 +36,7 @@ public class DeviceSetting extends BaseTimeEntity {    //워치 데이터 세팅
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;
+    private DepartmentJpa departmentJpa;
 
 //    @Builder
 //    public DeviceSetting(Long id, Integer heart_rate_min, Integer heart_rate_max, Integer bio_store, Integer sensor_upload, Integer gps_upload, Integer gps_store, Integer ble_upload, String ble_filter_type, String ble_filter_value, String ble_scan_type, Integer ble_scan_value, Integer battery_upload, Integer charge_upload, Integer warning_upload, Integer safe_upload) {

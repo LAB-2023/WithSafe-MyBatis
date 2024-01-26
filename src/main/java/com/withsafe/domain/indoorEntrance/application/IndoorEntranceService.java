@@ -33,9 +33,9 @@ public class IndoorEntranceService {
 
     //리스트 반환
     public Page<SearchResultDto> getIndoorEntranceList (SearchCondition searchCondition, Pageable pageable){
-        Page<SearchResultDto> listBySearchCondition = indoorEntranceRepository.findAllBySearchCondition(searchCondition, pageable);
+        //Page<SearchResultDto> listBySearchCondition = indoorEntranceRepository.findAllBySearchCondition(searchCondition, pageable);
 
-        return listBySearchCondition;
+        return null;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.withsafe.domain.watchData.dto;
 
-import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watch.domain.WatchJpa;
 import com.withsafe.domain.watchData.domain.WatchData;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class WatchDataDTO {
             this.battery = battery;
             this.charge = charge;
         }
-        public WatchData toEntity(Watch watch) {
+        public WatchData toEntity(WatchJpa watch) {
             return WatchData.builder()
                     .battery(battery)
                     .charge(charge)

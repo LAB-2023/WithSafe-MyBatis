@@ -22,18 +22,30 @@ public class UserController {
      * 유저 등록(생성)
      */
     @PostMapping
-    public Long saveUser(@RequestBody SaveRequest request  ) {
+    public Long saveUser(@RequestBody SaveRequest request) {
         return userService.saveUser(request);
     }
 
     //유저 조회
     @GetMapping
-    public List<FindRequest> findUser(@RequestParam("username") String username) {
-        return userService.findUser(username);
+    public List<FindRequest> findUser(@RequestParam("username") String username,
+                                      @RequestParam("departmentName") String departmentName) {
+        return userService.findUser(username, departmentName);
     }
 
     @GetMapping("/all")
-    public List<FindRequest> findAllUser(){
-        return userService.findAll();
+    public List<FindRequest> findAllUser(@RequestParam("departmentName") String departmentName){
+        return userService.findAll(departmentName);
     }
+
+    //
+//    //긴급 연락 망 리스트 출력
+//    //일단 보류
+//    @GetMapping("/emergency-contact")
+//    public Page<NoticeEmergencyContactDto> emergencyContactList(@RequestParam(required = false) String name,
+//                                                                @RequestParam(required = false) String phoneNumber,
+//                                                                @RequestParam String departmentName,
+//                                                                Pageable pageable){
+//        return noticeService.findAllEmergencyContactNotice(name, phoneNumber, departmentName, pageable);
+//    }
 }

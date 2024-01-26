@@ -1,13 +1,10 @@
 package com.withsafe.domain.user.domain;
 
 
-import com.withsafe.domain.BaseTimeEntity;
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.watch.domain.Watch;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.withsafe.domain.watch.domain.WatchJpa;
+import com.withsafe.global.BaseTimeDomain;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,14 +13,11 @@ import java.util.List;
 
 import static com.withsafe.domain.user.dto.UserDTO.*;
 
-@Entity
-@Getter @Setter
+@Getter
 @RequiredArgsConstructor
 @Table(name = "Member")
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeDomain {
 
-    @Id @GeneratedValue
-    @Column(name = "user_id")
     private Long id;
 
     private String name;    //이름
@@ -37,7 +31,6 @@ public class User extends BaseTimeEntity {
     private Double height;  //키
     private Double weight;  //몸무게
 
-    @Enumerated(value = EnumType.STRING)
     private Sex sex;    //성별
 
     private Integer bloodPressure_high;
@@ -45,14 +38,9 @@ public class User extends BaseTimeEntity {
     private Integer diabetes;
     private Double heartDisease;
 
-    //FK
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Watch> watchList = new ArrayList<>();
+    private List<WatchJpa> watchList = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
     private Department department;
-
 
     @Builder
     public User(Long id, String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation,
@@ -82,7 +70,25 @@ public class User extends BaseTimeEntity {
         return new SaveRequest(this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease, this.department.getName());
     }
     public FindRequest toUserFindRequestDTO() {
-        return new FindRequest(this.id, this.name,this.age,this.phoneNum,this.emergency_contact,this.emergency_relation, this.heartRate_threshold, this.oxygen_threshold,this.walk_threshold,this.height,this.weight,this.sex,this.bloodPressure_high,this.bloodPressure_low,this.diabetes,this.heartDisease);
+        return FindRequest
+                .builder()
+                .id(id)
+                .name(name)
+                .age(age)
+                .phoneNum(phoneNum)
+                .emergency_contact(emergency_contact)
+                .emergency_relation(emergency_relation)
+                .heartDisease(heartDisease)
+                .bloodPressure_high(bloodPressure_high)
+                .bloodPressure_low(bloodPressure_low)
+                .diabetes(diabetes)
+                .heartRate_threshold(heartRate_threshold)
+                .height(height)
+                .weight(weight)
+                .oxygen_threshold(oxygen_threshold)
+                .sex(sex)
+                .walk_threshold(walk_threshold)
+                .build();
     }
 
 //    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {

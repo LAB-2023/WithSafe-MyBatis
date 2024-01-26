@@ -1,8 +1,6 @@
 package com.withsafe.domain.deviceSetting.api;
 
-import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.deviceSetting.application.DeviceSettingService;
-import com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

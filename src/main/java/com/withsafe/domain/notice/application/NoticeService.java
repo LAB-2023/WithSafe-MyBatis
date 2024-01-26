@@ -1,5 +1,8 @@
 package com.withsafe.domain.notice.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.withsafe.domain.notice.dao.NoticeMapper;
 import com.withsafe.domain.notice.dao.NoticeRepository;
 import com.withsafe.domain.notice.domain.Notice;
 import com.withsafe.domain.notice.domain.NoticeType;
@@ -8,26 +11,18 @@ import com.withsafe.domain.notice.dto.NoticeSaveRequestDto;
 import com.withsafe.domain.notice.dto.NoticeEmergencyContactDto;
 import com.withsafe.domain.notice.dto.NoticeWarningResponseDto;
 import com.withsafe.domain.notice.exception.WatchNotFoundException;
-import com.withsafe.domain.solve.application.SolveService;
-import com.withsafe.domain.solve.domain.Solve;
-import com.withsafe.domain.solve.dto.SolveDto;
-import com.withsafe.domain.user.dao.UserRepository;
-import com.withsafe.domain.user.domain.User;
-import com.withsafe.domain.warning.application.WarningMessageService;
-import com.withsafe.domain.warning.dao.WarningMessageRepository;
+import com.withsafe.domain.user.dao.UserMapper;
+import com.withsafe.domain.warning.dao.WarningMessageMapper;
 import com.withsafe.domain.warning.domain.WarningMessage;
-import com.withsafe.domain.watch.dao.WatchRepository;
+import com.withsafe.domain.watch.dao.WatchMapper;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
-
-import static com.withsafe.domain.notice.dto.NoticeWarningResponseDto.*;
 
 /*
     필요기능
@@ -42,46 +37,51 @@ import static com.withsafe.domain.notice.dto.NoticeWarningResponseDto.*;
 @Transactional(readOnly = true)
 public class NoticeService {
 
-    private final NoticeRepository noticeRepository;
-    private final WatchRepository watchRepository;
-    private final UserRepository userRepository;
-    private final WarningMessageRepository warningMessageRepository;
-    private final SolveService solveService;
+    private final NoticeMapper noticeMapper;
+    private final WatchMapper watchMapper;
+    private final UserMapper userMapper;
+    private final WarningMessageMapper warningMessageMapper;
 
     //경고 알림 저장
     @Transactional
     public Long saveNotice(NoticeSaveRequestDto saveRequest, String departmentName){
         Watch watch =
-                watchRepository.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
+                watchMapper.findById(saveRequest.getWatchId()).orElseThrow(WatchNotFoundException::new);
         WarningMessage warningMessage =
-                warningMessageRepository.findWarningMessageByTypeAndDepartmentName(saveRequest.getWarningMessageType(), departmentName)
+                warningMessageMapper.findWarningMessageByTypeAndDepartmentName(saveRequest.getWarningMessageType(), departmentName)
                         .orElseThrow(() -> new RuntimeException("경고 메시지가 존재하지 않습니다."));
 
         Notice notice = saveRequest.toEntity(warningMessage, watch);
-
-        noticeRepository.save(notice);
+        noticeMapper.save(notice);
         return notice.getId();
     }
 
     //메인 경고 알림 전체 출력
-    public Page<NoticeMainResponseDto> findAllMainNotice(NoticeType noticeType, Pageable pageable, String departmentName){
-        return noticeRepository.noticeMainResponseDtoPage(noticeType, pageable, departmentName);
+    public PageInfo<NoticeMainResponseDto> findAllMainNotice(int page, int size, NoticeType noticeType, String departmentName){
+        PageHelper.startPage(page, size);
+        List<NoticeMainResponseDto> result = noticeMapper.noticeMainResponseDtoPage(noticeType, departmentName);
+        return new PageInfo<>(result);
     }
 
     //경고 창 경고 알림 전체 출력
-    public Page<NoticeWarningResponseDto> findAllWarningNotice(String name, LocalDateTime startDate, LocalDateTime endDate,
-                                                               int option, Pageable pageable, String departmentName){
-        return noticeRepository.noticeWarningResponseDtoPage(name, startDate, endDate, option, pageable, departmentName);
-    }
+    public PageInfo<NoticeWarningResponseDto> findAllWarningNotice(int page, int size, String username,
+                                                                   LocalDateTime startDate, LocalDateTime endDate,
+                                                                   String departmentName){
+        PageHelper.startPage(page, size);
 
-    //긴급 연락망 클릭 시 연락망 리스트 출력
-    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber,
-                                                                         String departmentName, Pageable pageable){
-        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, departmentName, pageable);
+        List<NoticeWarningResponseDto> result =
+                noticeMapper.noticeWarningResponseDtoPage(username, startDate, endDate, departmentName);
+        return new PageInfo<>(result);
     }
-
-    //테스트 용
-    public Optional<Notice> findNoticeById(Long id){
-        return noticeRepository.findById(id);
-    }
+//
+//    //긴급 연락망 클릭 시 연락망 리스트 출력
+//    public Page<NoticeEmergencyContactDto> findAllEmergencyContactNotice(String name, String phoneNumber,
+//                                                                         String departmentName, Pageable pageable){
+//        return noticeRepository.noticeEmergencyContactResponseDtoPage(name, phoneNumber, departmentName, pageable);
+//    }
+//
+//    //테스트 용
+//    public Optional<NoticeJpa> findNoticeById(Long id){
+//        return noticeRepository.findById(id);
+//    }
 }

@@ -3,6 +3,7 @@ package com.withsafe.domain.admin.dto;
 import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

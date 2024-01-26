@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto.*;
 @Repository
-public interface IndoorEntranceRepository{
+public interface IndoorEntranceRepository extends JpaRepository<IndoorEntrance, Long> {
 
-    Page<SearchResultDto> findAllBySearchCondition(SearchCondition searchCondition, Pageable pageable);
+    //Page<SearchResultDto> findAllBySearchCondition(SearchCondition searchCondition, Pageable pageable);
 }

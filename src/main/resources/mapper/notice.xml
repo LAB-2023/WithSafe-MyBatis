@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.notice.dao.NoticeMapper">
+    <resultMap id="noticeResultMap" type="com.withsafe.domain.notice.domain.Notice">
+        <id property="id" column="notice_id" />
+        <result property="createdDate" column="created_date"/>
+        <result property="modifiedDate" column="modified_date"/>
+        <result property="content" column="content"/>
+        <result property="noticeType" column="notice_type" javaType="com.withsafe.domain.notice.domain.NoticeType"/>
+        <association property="warning_message" column="warning_message_id"
+                     javaType="com.withsafe.domain.warning.domain.WarningMessage">
+            <id property="id" column="warning_message_id" />
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+        <association property="watch" column="watch_id" javaType="com.withsafe.domain.watch.domain.Watch">
+            <id property="id" column="watch_id" />
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+    </resultMap>
+
+    <resultMap id="noticeMainDtoMap" type="com.withsafe.domain.notice.dto.NoticeMainResponseDto">
+        <result property="id" column="notice_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="name" column="user_name"/>
+        <result property="noticeType" column="notice_type" javaType="com.withsafe.domain.notice.domain.NoticeType"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="solveContent" column="solve_content"/>
+        <result property="createdDate" column="created_date"/>
+    </resultMap>
+
+    <select id="noticeMainResponseDtoPage" resultMap="noticeMainDtoMap">
+        SELECT n.notice_id AS notice_id, d.name AS department_name, m.name AS user_name, n.notice_type,
+               n.content AS notice_content, s.content AS solve_content, n.created_date
+        FROM notice AS n
+        JOIN watch AS w ON n.watch_id = w.watch_id
+        JOIN member AS m ON m.user_id = w.user_id
+        JOIN department AS d ON w.department_id = d.department_id
+        LEFT JOIN solve AS s ON n.notice_id = s.notice_id
+        <where>
+            <if test="noticeType != null">
+                AND n.notice_type = #{noticeType}
+            </if>
+            <if test="departmentName != null">
+                AND d.name = #{departmentName}
+            </if>
+        </where>
+        ORDER BY n.created_date DESC
+    </select>
+
+    <resultMap id="noticeWarningDtoMap" type="com.withsafe.domain.notice.dto.NoticeWarningResponseDto">
+        <result property="id" column="notice_id"/>
+        <result property="name" column="user_name"/>
+        <result property="warningMessageType" column="warning_message_type" javaType="com.withsafe.domain.warning.domain.WarningMessageType"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="solveContent" column="solve_content"/>
+        <result property="solveDate" column="solve_created_date"/>
+        <result property="createdDate" column="created_date"/>
+    </resultMap>
+
+    <select id="noticeWarningResponseDtoPage" resultMap="noticeWarningDtoMap">
+        SELECT
+        n.notice_id AS notice_id, m.name AS user_name, wm.type AS warning_message_type,n.content AS notice_content,
+        COALESCE(s.content, '미조치') AS solve_content,
+        s.created_date AS solve_created_date,
+        n.created_date
+        FROM notice AS n
+        JOIN warning_message AS wm ON n.warning_message_id = wm.warning_message_id
+        JOIN watch AS w ON n.watch_id = w.watch_id
+        JOIN member AS m ON m.user_id = w.user_id
+        JOIN department AS d ON w.department_id = d.department_id
+        LEFT JOIN solve AS s ON n.notice_id = s.notice_id
+        <where>
+            <if test="username != null">
+                AND m.name = #{username}
+            </if>
+            <if test="departmentName != null">
+                AND d.name = #{departmentName}
+            </if>
+            <if test="startDate != null">
+                AND n.created_date &gt;=#{startDate}
+            </if>
+            <if test="endDate != null">
+                AND n.created_date &lt;=#{endDate}
+            </if>
+        </where>
+        ORDER BY n.created_date DESC
+    </select>
+</mapper>

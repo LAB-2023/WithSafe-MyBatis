@@ -1,19 +1,14 @@
 package com.withsafe.domain.bioData.api;
 
 import com.withsafe.domain.bioData.application.BioDataService;
-import com.withsafe.domain.bioData.dto.BioDataDto;
+import com.withsafe.domain.bioData.dto.BioDataSaveDto;
 import com.withsafe.domain.user.dao.UserRepository;
-import com.withsafe.domain.user.domain.User;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
 
 import java.util.List;
 
-import static com.withsafe.domain.bioData.dto.BioDataDto.*;
+import static com.withsafe.domain.bioData.dto.BioDataSaveDto.*;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -26,7 +21,7 @@ public class BioDataController {
      * 생체 데이터 저장
      */
     @PostMapping
-    public Long saveBioData(@RequestBody SaveRequest request, @RequestParam Long userId){
+    public Long saveBioData(@RequestBody BioDataSaveDto request, @RequestParam Long userId){
         return bioDataService.saveBioData(request, userId);
     }
     /**
@@ -34,8 +29,8 @@ public class BioDataController {
      * 심박수 1주일치 평균, 최대, 최소
      */
     @GetMapping
-    public List<FindRequest> findBioData(@RequestParam Long userId){
-        List<FindRequest> request = bioDataService.findRequest(userId);
+    public List<BioDataSaveDto> findBioData(@RequestParam Long userId){
+        List<BioDataSaveDto> request = bioDataService.findRequest(userId);
         return request;
     }
 

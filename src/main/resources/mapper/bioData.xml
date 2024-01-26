@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.bioData.dao.BioDataMapper">
+    <resultMap id="bioDataResultMap" type="com.withsafe.domain.bioData.domain.BioData">
+        <id property="id" column="bio_data_id" />
+        <result property="heartRate" column="heart_rate"/>
+        <result property="temperature" column="temperature" />
+        <result property="walkCount" column="walk_count" />
+        <result property="oxygen" column="oxygen" />
+        <result property="calorie" column="calorie" />
+        <result property="isFall" column="is_fall" />
+        <!-- user 열에 매핑되어야 합니다. -->
+        <association property="user" column="user_id" javaType="com.withsafe.domain.user.domain.User">
+            <id property="id" column="user_id" />
+            <id property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="bioDataFindDtoResultMap" type="com.withsafe.domain.bioData.dto.BioDataFindDto">
+        <result property="heartRate" column="heart_rate"/>
+        <result property="temperature" column="temperature" />
+        <result property="walkCount" column="walk_count" />
+        <result property="oxygen" column="oxygen" />
+        <result property="calorie" column="calorie" />
+        <result property="isFall" column="is_fall" />
+        <result property="createdDate" column="created_date"/>
+    </resultMap>
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+
+    <select id="findUserBioData" resultMap="bioDataFindDtoResultMap">
+        SELECT heart_rate, temperature, walk_count, oxygen, calorie, is_fall, created_date FROM bio_data
+        <where>
+            <if test="userId != null">
+                bio_data.user_id = #{userId}
+            </if>
+        </where>
+        ORDER BY created_date DESC
+        LIMIT 10
+    </select>
+</mapper>

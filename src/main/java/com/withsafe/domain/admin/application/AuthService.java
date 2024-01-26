@@ -1,11 +1,12 @@
 package com.withsafe.domain.admin.application;
 
-import com.withsafe.domain.admin.dao.AdminRepository;
+import com.withsafe.domain.admin.dao.AdminMapper;
 import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
-import com.withsafe.domain.department.dao.DepartmentRepository;
+import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -27,21 +28,21 @@ import static com.withsafe.domain.admin.dto.AdminDto.*;
 @Transactional
 public class AuthService {
     private final AuthenticationManagerBuilder managerBuilder;
-    private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
     private final TokenProvider tokenProvider;
+    private final AdminMapper adminMapper;
 
     //회원가입
-    public LoginResponseDto signup(AdminSaveRequestDto requestDto){
-        if(adminRepository.existsByLoginId(requestDto.getLoginId())){
+    public int signup(AdminSaveRequestDto requestDto){
+        if(adminMapper.existsByLoginId(requestDto.getLoginId()) > 0){
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
         String encodePassword = passwordEncoder.encode(requestDto.getLoginPassword());
-        Department department = departmentRepository
+        Department department = departmentMapper
                 .findByName(requestDto.getDepartmentName()).orElseThrow(() -> new RuntimeException("부서가 존재하지 않습니다."));
         Admin admin = Admin.toEntity(requestDto, department, encodePassword);
-        return LoginResponseDto.of(adminRepository.save(admin), department.getName());
+        return adminMapper.save(admin);
     }
 
     //로그인
@@ -49,13 +50,12 @@ public class AuthService {
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
         try{
             Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-            Admin admin = adminRepository.findById(Long.valueOf(authentication.getName()))
+            Admin admin = adminMapper.findById(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자 입니다."));
-
             String departmentName;
             if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
                 List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
-                List<Department> departments = departmentRepository.findAllExceptDepartments(excepts);
+                List<Department> departments = departmentMapper.findAllExceptDepartments(excepts);
                 departmentName = departments.get(0).getName();
             }else{
                 Department department = admin.getDepartment();
@@ -63,6 +63,7 @@ public class AuthService {
             }
             return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName, admin.getAuthority());
         }catch (RuntimeException e){
+            e.printStackTrace();
             throw new RuntimeException("아이디나 비밀번호를 확인해주세요.");
         }
     }

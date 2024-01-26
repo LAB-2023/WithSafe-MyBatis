@@ -98,7 +98,10 @@ public class UserDTO {
         private Double heartDisease;
 
         @Builder
-        public FindRequest(Long id, String name, int age, String phoneNum, String emergency_contact, String emergency_relation, int heartRate_threshold, int oxygen_threshold, int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high, Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
+        public FindRequest(Long id, String name, int age, String phoneNum, String emergency_contact,
+                           String emergency_relation, int heartRate_threshold, int oxygen_threshold,
+                           int walk_threshold, double height, double weight, Sex sex, Integer bloodPressure_high,
+                           Integer bloodPressure_low, Integer diabetes, Double heartDisease) {
             this.id = id;
             this.name = name;
             this.age = age;

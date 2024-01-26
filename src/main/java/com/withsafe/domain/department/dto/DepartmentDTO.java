@@ -1,6 +1,7 @@
 package com.withsafe.domain.department.dto;
 
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.domain.DepartmentJpa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
