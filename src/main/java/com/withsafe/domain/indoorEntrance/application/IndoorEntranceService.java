@@ -1,5 +1,7 @@
 package com.withsafe.domain.indoorEntrance.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.beacon.dao.BeaconMapper;
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.beacon.dto.BeaconResponseDto;
@@ -11,15 +13,11 @@ import com.withsafe.domain.indoorEntrance.dto.SearchResultDto;
 import com.withsafe.domain.watch.dao.WatchMapper;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto.*;
 
 /**
  * 페이지 : 구역 출입 현황
@@ -39,22 +37,24 @@ public class IndoorEntranceService {
     private final WatchMapper watchMapper;
 
     //실내 위치 저장
-    public Long save(IndoorEntranceDto.SaveRequest request){
+    public Long save(SaveRequest request){
         Watch watch = watchMapper.findBySerialNum(request.getWatchSerialNum())
                 .orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
-        BeaconResponseDto beaconDto = beaconMapper.findByMacAddress(request.getBeaconMacAddress())
+//        BeaconResponseDto beaconDto = beaconMapper.findByMacAddress(request.getBeaconMacAddress())
+//                .orElseThrow(() -> new IllegalArgumentException("해당 비콘이 없습니다."));
+//        Beacon beacon = Beacon.toEntity(beaconDto);
+        Beacon beacon = beaconMapper.findByMacAddress(request.getBeaconMacAddress())
                 .orElseThrow(() -> new IllegalArgumentException("해당 비콘이 없습니다."));
-        Beacon beacon = Beacon.toEntity(beaconDto);
         IndoorEntrance indoorEntrance = IndoorEntrance.toEntity(beacon, watch);
         indoorEntranceMapper.save(indoorEntrance);
         return indoorEntrance.getId();
     }
 
     //리스트 반환
-    public Page<SearchResultDto> getIndoorEntranceList (SearchCondition searchCondition, Pageable pageable){
-        //Page<SearchResultDto> listBySearchCondition = indoorEntranceRepository.findAllBySearchCondition(searchCondition, pageable);
-
-        return null;
+    public PageInfo<SearchResultDto> getIndoorEntranceList (SearchCondition searchCondition,
+                                                            int page, int size){
+        PageHelper.startPage(page, size);
+        List<SearchResultDto> result = indoorEntranceMapper.findEntranceInfo(searchCondition);
+        return new PageInfo<>(result);
     }
-
 }

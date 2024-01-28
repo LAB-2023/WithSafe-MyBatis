@@ -17,7 +17,7 @@
         <association property="indoorMap" column="indoor_map_id" javaType="com.withsafe.domain.indoorMap.domain.IndoorMap">
             <id property="id" column="indoor_map_id" />
         </association>
-        <association property="outdoorMap" column="outdoor_map_id" javaType="com.withsafe.domain.outdoorMap.domain.OutdoorMap">
+        <association property="outdoorMap" column="outdoor_map_id" javaType="com.withsafe.domain.outdoorMap.domain.OutdoorMapJpa">
             <id property="id" column="outdoor_map_id" />
             <!-- 다른 Department 필드 매핑 -->
         </association>

@@ -1,8 +1,7 @@
 package com.withsafe.domain.env.domain;
 
 import com.withsafe.domain.BaseTimeEntity;
-import com.withsafe.domain.env.dto.EnvSensorDTO;
-import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.outdoorMap.domain.OutdoorMapJpa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,14 +36,14 @@ public class EnvSensor extends BaseTimeEntity {
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outdoor_map_id")
-    private OutdoorMap outdoorMap;  //설치된 실외지도 id
+    private OutdoorMapJpa outdoorMap;  //설치된 실외지도 id
 
     @OneToMany(mappedBy = "envSensor")
     private List<EnvSensorData> envSensorDataList = new ArrayList<>();
 
 
     // == 연관관계 편의 메서드 == //
-    public void setOutdoorMap(OutdoorMap outdoorMap) {
+    public void setOutdoorMap(OutdoorMapJpa outdoorMap) {
         this.outdoorMap = outdoorMap;
         outdoorMap.getEnvSensorList().add(this);
     }

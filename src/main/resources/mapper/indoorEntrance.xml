@@ -16,9 +16,33 @@
         </association>
     </resultMap>
 
-    <resultMap id="indoorEntranceInfoMap" type="com.withsafe.domain.indoorEntrance.dto.IndoorEntranceInfoDto">
-        <id property="id" column="indoor_entrance_id" />
+    <resultMap id="indoorSearchResultDtoMap" type="com.withsafe.domain.indoorEntrance.dto.SearchResultDto">
+        <result property="deviceNum" column="device_num"/>
+        <result property="userName" column="username"/>
+        <result property="mapName" column="map_name"/>
+        <result property="enterTime" column="enter_time"/>
+        <result property="exitTime" column="exit_time"/>
     </resultMap>
 
     <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+    <select id="findEntranceInfo" resultMap="indoorSearchResultDtoMap">
+        SELECT w.device_num AS device_num, m.name AS username, im.name AS map_name,
+               ie.created_date AS enter_time, ie.modified_date AS exit_time
+        FROM indoor_entrance ie
+        JOIN beacon b ON b.beacon_id = ie.beacon_id
+        JOIN indoor_map im ON im.indoor_map_id = b.indoor_map_id
+        JOIN watch w ON w.watch_id = ie.watch_id
+        JOIN member m ON m.user_id = w.user_id
+        <where>
+            <if test="userName != null">
+                AND m.name = #{userName}
+            </if>
+            <if test="startDate != null">
+                AND n.created_date &gt;=#{startDate}
+            </if>
+            <if test="endDate != null">
+                AND n.created_date &lt;=#{endDate}
+            </if>
+        </where>
+    </select>
 </mapper>

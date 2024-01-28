@@ -1,13 +1,13 @@
 package com.withsafe.domain.restrictArea.application;
 
-import com.withsafe.domain.department.dao.DepartmentMapper;
-import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.beacon.domain.Beacon;
+import com.withsafe.domain.beacon.dto.BeaconResponseDto;
 import com.withsafe.domain.indoorMap.dao.IndoorMapMapper;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
-import com.withsafe.domain.outdoorMap.Repository.OutdoorMapRepository;
+import com.withsafe.domain.outdoorMap.dao.OutdoorMapper;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.outdoorMap.dto.OutdoorMapFindRequestDto;
 import com.withsafe.domain.restrictArea.dao.RestrictAreaMapper;
-import com.withsafe.domain.restrictArea.dao.RestrictAreaRepository;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import com.withsafe.domain.restrictArea.dto.RestrictAreaDto.SaveRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +21,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RestrictAreaService {
 
-    private final DepartmentMapper departmentMapper;
     private final IndoorMapMapper indoorMapMapper;
     private final RestrictAreaMapper restrictAreaMapper;
-    private final OutdoorMapRepository outdoorMapRepository;
+    private final OutdoorMapper outdoorMapper;
 
     //사용자가 지정한 위험 구역 저장
     public Long saveRestrictArea(String departmentName, SaveRequest request) {
-        Department department = departmentMapper.findByName(departmentName).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
         IndoorMap indoorMap = null;
         OutdoorMap outdoorMap = null;
 
@@ -37,8 +35,12 @@ public class RestrictAreaService {
 
         indoorMap = indoorMapMapper.findByDepartmentNameAndIndoorMapName(departmentName, request.getMapName());
         if (indoorMap == null){
-            outdoorMap = outdoorMapRepository
-                    .findByName(request.getMapName()).orElseThrow(() -> new IllegalArgumentException("해당 outdoor가 없습니다."));
+//            OutdoorMapFindRequestDto outdoorMapFindRequestDto =
+//                    outdoorMapper.findByOutdoorMapNameAndDepartmentName(departmentName, request.getMapName())
+//                    .orElseThrow(() -> new IllegalArgumentException("해당 외부 지도가 없습니다."));
+//            Point coordinate = getPoint(outdoorMapFindRequestDto.getCoordinate_x(), outdoorMapFindRequestDto.getCoordinate_y());
+//            outdoorMap = OutdoorMap.toEntity(outdoorMapFindRequestDto, coordinate);
+            outdoorMap = outdoorMapper.findByOutdoorMapNameAndDepartmentName(departmentName, request.getMapName()).orElseThrow();
         }
 
         RestrictArea savedRestrictArea = request.toEntity(coordinate_left, coordinate_right, indoorMap, outdoorMap);

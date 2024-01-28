@@ -15,7 +15,7 @@
             <result property="watchName" column="watch_name"/>
             <!-- 나머지 Watch 필드들의 매핑 -->
         </collection>
-        <collection property="outdoorMapList" ofType="com.withsafe.domain.outdoorMap.domain.OutdoorMap">
+        <collection property="outdoorMapList" ofType="com.withsafe.domain.outdoorMap.domain.OutdoorMapJpa">
             <id property="outdoorMapId" column="outdoor_map_id"/>
 <!--            <result property="watchName" column="watch_name"/>-->
             <!-- 나머지 Watch 필드들의 매핑 -->

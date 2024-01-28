@@ -40,14 +40,15 @@ public class IndoorMapDto {
         private String departmentName;
         private Long indoorMapId;
         private String userName;
-        private Integer deviceNum;
+        private String serialNum;
 
-        public static SearchCondition toSearchCondition(String departmentName, Long indoorMapId, String userName, Integer deviceNum) {
+        public static SearchCondition toSearchCondition(String departmentName, Long indoorMapId,
+                                                        String userName, String serialNum) {
             return SearchCondition.builder()
                     .departmentName(departmentName)
                     .indoorMapId(indoorMapId)
                     .userName(userName)
-                    .deviceNum(deviceNum)
+                    .serialNum(serialNum)
                     .build();
         }
     }

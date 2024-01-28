@@ -23,5 +23,6 @@ public interface NoticeMapper {
 
     List<NoticeMainResponseDto> noticeMainResponseDtoPage(NoticeType noticeType, String departmentName);
 
-    List<NoticeWarningResponseDto> noticeWarningResponseDtoPage(String username, LocalDateTime startDate, LocalDateTime endDate, String departmentName);
+    List<NoticeWarningResponseDto> noticeWarningResponseDtoPage(String username, LocalDateTime startDate,
+                                                                LocalDateTime endDate, String departmentName);
 }

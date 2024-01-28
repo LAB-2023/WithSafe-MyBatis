@@ -14,5 +14,6 @@ import java.util.List;
 public class IndoorEntranceInfoDto {
     private Long watchId;
     private String modifiedDate;
+    private String serialNum;
     private String username;
 }

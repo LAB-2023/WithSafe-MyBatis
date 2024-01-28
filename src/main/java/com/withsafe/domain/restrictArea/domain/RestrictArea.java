@@ -43,7 +43,8 @@ public class RestrictArea {
 //    }
 
     @Builder
-    public RestrictArea(Long id, String name, String safetyRule, Point coordinate_left, Point coordinate_right, IndoorMap indoorMap, OutdoorMap outdoorMap) {
+    public RestrictArea(Long id, String name, String safetyRule, Point coordinate_left, Point coordinate_right,
+                        IndoorMap indoorMap, OutdoorMap outdoorMap) {
         this.id = id;
         this.name = name;
         this.safetyRule = safetyRule;

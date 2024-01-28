@@ -16,8 +16,13 @@ public interface BeaconMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "beacon_id")
     void save(Beacon beacon);
 
-    @Select("SELECT *, ST_X(b.coordinate) AS coordinate_x, ST_X(b.coordinate) AS coordinate_y" +
-            " FROM beacon b WHERE mac_address = #{macAddress}")
-    @ResultMap("beaconDtoResultMap")
-    Optional<BeaconResponseDto> findByMacAddress(String macAddress);
+//    @Select("SELECT *, ST_X(b.coordinate) AS coordinate_x, ST_X(b.coordinate) AS coordinate_y" +
+//            " FROM beacon b WHERE mac_address = #{macAddress}")
+//    @ResultMap("beaconDtoResultMap")
+//    Optional<BeaconResponseDto> findByMacAddress(String macAddress);
+
+    @Select("SELECT b.beacon_id AS beacon_id " +
+            "FROM beacon b WHERE mac_address = #{macAddress}")
+    @ResultMap("beaconResultMap")
+    Optional<Beacon> findByMacAddress(String macAddress);
 }

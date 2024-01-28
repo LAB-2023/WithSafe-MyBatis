@@ -21,10 +21,6 @@ import java.time.LocalDateTime;
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final UserRepository userRepository;
-    private final WatchRepository watchRepository;
-    private final WarningMessageRepository warningMessageRepository;
-    private final DepartmentRepository departmentRepository;
 
 
     //경고 알림 메시지 저장

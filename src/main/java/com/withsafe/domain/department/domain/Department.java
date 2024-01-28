@@ -1,7 +1,6 @@
 package com.withsafe.domain.department.domain;
 
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
-import com.withsafe.domain.indoorMap.domain.IndoorMapJpa;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.watch.domain.Watch;
 import lombok.*;

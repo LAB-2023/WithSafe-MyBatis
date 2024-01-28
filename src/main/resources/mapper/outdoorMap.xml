@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.outdoorMap.dao.OutdoorMapper">
+    <resultMap id="outdoorMapResultMap" type="com.withsafe.domain.outdoorMap.domain.OutdoorMap">
+        <id property="id" column="outdoor_map_id"/>
+        <result property="coordinate_x" column="coordinate_x"/>
+        <result property="coordinate_y" column="coordinate_y"/>
+        <result property="name" column="name"/>
+        <association property="department" column="department_id" javaType="com.withsafe.domain.department.domain.Department">
+            <id property="department_id" column="department_id"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="outdoorMapFindResultMap" type="com.withsafe.domain.outdoorMap.dto.OutdoorMapFindRequestDto">
+        <id property="id" column="id"/>
+        <result property="coordinate_x" column="coordinate_x"/>
+        <result property="coordinate_y" column="coordinate_y"/>
+        <result property="mapName" column="name"/>
+        <result property="departmentId" column="department_id"/>
+    </resultMap>
+</mapper>

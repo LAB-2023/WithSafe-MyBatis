@@ -26,10 +26,10 @@
 //import com.withsafe.domain.notice.dao.NoticeRepository;
 //import com.withsafe.domain.notice.domain.Notice;
 //import com.withsafe.domain.notice.domain.NoticeType;
-//import com.withsafe.domain.outdoorMap.Repository.OutdoorMapRepository;
+//import com.withsafe.domain.outdoorMap.dao.OutdoorMapRepository;
 //import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 //import com.withsafe.domain.outdoorUserLocation.domain.OutdoorUserLocation;
-//import com.withsafe.domain.outdoorUserLocation.repository.OutdoorUserLocationRepository;
+//import com.withsafe.domain.outdoorUserLocation.dao.OutdoorUserLocationRepository;
 //import com.withsafe.domain.restrictArea.domain.RestrictArea;
 //import com.withsafe.domain.restrictArea.dao.RestrictAreaRepository;
 //import com.withsafe.domain.solve.dao.SolveRepository;

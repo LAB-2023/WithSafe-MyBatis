@@ -3,23 +3,14 @@ package com.withsafe.domain.env.appplication;
 import com.withsafe.domain.env.dao.EnvSensorDataRepository;
 import com.withsafe.domain.env.dao.EnvSensorRepository;
 import com.withsafe.domain.env.domain.EnvSensor;
-import com.withsafe.domain.env.domain.EnvSensorData;
-import com.withsafe.domain.env.dto.EnvSensorAndDataDTO;
 import com.withsafe.domain.env.dto.EnvSensorDTO;
-import com.withsafe.domain.outdoorMap.Repository.OutdoorMapRepository;
-import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.outdoorMap.dao.OutdoorMapRepository;
+import com.withsafe.domain.outdoorMap.domain.OutdoorMapJpa;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static com.withsafe.domain.env.domain.QEnvSensor.envSensor;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +24,7 @@ public class EnvSensorService {
     @Transactional
     public EnvSensor saveEnvSensor(Long outdoorMapId, EnvSensorDTO.EnvSensorSaveRequestDTO request) {
         EnvSensor envSensor = EnvSensorDTO.toEnvSensor(request);
-        OutdoorMap outdoorMap = outdoorMapRepository.findById(outdoorMapId)
+        OutdoorMapJpa outdoorMap = outdoorMapRepository.findById(outdoorMapId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 실외지도가 존재하지 않습니다."));
         envSensor.setOutdoorMap(outdoorMap);
 

@@ -48,6 +48,7 @@
             <collection property="indoorEntranceInfoDtoList" ofType="com.withsafe.domain.indoorEntrance.dto.IndoorEntranceInfoDto">
                 <id property="watchId" column="watch_id"/>
                 <result property="modifiedDate" column="modified_date"/>
+                <result property="serialNum" column="serial_num"/>
                 <result property="username" column="user_name"/>
             </collection>
         </collection>
@@ -70,6 +71,7 @@
             ST_Y(b.coordinate) AS coordinate_y,
             ie.watch_id AS watch_id,
             ie.modified_date AS modified_date,
+            w.serial_num AS serial_num,
             m.name AS user_name
         FROM
             indoor_map im
@@ -79,7 +81,18 @@
                 LEFT JOIN watch w ON w.watch_id = ie.watch_id
                 LEFT JOIN member m ON m.user_id = w.user_id
                 JOIN department d ON im.department_id = d.department_id
-        WHERE
+        <where>
             im.indoor_map_id = #{indoorMapId}
+            <if test="departmentName != null">
+                AND d.name = #{departmentName}
+            </if>
+            <if test="userName != null">
+                AND m.name = #{userName}
+            </if>
+            <if test="serialNum != null">
+                AND w.serial_num = #{serialNum}
+            </if>
+        </where>
+
     </select>
 </mapper>

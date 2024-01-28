@@ -1,7 +1,7 @@
 package com.withsafe.domain.restrictArea.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
+import com.withsafe.domain.outdoorMap.domain.OutdoorMapJpa;
 import com.withsafe.domain.indoorMap.domain.IndoorMapJpa;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,7 +40,7 @@ public class RestrictAreaJpa {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outdoor_map_id")
-    private OutdoorMap outdoorMap;  //실외에 해당되는 제한구역일 경우 실외지도의 id
+    private OutdoorMapJpa outdoorMap;  //실외에 해당되는 제한구역일 경우 실외지도의 id
 
     // == 연관관계 편의 메서드 == //
     public void setIndoorMap(IndoorMapJpa indoorMap) {
@@ -48,13 +48,13 @@ public class RestrictAreaJpa {
         indoorMap.getRestrictAreaList().add(this);
     }
 
-    public void setOutdoorMap(OutdoorMap outdoorMap) {
+    public void setOutdoorMap(OutdoorMapJpa outdoorMap) {
         this.outdoorMap = outdoorMap;
         outdoorMap.getRestrictAreaList().add(this);
     }
 
     @Builder
-    public RestrictAreaJpa(Long id, String name, String safetyRule, Point coordinate_left, Point coordinate_right, IndoorMapJpa indoorMap, OutdoorMap outdoorMap) {
+    public RestrictAreaJpa(Long id, String name, String safetyRule, Point coordinate_left, Point coordinate_right, IndoorMapJpa indoorMap, OutdoorMapJpa outdoorMap) {
         this.id = id;
         this.name = name;
         this.safetyRule = safetyRule;

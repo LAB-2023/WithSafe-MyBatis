@@ -38,9 +38,9 @@ public class IndoorMapController {
     public List<IndoorMapLocationInfo> getIndoorMapLocationInfo(@RequestParam String departmentName,
                                                                 @RequestParam Long indoorMapId,
                                                                 @RequestParam(required = false) String userName,
-                                                                @RequestParam(required = false) Integer deviceNum){
+                                                                @RequestParam(required = false) String serialNum){
 
-        SearchCondition searchCondition = SearchCondition.toSearchCondition(departmentName, indoorMapId, userName, deviceNum);
+        SearchCondition searchCondition = SearchCondition.toSearchCondition(departmentName, indoorMapId, userName, serialNum);
 
         return indoorMapService.getIndoorMapLocationList(searchCondition);
     }

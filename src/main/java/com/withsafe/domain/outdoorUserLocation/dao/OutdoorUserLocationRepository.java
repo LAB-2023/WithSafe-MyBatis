@@ -1,4 +1,4 @@
-package com.withsafe.domain.outdoorUserLocation.repository;
+package com.withsafe.domain.outdoorUserLocation.dao;
 
 import com.withsafe.domain.outdoorUserLocation.domain.OutdoorUserLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
