@@ -3,7 +3,7 @@ package com.withsafe.domain.outdoorMap.domain;
 import com.withsafe.domain.department.domain.DepartmentJpa;
 
 import com.withsafe.domain.env.domain.EnvSensor;
-import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import com.withsafe.domain.restrictArea.domain.RestrictAreaJpa;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class OutdoorMap {
     private List<EnvSensor> envSensorList = new ArrayList<>();  //실외에 설치된 환경센서 목록
 
     @OneToMany(mappedBy = "outdoorMap")
-    private List<RestrictArea> restrictAreaList = new ArrayList<>();    //실외에 설정된 위험구역의 목록
+    private List<RestrictAreaJpa> restrictAreaList = new ArrayList<>();    //실외에 설정된 위험구역의 목록
 
     //연관관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,7 +47,7 @@ public class OutdoorMap {
 
     @Builder
     public OutdoorMap(Long id, String name, Point coordinate, List<EnvSensor> envSensorList,
-                      List<RestrictArea> restrictAreaList, DepartmentJpa departmentJpa) {
+                      List<RestrictAreaJpa> restrictAreaList, DepartmentJpa departmentJpa) {
         this.id = id;
         this.name = name;
         this.coordinate = coordinate;

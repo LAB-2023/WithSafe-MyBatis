@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.beacon.dao.BeaconMapper">
+    <resultMap id="beaconResultMap" type="com.withsafe.domain.beacon.domain.Beacon">
+        <id property="id" column="beacon_id" />
+        <result property="createdDate" column="created_date"/>
+        <result property="modifiedDate" column="modified_date"/>
+        <result property="coordinate_x" column="coordinate_x"/>
+        <result property="coordinate_y" column="coordinate_y"/>
+        <result property="macAddress" column="mac_address"/>
+        <result property="beaconType" column="beacon_type"  javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
+        <result property="status" column="status"/>
+        <association property="indoorMap" column="indoor_map_id" javaType="com.withsafe.domain.indoorMap.domain.IndoorMap">
+            <id property="id" column="indoor_map_id" />
+        </association>
+    </resultMap>
+
+    <resultMap id="beaconDtoResultMap" type="com.withsafe.domain.beacon.dto.BeaconResponseDto">
+        <id property="id" column="beacon_id" />
+        <result property="createdDate" column="created_date"/>
+        <result property="modifiedDate" column="modified_date"/>
+        <result property="coordinate_x" column="coordinate_x"/>
+        <result property="coordinate_y" column="coordinate_y"/>
+        <result property="macAddress" column="mac_address"/>
+        <result property="beaconType" column="beacon_type"  javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
+        <result property="status" column="status"/>
+        <result property="indoorMapId" column="indoor_map_id"/>
+    </resultMap>
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+</mapper>

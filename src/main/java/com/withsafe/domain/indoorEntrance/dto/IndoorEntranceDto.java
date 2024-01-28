@@ -1,6 +1,6 @@
 package com.withsafe.domain.indoorEntrance.dto;
 
-import com.withsafe.domain.beacon.domain.Beacon;
+import com.withsafe.domain.beacon.domain.BeaconJpa;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +11,27 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class IndoorEntranceDto {
 
+    @Getter
+    @NoArgsConstructor
+    public static class SaveRequest{
+        private String beaconMacAddress;
+        private String watchSerialNum;
+
+        @Builder
+        public SaveRequest(String beaconMacAddress, String watchSerialNum) {
+            this.beaconMacAddress = beaconMacAddress;
+            this.watchSerialNum = watchSerialNum;
+        }
+
+    }
+
     private static class IndoorEntranceInfo{
         private Long id;
         private LocalDateTime createdDate;
 
         private LocalDateTime modifiedDate;
 
-        private Beacon beacon;  //실내 구역 출입을 인지한 비콘의 id
+        private BeaconJpa beacon;  //실내 구역 출입을 인지한 비콘의 id
 
     }
 

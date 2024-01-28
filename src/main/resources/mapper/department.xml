@@ -10,7 +10,7 @@
         <id property="id" column="department_id" />
         <result property="name" column="name"/>
         <!-- department 열에 매핑되어야 합니다. -->
-        <collection property="watchList" ofType="com.withsafe.domain.watch.domain.WatchJpa">
+        <collection property="watchList" ofType="com.withsafe.domain.watch.domain.Watch">
             <id property="watchId" column="watch_id"/>
             <result property="watchName" column="watch_name"/>
             <!-- 나머지 Watch 필드들의 매핑 -->

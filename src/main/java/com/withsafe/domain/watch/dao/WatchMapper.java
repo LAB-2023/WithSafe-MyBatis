@@ -29,6 +29,11 @@ public interface WatchMapper {
     @ResultMap("watchResultMap")
     Optional<Watch> findById(Long id);
 
+    @Select("SELECT * FROM watch WHERE watch.serial_num = #{watchSerialNum}")
+    @ResultMap("watchResultMap")
+    Optional<Watch> findBySerialNum(String watchSerialNum);
+
+
     @Update("UPDATE watch set is_used = #{is_used}, user_id = #{user.id}, modified_date = #{modifiedDate} " +
             "WHERE watch.watch_id = #{id}")
     void updateUser(Watch watch);

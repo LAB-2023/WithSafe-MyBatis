@@ -1,7 +1,7 @@
 package com.withsafe.domain.department.domain;
 
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
-import com.withsafe.domain.indoorMap.domain.IndoorMap;
+import com.withsafe.domain.indoorMap.domain.IndoorMapJpa;
 import com.withsafe.domain.watch.domain.WatchJpa;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class DepartmentJpa {
     private List<OutdoorMap> outdoorMapList = new ArrayList<>();    //부서에 포함된 실외지도 목록
 
     @OneToMany(mappedBy = "departmentJpa")
-    private List<IndoorMap> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
+    private List<IndoorMapJpa> indoorMapList = new ArrayList<>();  //부서에 포함된 실내지도 목록
 
     @Builder
     public DepartmentJpa(String name) {
@@ -39,7 +39,7 @@ public class DepartmentJpa {
 
     public boolean containsIndoorMap(String mapName) {
         if (indoorMapList != null) {
-            for (IndoorMap indoorMap : indoorMapList) {
+            for (IndoorMapJpa indoorMap : indoorMapList) {
                 if (indoorMap.getName().equals(mapName)) {
                     return true;
                 }

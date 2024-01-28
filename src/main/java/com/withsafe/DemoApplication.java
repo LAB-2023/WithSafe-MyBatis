@@ -1,5 +1,9 @@
 package com.withsafe;
 
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKBReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -18,6 +22,18 @@ public class DemoApplication {
 //
 //		String secretKey = Base64.getEncoder().encodeToString(keyBytes);
 //		System.out.println("Generated 64-byte JWT Secret Key: " + secretKey);
+//
+//		String wkbHexString = "0101000020E610000000000000008050400000000000004340";
+//		byte[] wkb = WKBReader.hexToBytes(wkbHexString);
+//		GeometryFactory geometryFactory = new GeometryFactory();
+//		WKBReader reader = new WKBReader(geometryFactory);
+//
+//		try {
+//			Point point = (Point) reader.read(wkb);
+//			System.out.println("Point: " + point);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		SpringApplication.run(DemoApplication.class, args);
 	}
 

@@ -23,9 +23,14 @@ import static com.withsafe.domain.indoorEntrance.dto.IndoorEntranceDto.*;
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/indoorEntrance")
+@RequestMapping("/indoor-entrance")
 public class IndoorEntranceController {
-    private IndoorEntranceService indoorEntranceService;
+    private final IndoorEntranceService indoorEntranceService;
+
+    @PostMapping
+    public Long save(@RequestBody SaveRequest request){
+        return indoorEntranceService.save(request);
+    }
 
     @GetMapping
     public Page<SearchResultDto> getIndoorEntranceList(@RequestParam(required = false) String username,
@@ -39,7 +44,6 @@ public class IndoorEntranceController {
         Page<SearchResultDto> IndoorEntranceList = indoorEntranceService.getIndoorEntranceList(searchCondition, pageable);
 
         return IndoorEntranceList;
-
     }
 
 }

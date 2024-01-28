@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.indoorMap.dao.IndoorMapMapper">
+    <resultMap id="indoorMapResultMap" type="com.withsafe.domain.indoorMap.domain.IndoorMap">
+        <id property="id" column="indoor_map_id" />
+        <result property="name" column="name"/>
+        <result property="imageUrl" column="image_url"/>
+        <!-- department 열에 매핑되어야 합니다. -->
+        <association property="department" column="department_id" javaType="com.withsafe.domain.department.domain.Department">
+            <id property="id" column="department_id" />
+            <result property="name" column="name"/>
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+
+        <collection property="beaconList" ofType="com.withsafe.domain.beacon.domain.BeaconJpa">
+            <id property="beaconId" column="beacon_id"/>
+            <!-- 나머지 Watch 필드들의 매핑 -->
+        </collection>
+        <collection property="restrictAreaList" ofType="com.withsafe.domain.restrictArea.domain.RestrictArea">
+            <id property="restrictAreaId" column="restrict_area_id"/>
+            <!--            <result property="watchName" column="watch_name"/>-->
+            <!-- 나머지 Watch 필드들의 매핑 -->
+        </collection>
+    </resultMap>
+
+    <resultMap id="IndoorMapLocationInfoResultMap" type="com.withsafe.domain.indoorMap.dto.IndoorMapLocationInfo">
+        <id property="indoorMapId" column="indoor_map_id" />
+        <result property="departmentName" column="department_name"/>
+        <collection property="restrictInfoDtoList" ofType="com.withsafe.domain.restrictArea.dto.RestrictInfoDto">
+            <id property="restrictId" column="restrict_area_id"/>
+            <result property="coordinate_left_x" column="coordinate_left_x"/>
+            <result property="coordinate_left_y" column="coordinate_left_y"/>
+            <result property="coordinate_right_x" column="coordinate_right_x"/>
+            <result property="coordinate_right_y" column="coordinate_right_y"/>
+            <result property="restrictAreaName" column="restrict_area_name"/>
+            <result property="safetyRule" column="safety_rule"/>
+        </collection>
+        <collection property="beaconInfoDtoList" ofType="com.withsafe.domain.beacon.dto.BeaconInfoDto">
+            <id property="beaconId" column="beacon_id"/>
+            <result property="beaconType" column="beacon_type" javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
+            <result property="coordinate_x" column="coordinate_x"/>
+            <result property="coordinate_y" column="coordinate_y"/>
+            <collection property="indoorEntranceInfoDtoList" ofType="com.withsafe.domain.indoorEntrance.dto.IndoorEntranceInfoDto">
+                <id property="watchId" column="watch_id"/>
+                <result property="modifiedDate" column="modified_date"/>
+                <result property="username" column="user_name"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+    <select id="findAllBySearchCondition" resultMap="IndoorMapLocationInfoResultMap">
+        SELECT
+            im.indoor_map_id AS indoor_map_id,
+            d.name AS department_name,
+            ra.restrict_area_id AS restrict_area_id,
+            ST_X(ra.coordinate_left) AS coordinate_left_x,
+            ST_Y(ra.coordinate_left) AS coordinate_left_y,
+            ST_X(ra.coordinate_right) AS coordinate_right_x,
+            ST_Y(ra.coordinate_right) AS coordinate_right_y,
+            ra.name AS restrict_area_name,
+            ra.safety_rule AS safety_rule,
+            b.beacon_id AS beacon_id,
+            b.beacon_type AS beacon_type,
+            ST_X(b.coordinate) AS coordinate_x,
+            ST_Y(b.coordinate) AS coordinate_y,
+            ie.watch_id AS watch_id,
+            ie.modified_date AS modified_date,
+            m.name AS user_name
+        FROM
+            indoor_map im
+                LEFT JOIN restrict_area ra ON im.indoor_map_id = ra.indoor_map_id
+                LEFT JOIN beacon b ON im.indoor_map_id = b.indoor_map_id
+                LEFT JOIN indoor_entrance ie ON ie.beacon_id = b.beacon_id
+                LEFT JOIN watch w ON w.watch_id = ie.watch_id
+                LEFT JOIN member m ON m.user_id = w.user_id
+                JOIN department d ON im.department_id = d.department_id
+        WHERE
+            im.indoor_map_id = #{indoorMapId}
+    </select>
+</mapper>

@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-</beans>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.restrictArea.dao.RestrictAreaMapper">
+    <resultMap id="restrictAreaResultMap" type="com.withsafe.domain.restrictArea.domain.RestrictArea">
+        <id property="id" column="restrict_area_id" />
+        <result property="coordinate_left_x" column="coordinate_left_x"/>
+        <result property="coordinate_left_y" column="coordinate_left_y"/>
+        <result property="coordinate_right_x" column="coordinate_right_x"/>
+        <result property="coordinate_right_y" column="coordinate_right_y"/>
+        <result property="name" column="name"/>
+        <result property="safetyRule" column="safety_rule"/>
+        <association property="indoorMap" column="indoor_map_id" javaType="com.withsafe.domain.indoorMap.domain.IndoorMap">
+            <id property="id" column="indoor_map_id" />
+        </association>
+        <association property="outdoorMap" column="outdoor_map_id" javaType="com.withsafe.domain.outdoorMap.domain.OutdoorMap">
+            <id property="id" column="outdoor_map_id" />
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+    </resultMap>
+
+<!--    <resultMap id="restrictAreaInfoDtoMap" type="com.withsafe.domain.restrictArea.dto.RestrictInfoDto">-->
+<!--        <id property="id" column="restrict_area_id" />-->
+<!--        <result property="coordinateLeft" column="coordinate_left" typeHandler="com.withsafe.global.PointTypeHandler"/>-->
+<!--        <result property="coordinateRight" column="coordinate_right" typeHandler="com.withsafe.global.PointTypeHandler"/>-->
+<!--        <result property="name" column="name"/>-->
+<!--        <result property="safetyRule" column="safety_rule"/>-->
+<!--    </resultMap>-->
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+</mapper>

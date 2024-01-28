@@ -1,16 +1,11 @@
 package com.withsafe.domain.restrictArea.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import lombok.Builder;
 import lombok.Getter;
 import org.locationtech.jts.geom.Point;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class RestrictAreaDto {
 
