@@ -1,6 +1,6 @@
 package com.withsafe.domain.watchData.dto;
 
-import com.withsafe.domain.watch.domain.WatchJpa;
+import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watchData.domain.WatchData;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,13 +12,15 @@ public class WatchDataDTO {
     public static class SaveRequest {
         private String battery; //워치 배터리 잔량
         private String charge;  //워치의 충전 상태 (방전, 충전중, 충전완료)
+        private String serialNum;
 
         @Builder
-        public SaveRequest(String battery, String charge) {
+        public SaveRequest(String battery, String charge, String serialNum) {
             this.battery = battery;
             this.charge = charge;
+            this.serialNum = serialNum;
         }
-        public WatchData toEntity(WatchJpa watch) {
+        public WatchData toEntity(Watch watch) {
             return WatchData.builder()
                     .battery(battery)
                     .charge(charge)

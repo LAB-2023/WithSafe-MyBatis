@@ -2,7 +2,6 @@ package com.withsafe.domain.bioData.api;
 
 import com.withsafe.domain.bioData.application.BioDataService;
 import com.withsafe.domain.bioData.dto.BioDataSaveDto;
-import com.withsafe.domain.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,6 @@ import static com.withsafe.domain.bioData.dto.BioDataSaveDto.*;
 @RequiredArgsConstructor
 public class BioDataController {
     private final BioDataService bioDataService;
-    private final UserRepository userRepository;
     /**
      * 생체 데이터 저장
      */

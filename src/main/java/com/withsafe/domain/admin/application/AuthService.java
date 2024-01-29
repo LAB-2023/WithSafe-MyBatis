@@ -6,7 +6,6 @@ import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 

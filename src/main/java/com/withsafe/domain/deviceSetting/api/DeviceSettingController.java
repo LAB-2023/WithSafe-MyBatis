@@ -13,7 +13,7 @@ import static com.withsafe.domain.deviceSetting.dto.DeviceSettingDTO.*;
  */
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/deviceSetting")
+@RequestMapping("/device-setting")
 @RequiredArgsConstructor
 public class DeviceSettingController {
 
@@ -29,15 +29,15 @@ public class DeviceSettingController {
         return deviceSettingService.findDeviceSetting(departmentName);
     }
 
-//    /**
-//     * @param request
-//     * @return
-//     */
-//    @PostMapping
-//    public SaveDeviceSettingRequestDTO saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request) {
-//        deviceSettingService.saveDeviceSetting(request);
-//        return request;
-//    }
+    /**
+     * @param request
+     * @return
+     */
+    @PostMapping
+    public Long saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request,
+                                                         @RequestParam String departmentName) {
+        return deviceSettingService.saveDeviceSetting(request, departmentName);
+    }
 
     @PutMapping
     public Long updateDeviceSetting(@RequestParam String departmentName,

@@ -1,14 +1,12 @@
 package com.withsafe.domain.watchData.application;
 
-import com.withsafe.domain.watch.dao.WatchRepository;
-import com.withsafe.domain.watch.domain.WatchJpa;
-import com.withsafe.domain.watchData.dao.WatchDataRepository;
+import com.withsafe.domain.watch.dao.WatchMapper;
+import com.withsafe.domain.watch.domain.Watch;
+import com.withsafe.domain.watchData.dao.WatchDataMapper;
 import com.withsafe.domain.watchData.domain.WatchData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +16,37 @@ import static com.withsafe.domain.watchData.dto.WatchDataDTO.*;
 @Service
 @RequiredArgsConstructor
 public class WatchDataService {
-    private final WatchRepository watchRepository;
-    private final WatchDataRepository watchDataRepository;
+    private final WatchMapper watchMapper;
+    private final WatchDataMapper watchDataMapper;
 
     @Transactional
-    public Long saveWatchData(@RequestBody SaveRequest request, @RequestParam Long watchId){
-        WatchJpa watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
-        WatchData savedWatchData = watchDataRepository.save(request.toEntity(watch));
+    public Long saveWatchData(SaveRequest request){
+        Watch watch = watchMapper.findBySerialNum(request.getSerialNum())
+                .orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        WatchData savedWatchData = request.toEntity(watch);
+        watchDataMapper.save(savedWatchData);
         return savedWatchData.getId();
     }
 
     @Transactional
-    public Long updateWatchData(@RequestBody SaveRequest request, @RequestParam Long watchId){
-        WatchJpa watch = watchRepository.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
-        WatchData watchData = (WatchData) watchDataRepository.findByWatch(watch).orElseThrow(() -> new IllegalArgumentException("해당 워치 데이터가 없습니다."));
+    public Long updateWatchData(SaveRequest request){
+        Watch watch = watchMapper.findBySerialNum(request.getSerialNum())
+                .orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
+        WatchData watchData = watchDataMapper.findByWatchId(watch.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 워치 데이터가 없습니다."));
         watchData.update(request);
+        watchDataMapper.update(watchData);
         return watchData.getId();
     }
 
-    public List<FindRequest> findAllWatchData(String departmentName) {
-        List<WatchData> watchDataList = watchDataRepository.findAll();
-        List<FindRequest> watchDataDTOList = new ArrayList<>();
-        for (WatchData watchData : watchDataList) {
-            if (watchData.getWatch().getDepartmentJpa().getName().equals(departmentName)) {
-                watchDataDTOList.add(FindRequest.toFindRequest(watchData));
-            }
-        }
-        return watchDataDTOList;
-    }
+//    public List<FindRequest> findAllWatchData(String departmentName) {
+//        List<WatchData> watchDataList = watchDataMapper.findAll();
+//        List<FindRequest> watchDataDTOList = new ArrayList<>();
+//        for (WatchData watchData : watchDataList) {
+//            if (watchData.getWatch().getDepartmentJpa().getName().equals(departmentName)) {
+//                watchDataDTOList.add(FindRequest.toFindRequest(watchData));
+//            }
+//        }
+//        return watchDataDTOList;
+//    }
 }

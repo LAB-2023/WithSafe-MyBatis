@@ -1,5 +1,6 @@
 package com.withsafe.domain.deviceSetting.dto;
 
+import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.deviceSetting.domain.DeviceSetting;
 import lombok.*;
 
@@ -29,7 +30,7 @@ public class DeviceSettingDTO {
         private Integer safe_upload;    //구역별 안전수칙 전송 주기
 
         @Builder
-        public DeviceSetting toEntity() {
+        public DeviceSetting toEntity(Department department) {
             return DeviceSetting.builder()
                     .heart_rate_min(this.heart_rate_min)
                     .heart_rate_max(this.heart_rate_max)
@@ -46,6 +47,7 @@ public class DeviceSettingDTO {
                     .charge_upload(this.charge_upload)
                     .warning_upload(this.warning_upload)
                     .safe_upload(this.safe_upload)
+                    .department(department)
                     .build();
         }
     }

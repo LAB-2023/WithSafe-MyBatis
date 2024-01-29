@@ -1,7 +1,6 @@
 package com.withsafe.domain.outdoorMap.dao;
 
 import com.withsafe.domain.outdoorMap.domain.OutdoorMap;
-import com.withsafe.domain.outdoorMap.dto.OutdoorMapFindRequestDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Optional;

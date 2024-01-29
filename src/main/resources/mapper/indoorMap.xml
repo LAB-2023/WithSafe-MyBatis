@@ -93,6 +93,5 @@
                 AND w.serial_num = #{serialNum}
             </if>
         </where>
-
     </select>
 </mapper>

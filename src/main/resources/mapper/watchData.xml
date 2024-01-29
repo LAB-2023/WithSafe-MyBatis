@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위 코드가 mapper 설정을 하는 코드 -->
+
+<!-- Mapper를 사용하는 Repository의 전체 경로를 적어줘야함. -->
+<mapper namespace="com.withsafe.domain.watchData.dao.WatchDataMapper">
+    <resultMap id="watchDataResultMap" type="com.withsafe.domain.watchData.domain.WatchData">
+        <id property="id" column="watch_data_id" />
+        <result property="battery" column="battery"/>
+        <result property="charge" column="charge"/>
+        <association property="watch" column="watch_id" javaType="com.withsafe.domain.watch.domain.Watch">
+            <id property="id" column="watch_id" />
+            <!-- 다른 Department 필드 매핑 -->
+        </association>
+    </resultMap>
+    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+</mapper>

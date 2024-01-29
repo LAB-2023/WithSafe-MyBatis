@@ -13,25 +13,25 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/WatchData")
+@RequestMapping("/watch-data")
 @RequiredArgsConstructor
 public class WatchDataController {
     private final WatchDataService watchDataService;
 
     @PostMapping
     @Transactional
-    public Long saveWatchData(@RequestBody SaveRequest request, @RequestParam Long watchId){
-        return watchDataService.saveWatchData(request, watchId);
+    public Long saveWatchData(@RequestBody SaveRequest request){
+        return watchDataService.saveWatchData(request);
     }
 
     @PutMapping
     @Transactional
-    public Long updateWatchData(@RequestBody SaveRequest request, @RequestParam Long watchId){
-        return watchDataService.updateWatchData(request, watchId);
+    public Long updateWatchData(@RequestBody SaveRequest request){
+        return watchDataService.updateWatchData(request);
     }
-    @GetMapping
-    @Transactional
-    public List<FindRequest> findWatchData(@RequestParam String departmentName){
-        return watchDataService.findAllWatchData(departmentName);
-    }
+//    @GetMapping
+//    @Transactional
+//    public List<FindRequest> findWatchData(@RequestParam String departmentName){
+//        return watchDataService.findAllWatchData(departmentName);
+//    }
 }
