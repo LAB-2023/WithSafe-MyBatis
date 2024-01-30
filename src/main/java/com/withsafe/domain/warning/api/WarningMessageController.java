@@ -10,7 +10,7 @@ import static com.withsafe.domain.warning.dto.WarningMessageDto.*;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/warning-api")
+@RequestMapping("/warning")
 @RequiredArgsConstructor
 public class WarningMessageController {
 
