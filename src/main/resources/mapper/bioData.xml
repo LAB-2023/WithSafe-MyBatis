@@ -34,12 +34,28 @@
 
     <select id="findUserBioData" resultMap="bioDataFindDtoResultMap">
         SELECT heart_rate, temperature, walk_count, oxygen, calorie, is_fall, created_date FROM bio_data
-        <where>
-            <if test="userId != null">
-                bio_data.user_id = #{userId}
-            </if>
-        </where>
         ORDER BY created_date DESC
         LIMIT 10
     </select>
 </mapper>
+
+<!--<choose>&ndash;&gt;-->
+<!--                <when test="option == 'heartRate'">-->
+<!--                    heart_rate, created_date-->
+<!--                </when>-->
+<!--                <when test="option == 'calorie'">-->
+<!--                    calorie, created_date-->
+<!--                </when>-->
+<!--                <when test="option == 'isFall'">-->
+<!--                    is_fall, created_date-->
+<!--                </when>-->
+<!--                <when test="option == 'oxygen'">-->
+<!--                    oxygen, created_date-->
+<!--                </when>-->
+<!--                <when test="option == 'temperature'">-->
+<!--                    temperature, created_date-->
+<!--                </when>-->
+<!--                <when test="option == 'walkCount'">-->
+<!--                    walk_count, created_date-->
+<!--                </when>-->
+<!--&lt;!&ndash;            </choose>   -->

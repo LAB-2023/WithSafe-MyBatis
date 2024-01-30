@@ -1,6 +1,8 @@
 package com.withsafe.domain.bioData.api;
 
 import com.withsafe.domain.bioData.application.BioDataService;
+import com.withsafe.domain.bioData.dto.BioDataFindDto;
+import com.withsafe.domain.bioData.dto.BioDataFindResultDto;
 import com.withsafe.domain.bioData.dto.BioDataSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import static com.withsafe.domain.bioData.dto.BioDataSaveDto.*;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/bioData")
+@RequestMapping("/bio-data")
 @RequiredArgsConstructor
 public class BioDataController {
     private final BioDataService bioDataService;
@@ -27,9 +29,8 @@ public class BioDataController {
      * 심박수 1주일치 평균, 최대, 최소
      */
     @GetMapping
-    public List<BioDataSaveDto> findBioData(@RequestParam Long userId){
-        List<BioDataSaveDto> request = bioDataService.findRequest(userId);
-        return request;
+    public BioDataFindResultDto findBioData(@RequestParam Long userId, @RequestParam String option){
+        return bioDataService.findRequest(userId, option);
     }
 
 //    @PostMapping("/test50")

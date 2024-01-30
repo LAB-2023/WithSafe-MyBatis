@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,19 +31,8 @@ public class BioDataFindDto{
         this.isFall = isFall;
         this.createdDate = createdDate;
     }
-    public static BioData toEntity(BioData bioData){
+    public static BioData toEntity(BioData bioData) {
         return BioData.builder()
-                .heartRate(bioData.getHeartRate())
-                .temperature(bioData.getTemperature())
-                .walkCount(bioData.getWalkCount())
-                .oxygen(bioData.getOxygen())
-                .calorie(bioData.getCalorie())
-                .isFall(bioData.getIsFall())
-                .build();
-    }
-
-    public static BioDataFindDto toFindRequest(BioData bioData){
-        return BioDataFindDto.builder()
                 .heartRate(bioData.getHeartRate())
                 .temperature(bioData.getTemperature())
                 .walkCount(bioData.getWalkCount())

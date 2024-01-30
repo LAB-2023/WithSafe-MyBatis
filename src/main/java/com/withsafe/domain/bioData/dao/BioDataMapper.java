@@ -1,6 +1,7 @@
 package com.withsafe.domain.bioData.dao;
 
 import com.withsafe.domain.bioData.domain.BioData;
+import com.withsafe.domain.bioData.dto.BioDataFindDto;
 import com.withsafe.domain.bioData.dto.BioDataSaveDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,5 @@ public interface BioDataMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "bio_data_id")
     int save(BioData bioData);
 
-    List<BioDataSaveDto> findUserBioData(Long userId);
+    List<BioDataFindDto> findUserBioData(Long userId, String option);
 }

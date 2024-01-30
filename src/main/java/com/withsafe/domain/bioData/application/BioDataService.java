@@ -2,6 +2,8 @@ package com.withsafe.domain.bioData.application;
 
 import com.withsafe.domain.bioData.dao.BioDataMapper;
 import com.withsafe.domain.bioData.domain.BioData;
+import com.withsafe.domain.bioData.dto.BioDataFindDto;
+import com.withsafe.domain.bioData.dto.BioDataFindResultDto;
 import com.withsafe.domain.bioData.dto.BioDataSaveDto;
 import com.withsafe.domain.user.dao.UserMapper;
 import com.withsafe.domain.user.domain.User;
@@ -30,8 +32,11 @@ public class BioDataService {
     }
 
     @Transactional(readOnly = true)
-    public List<BioDataSaveDto> findRequest(Long userId){
-        return bioDataMapper.findUserBioData(userId);
+    public BioDataFindResultDto findRequest(Long userId, String option){
+        List<BioDataFindDto> result =  bioDataMapper.findUserBioData(userId, option);
+        BioDataFindResultDto ge = new BioDataFindResultDto();
+        result.forEach(bioDataSaveDto -> ge.getCalorie().add(bioDataSaveDto.getCalorie()));
+        return ge;
     }
 //
 //    @Transactional

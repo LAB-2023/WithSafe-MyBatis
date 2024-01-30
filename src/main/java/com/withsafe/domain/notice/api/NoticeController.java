@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/notice-api")
+@RequestMapping("/notice")
 @RequiredArgsConstructor
 public class NoticeController {
 
