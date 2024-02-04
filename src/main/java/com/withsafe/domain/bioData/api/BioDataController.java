@@ -29,8 +29,8 @@ public class BioDataController {
      * 심박수 1주일치 평균, 최대, 최소
      */
     @GetMapping
-    public BioDataFindResultDto findBioData(@RequestParam Long userId, @RequestParam String option){
-        return bioDataService.findRequest(userId, option);
+    public BioDataFindResultDto findBioData(@RequestParam Long userId){
+        return bioDataService.findRequest(userId);
     }
 
 //    @PostMapping("/test50")

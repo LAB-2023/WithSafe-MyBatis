@@ -21,5 +21,5 @@ public interface BioDataMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "bio_data_id")
     int save(BioData bioData);
 
-    List<BioDataFindDto> findUserBioData(Long userId, String option);
+    List<BioDataFindDto> findUserBioData(Long userId);
 }

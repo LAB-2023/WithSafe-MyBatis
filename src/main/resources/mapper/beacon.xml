@@ -13,7 +13,7 @@
         <result property="coordinate_x" column="coordinate_x"/>
         <result property="coordinate_y" column="coordinate_y"/>
         <result property="macAddress" column="mac_address"/>
-        <result property="beaconType" column="beacon_type"  javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
+        <result property="beaconType" column="beacon_type" javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
         <result property="status" column="status"/>
         <association property="indoorMap" column="indoor_map_id" javaType="com.withsafe.domain.indoorMap.domain.IndoorMap">
             <id property="id" column="indoor_map_id" />

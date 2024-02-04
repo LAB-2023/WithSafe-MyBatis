@@ -32,10 +32,27 @@ public class BioDataService {
     }
 
     @Transactional(readOnly = true)
-    public BioDataFindResultDto findRequest(Long userId, String option){
-        List<BioDataFindDto> result =  bioDataMapper.findUserBioData(userId, option);
-        BioDataFindResultDto ge = new BioDataFindResultDto();
-        result.forEach(bioDataSaveDto -> ge.getCalorie().add(bioDataSaveDto.getCalorie()));
+    public BioDataFindResultDto findRequest(Long userId){
+        List<BioDataFindDto> result = bioDataMapper.findUserBioData(userId);
+        BioDataFindResultDto ge = result.stream().reduce(new BioDataFindResultDto(),
+                (accumulator, bioDataFindDto) -> {
+                    accumulator.getHeartRate().add(bioDataFindDto.getHeartRate());
+                    accumulator.getCalorie().add(bioDataFindDto.getCalorie());
+                    accumulator.getOxygen().add(bioDataFindDto.getOxygen());
+                    accumulator.getIsFall().add(bioDataFindDto.getIsFall());
+                    accumulator.getTemperature().add(bioDataFindDto.getTemperature());
+                    accumulator.getWalkCount().add(bioDataFindDto.getWalkCount());
+                    accumulator.getCreatedDate().add(bioDataFindDto.getCreatedDate());
+                    return accumulator;
+                },
+                (accumulator1, accumulator2) -> {
+                    // 이 부분은 병렬 스트림을 사용할 때만 필요합니다.
+                    // accumulator1과 accumulator2를 병합하는 로직을 구현합니다.
+                    // 예: accumulator1.getHeartRate().addAll(accumulator2.getHeartRate());
+                    // ...
+                    return accumulator1;
+                }
+        );
         return ge;
     }
 //

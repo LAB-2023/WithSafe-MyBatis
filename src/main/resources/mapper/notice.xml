@@ -19,7 +19,6 @@
         </association>
         <association property="watch" column="watch_id" javaType="com.withsafe.domain.watch.domain.Watch">
             <id property="id" column="watch_id" />
-            <!-- 다른 Department 필드 매핑 -->
         </association>
     </resultMap>
 
@@ -70,10 +69,10 @@
         n.created_date
         FROM notice AS n
         JOIN warning_message AS wm ON n.warning_message_id = wm.warning_message_id
+        LEFT JOIN solve AS s ON n.notice_id = s.notice_id
         JOIN watch AS w ON n.watch_id = w.watch_id
         JOIN member AS m ON m.user_id = w.user_id
         JOIN department AS d ON w.department_id = d.department_id
-        LEFT JOIN solve AS s ON n.notice_id = s.notice_id
         <where>
             <if test="username != null">
                 AND m.name = #{username}

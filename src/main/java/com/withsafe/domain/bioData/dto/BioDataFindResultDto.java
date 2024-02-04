@@ -19,7 +19,7 @@ public class BioDataFindResultDto {
     private List<Integer> calorie = new ArrayList<>();
     private List<Boolean> isFall = new ArrayList<>();
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private List<LocalDateTime> createdDate;
+    private List<LocalDateTime> createdDate = new ArrayList<>();
 
     @Builder
     public BioDataFindResultDto(List<Integer> heartRate, List<Double> temperature, List<Integer> walkCount,

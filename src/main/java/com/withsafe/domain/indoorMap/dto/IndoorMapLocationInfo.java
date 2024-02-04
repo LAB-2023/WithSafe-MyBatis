@@ -18,9 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class IndoorMapLocationInfo{
+
     private Long indoorMapId;
     private String departmentName;
     private List<RestrictInfoDto> restrictInfoDtoList;
     private List<BeaconInfoDto> beaconInfoDtoList;
-
 }
