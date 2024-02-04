@@ -12,15 +12,15 @@ public class WatchListDto {
     private String model;
     private Boolean is_used;
     private Integer deviceNum;
-    private String userName;
+    private String username;
     private Long watchId;
     @Builder
-    public WatchListDto(String serialNum, String model, Boolean is_used, Integer deviceNum, String userName, Long watchId) {
+    public WatchListDto(String serialNum, String model, Boolean is_used, Integer deviceNum, String username, Long watchId) {
         this.serialNum = serialNum;
         this.model = model;
         this.is_used = is_used;
         this.deviceNum = deviceNum;
-        this.userName = userName;
+        this.username = username;
         this.watchId = watchId;
     }
     public static Watch toEntity(Watch watch){
@@ -38,7 +38,7 @@ public class WatchListDto {
                 .model(watch.getModel())
                 .is_used(watch.getIs_used())
                 .serialNum(watch.getSerialNum())
-                .userName(username)
+                .username(username)
                 .watchId(watch.getId())
                 .build();
     }

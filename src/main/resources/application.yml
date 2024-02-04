@@ -8,6 +8,11 @@ spring:
     url: jdbc:postgresql://27.96.135.39:5432/withtest?currentSchema=public
     username: postgres
     password: '!My123456!'
+  redis:
+    host: localhost
+    port: 6379
+jwt:
+  secret: /vUwAz/Vx78zX5/E4v6kjfbyoTRpYtOK2WT9rYcXeNPzDMuv1BlehYL113paVVYvUTyUIYg3kSZglWjEAJxgMw==
 
   #    driver-class-name: com.mysql.cj.jdbc.Driver
   #    url: jdbc:mysql://27.96.135.39:3306/mydb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
@@ -59,6 +64,3 @@ mybatis:
 logging.level:
   org.hibernate.SQL: debug
   #org.hibernate.orm.jdbc.bind: trace
-
-jwt:
-  secret: /vUwAz/Vx78zX5/E4v6kjfbyoTRpYtOK2WT9rYcXeNPzDMuv1BlehYL113paVVYvUTyUIYg3kSZglWjEAJxgMw==

@@ -91,17 +91,19 @@ public class User extends BaseTimeDomain {
                 .build();
     }
 
-//    public User(String name, Integer age, String phoneNum, String emergency_contact, String emergency_relation, Integer heartRate_threshold, Integer oxygen_threshold, Integer walk_threshold, Double height, Double weight, Sex sex) {
-//        this.name = name;
-//        this.age = age;
-//        this.phoneNum = phoneNum;
-//        this.emergency_contact = emergency_contact;
-//        this.emergency_relation = emergency_relation;
-//        this.heartRate_threshold = heartRate_threshold;
-//        this.oxygen_threshold = oxygen_threshold;
-//        this.walk_threshold = walk_threshold;
-//        this.height = height;
-//        this.weight = weight;
-//        this.sex = sex;
-//    }
+    public void update(SaveRequest request) {
+        this.name = request.getName();
+        this.age = request.getAge();
+        this.phoneNum = request.getPhoneNum();
+        this.emergency_contact = request.getEmergency_contact();
+        this.emergency_relation = request.getEmergency_relation();
+        this.heartRate_threshold = request.getHeartRate_threshold();
+        this.oxygen_threshold = request.getOxygen_threshold();
+        this.walk_threshold = request.getWalk_threshold();
+        this.height = request.getHeight();
+        this.weight = request.getWeight();
+        this.sex = request.getSex();
+        this.bloodPressure_high = request.getBloodPressure_high();
+        this.bloodPressure_low = request.getBloodPressure_low();
+    }
 }

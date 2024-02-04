@@ -18,7 +18,8 @@ public interface WatchMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "watch_id")
     void save(Watch watch);
 
-    @Select("SELECT w.watch_id AS watchId, w.*, m.name AS userName FROM watch AS w " +
+    @Select("SELECT w.watch_id AS watchId, w.*, m.name AS userName " +
+            "FROM watch AS w " +
             "JOIN department AS d ON w.department_id = d.department_id " +
             "LEFT JOIN member AS m ON w.user_id = m.user_id " +
             "WHERE d.name = #{departmentName}")
@@ -32,6 +33,10 @@ public interface WatchMapper {
     @Select("SELECT * FROM watch WHERE watch.serial_num = #{watchSerialNum}")
     @ResultMap("watchResultMap")
     Optional<Watch> findBySerialNum(String watchSerialNum);
+
+    @Select("SELECT * FROM watch WHERE watch.user_id = #{userId}")
+    @ResultMap("watchResultMap")
+    Optional<Watch> findByUserId(Long userId);
 
 
     @Update("UPDATE watch set is_used = #{is_used}, user_id = #{user.id}, modified_date = #{modifiedDate} " +

@@ -3,6 +3,7 @@ package com.withsafe.domain.bioData.dao;
 import com.withsafe.domain.bioData.domain.BioData;
 import com.withsafe.domain.bioData.dto.BioDataFindDto;
 import com.withsafe.domain.bioData.dto.BioDataSaveDto;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -22,4 +23,7 @@ public interface BioDataMapper {
     int save(BioData bioData);
 
     List<BioDataFindDto> findUserBioData(Long userId);
+
+    @Delete("DELETE FROM bio_data WHERE user_id = #{userId}")
+    void delete(Long userId);
 }

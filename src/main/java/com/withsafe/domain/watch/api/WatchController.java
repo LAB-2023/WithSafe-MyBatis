@@ -40,7 +40,7 @@ public class WatchController {
      * 워치에 유저 등록 프론트용
      */
     @PutMapping("/user")
-    public Long saveUserToWatch(@RequestParam Long userId ,@RequestParam Long watchId){
+    public Long saveUserToWatch(@RequestParam(required = false) Long userId ,@RequestParam Long watchId){
         return watchService.saveUserToWatch(userId, watchId);
     }
 

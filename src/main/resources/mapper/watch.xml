@@ -33,7 +33,7 @@
         <result property="is_used" column="is_used"/>
         <result property="model" column="model"/>
         <result property="serialNum" column="serial_num"/>
-        <result property="userName" column="user_name"/>
+        <result property="username" column="username"/>
         <result property="watchId" column="watch_id" />
     </resultMap>
     <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->

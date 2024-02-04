@@ -49,7 +49,7 @@ public class Watch extends BaseTimeDomain {
 
     public void updateUser(User user){
         this.user = user;
-        this.is_used = true;
+        this.is_used = (user != null);
     }
 
     public void updateHelmet(Helmet helmet){

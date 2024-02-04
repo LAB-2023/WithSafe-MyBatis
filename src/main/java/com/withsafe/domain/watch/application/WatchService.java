@@ -49,18 +49,26 @@ public class WatchService {
     //전체 워치 조회
     @Transactional
     public List<WatchListDto> findAllWatch(String departmentName) {
-        List<WatchListDto> watchList = watchMapper.findByDepartmentName(departmentName);
-        return watchList;
+        return watchMapper.findByDepartmentName(departmentName);
     }
 
     //워치에 유저 매핑
     @Transactional
     public Long saveUserToWatch(Long userId, Long watchId) {
-        User user = userMapper.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        User user = null;
         Watch watch = watchMapper.findById(watchId).orElseThrow(() -> new IllegalArgumentException("해당 워치가 없습니다."));
-        watch.updateUser(user);
-        watchMapper.updateUser(watch);
-        return watch.getId();
+        if (userId == null) {
+            watch.updateUser(null);
+            watchMapper.updateUser(watch);
+            return watch.getId();
+        }
+        user = userMapper.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        if(!watch.getIs_used()){
+            watch.updateUser(user);
+            watchMapper.updateUser(watch);
+            return watch.getId();
+        }
+        else throw new IllegalArgumentException("이미 사용중인 워치입니다.");
     }
 
     public Long saveHelmetToWatch(Long helmetId, Long watchId) {

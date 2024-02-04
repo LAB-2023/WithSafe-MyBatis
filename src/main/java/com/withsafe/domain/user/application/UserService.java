@@ -1,11 +1,15 @@
 package com.withsafe.domain.user.application;
 
+import com.withsafe.domain.bioData.dao.BioDataMapper;
+import com.withsafe.domain.bioData.dto.BioDataFindDto;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.dao.UserMapper;
 import com.withsafe.domain.user.exception.PhoneNumberDuplicateException;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.user.dto.UserDTO.SaveRequest;
+import com.withsafe.domain.watch.dao.WatchMapper;
+import com.withsafe.domain.watch.domain.Watch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +32,8 @@ import static com.withsafe.domain.user.dto.UserDTO.*;
 public class UserService {
     private final DepartmentMapper departmentMapper;
     private final UserMapper userMapper;
+    private final BioDataMapper bioDataMapper;
+    private final WatchMapper watchMapper;
 
     //유저 등록
     @Transactional
@@ -42,6 +48,27 @@ public class UserService {
         User user = saveRequest.toEntity(department);
         userMapper.save(user);
         return user.getId();
+    }
+
+    //유저 정보 수정
+    @Transactional
+    public Long updateUser(SaveRequest request, Long userId) {
+        User user = userMapper.findById(userId).orElseThrow(()
+                -> new NoSuchElementException("해당 이름의 사용자를 찾지 못했습니다."));
+        user.update(request);
+        userMapper.updateUser(user);
+        return user.getId();
+    }
+
+    @Transactional
+    public Long deleteUser(Long userId) {
+        bioDataMapper.delete(userId);
+        Watch watch = watchMapper.findByUserId(userId).orElseThrow(()
+                -> new NoSuchElementException("해당 워치를 찾지 못했습니다."));
+        watch.updateUser(null);
+        watchMapper.updateUser(watch);
+        userMapper.deleteUser(userId);
+        return userId;
     }
 
     //이름으로 조회

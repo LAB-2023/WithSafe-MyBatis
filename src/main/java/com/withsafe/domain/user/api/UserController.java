@@ -38,6 +38,16 @@ public class UserController {
         return userService.findAll(departmentName);
     }
 
+    @PutMapping
+    public Long updateUser(@RequestBody SaveRequest request, @RequestParam("userId") Long userId) {
+        return userService.updateUser(request, userId);
+    }
+
+    @DeleteMapping
+    public Long deleteUser(@RequestParam("userId") Long userId) {
+        return userService.deleteUser(userId);
+    }
+
     //
 //    //긴급 연락 망 리스트 출력
 //    //일단 보류
