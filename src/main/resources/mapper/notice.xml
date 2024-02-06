@@ -29,12 +29,14 @@
         <result property="noticeType" column="notice_type" javaType="com.withsafe.domain.notice.domain.NoticeType"/>
         <result property="noticeContent" column="notice_content"/>
         <result property="solveContent" column="solve_content"/>
+        <result property="solveDate" column="solve_created_date"/>
         <result property="createdDate" column="created_date"/>
     </resultMap>
 
     <select id="noticeMainResponseDtoPage" resultMap="noticeMainDtoMap">
         SELECT n.notice_id AS notice_id, d.name AS department_name, m.name AS user_name, n.notice_type,
-               n.content AS notice_content, s.content AS solve_content, n.created_date
+               n.content AS notice_content, s.content AS solve_content, s.created_date AS solve_created_date,
+               n.created_date
         FROM notice AS n
         JOIN watch AS w ON n.watch_id = w.watch_id
         JOIN member AS m ON m.user_id = w.user_id
@@ -64,7 +66,7 @@
     <select id="noticeWarningResponseDtoPage" resultMap="noticeWarningDtoMap">
         SELECT
         n.notice_id AS notice_id, m.name AS user_name, wm.type AS warning_message_type,n.content AS notice_content,
-        COALESCE(s.content, '미조치') AS solve_content,
+        s.content AS solve_content,
         s.created_date AS solve_created_date,
         n.created_date
         FROM notice AS n

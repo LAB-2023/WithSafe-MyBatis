@@ -35,7 +35,7 @@ public class DeviceSettingController {
      */
     @PostMapping
     public Long saveDeviceSetting(@RequestBody SaveDeviceSettingRequestDTO request,
-                                                         @RequestParam String departmentName) {
+                                  @RequestParam String departmentName) {
         return deviceSettingService.saveDeviceSetting(request, departmentName);
     }
 

@@ -2,8 +2,11 @@ package com.withsafe.domain.beacon.api;
 
 import com.withsafe.domain.beacon.application.BeaconService;
 import com.withsafe.domain.beacon.dto.BeaconDto;
+import com.withsafe.domain.beacon.dto.BeaconResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.withsafe.domain.beacon.dto.BeaconDto.*;
 
@@ -18,5 +21,10 @@ public class BeaconController {
     @PostMapping
     public Long requestSave(@RequestBody RequestSave requestSave){
         return beaconService.saveBeaconInfo(requestSave);
+    }
+
+    @GetMapping
+    public List<BeaconResponseDto> responseDto(@RequestParam String departmentName) {
+        return beaconService.findBeacon(departmentName);
     }
 }

@@ -16,12 +16,12 @@ public interface UserMapper {
 
     @Insert("INSERT INTO member (" +
             "age, created_date, modified_date, blood_pressure_high, blood_pressure_low, diabetes, emergency_contact, " +
-            "heart_disease, heart_rate_threshold, height, name, oxygen_threshold, " +
+            "emergency_relation, heart_disease, heart_rate_threshold, height, name, oxygen_threshold, " +
             "phone_num, sex, walk_threshold, weight, department_id" +
             ") " +
             "VALUES " +
             "(#{age}, #{createdDate}, #{modifiedDate}, #{bloodPressure_high}, #{bloodPressure_low}, #{diabetes}, #{emergency_contact}, " +
-            "#{heartDisease}, #{heartRate_threshold}, #{height}, #{name}, #{oxygen_threshold}, #{phoneNum}, " +
+            "#{emergency_relation}, #{heartDisease}, #{heartRate_threshold}, #{height}, #{name}, #{oxygen_threshold}, #{phoneNum}, " +
             "#{sex}, #{walk_threshold}, #{weight}, #{department.id})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "user_id")
     void save(User user);

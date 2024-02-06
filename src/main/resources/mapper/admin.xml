@@ -15,7 +15,6 @@
         <!-- department 열에 매핑되어야 합니다. -->
         <association property="department" column="department_id" javaType="com.withsafe.domain.department.domain.Department">
             <id property="id" column="department_id" />
-            <result property="name" column="name"/>
             <!-- 다른 Department 필드 매핑 -->
         </association>
     </resultMap>

@@ -53,11 +53,12 @@ public class AuthService {
                     .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자 입니다."));
             String departmentName;
             if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
-                List<String> excepts = Arrays.asList("MASTER", "SBSYSTEMS");
+                List<String> excepts = Arrays.asList("MASTER", "SBSystems");
                 List<Department> departments = departmentMapper.findAllExceptDepartments(excepts);
                 departmentName = departments.get(0).getName();
             }else{
-                Department department = admin.getDepartment();
+                Department department = departmentMapper.findById(admin.getDepartment().getId())
+                        .orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
                 departmentName = department.getName();
             }
             return tokenProvider.generateTokenDto(authentication, admin.getName(), departmentName, admin.getAuthority());

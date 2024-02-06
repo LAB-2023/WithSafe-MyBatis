@@ -29,7 +29,7 @@ public interface IndoorMapMapper {
     IndoorMap findByDepartmentNameAndIndoorMapName(String departmentName, String indoorMapName);
 
 
-    List<IndoorMapLocationInfo> findAllBySearchCondition(SearchCondition searchCondition);
+    IndoorMapLocationInfo findAllBySearchCondition(SearchCondition searchCondition);
 
     @Select("SELECT * FROM indoor_map WHERE name = #{mapName}")
     @ResultMap("indoorMapResultMap")

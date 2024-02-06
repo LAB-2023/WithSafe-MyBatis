@@ -29,7 +29,6 @@
         <result property="macAddress" column="mac_address"/>
         <result property="beaconType" column="beacon_type"  javaType="com.withsafe.domain.beacon.domain.BeaconType"/>
         <result property="status" column="status"/>
-        <result property="indoorMapId" column="indoor_map_id"/>
+        <result property="indoorMapName" column="indoor_map_name"/>
     </resultMap>
-    <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
 </mapper>

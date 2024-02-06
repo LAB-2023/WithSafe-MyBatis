@@ -35,7 +35,7 @@ public class IndoorMapController {
     }
 
     @GetMapping("/location-info")
-    public List<IndoorMapLocationInfo> getIndoorMapLocationInfo(@RequestParam String departmentName,
+    public IndoorMapLocationInfo getIndoorMapLocationInfo(@RequestParam String departmentName,
                                                                 @RequestParam Long indoorMapId,
                                                                 @RequestParam(required = false) String userName,
                                                                 @RequestParam(required = false) String serialNum){

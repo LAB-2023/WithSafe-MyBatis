@@ -5,6 +5,7 @@ import com.withsafe.domain.beacon.dto.BeaconResponseDto;
 import com.withsafe.domain.restrictArea.domain.RestrictArea;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
@@ -25,4 +26,13 @@ public interface BeaconMapper {
             "FROM beacon b WHERE mac_address = #{macAddress}")
     @ResultMap("beaconResultMap")
     Optional<Beacon> findByMacAddress(String macAddress);
+
+    @Select("SELECT *, im.name AS indoor_map_name, " +
+            "ST_X(b.coordinate) AS coordinate_x, ST_Y(b.coordinate) AS coordinate_y " +
+            "FROM beacon b " +
+            "JOIN indoor_map im ON im.indoor_map_id = b.indoor_map_id " +
+            "JOIN department d ON im.department_id = d.department_id " +
+            "WHERE d.department_id = #{departmentId}")
+    @ResultMap("beaconDtoResultMap")
+    List<BeaconResponseDto> findByDepartment(Long departmentId);
 }
