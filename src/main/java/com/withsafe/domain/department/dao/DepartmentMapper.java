@@ -25,5 +25,5 @@ public interface DepartmentMapper {
     @ResultMap("departmentResultMap")
     Optional<Department> findById(Long id);
 
-    List<Department> findAllExceptDepartments(@Param("excepts") List<String> excepts);
+    List<Department> findAllExceptDepartments(@Param("excepts") List<String> excepts, String departmentName);
 }

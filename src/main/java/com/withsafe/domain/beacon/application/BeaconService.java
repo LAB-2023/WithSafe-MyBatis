@@ -1,9 +1,12 @@
 package com.withsafe.domain.beacon.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.beacon.dao.BeaconMapper;
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.beacon.dto.BeaconDto;
 import com.withsafe.domain.beacon.dto.BeaconResponseDto;
+import com.withsafe.domain.beacon.dto.SearchCondition;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.indoorMap.dao.IndoorMapMapper;
@@ -45,6 +48,18 @@ public class BeaconService {
         return saveBeacon.getId();
     }
 
+    public PageInfo<BeaconResponseDto> findBeacon(int page, int size, SearchCondition searchCondition) {
+        PageHelper.startPage(page, size);
+        return new PageInfo<>(beaconMapper.findBySearchCondition(searchCondition));
+    }
+
+    @Transactional
+    public Long deleteBeacon(Long beaconId) {
+        Beacon beacon = beaconMapper.findById(beaconId).orElseThrow(() -> new IllegalArgumentException("해당 비콘이 없습니다."));
+        beaconMapper.deleteById(beaconId);
+        return beacon.getId();
+    }
+
     //point형으로 변환
     private Point getPoint(double x, double y){
         GeometryFactory geometryFactory;
@@ -52,9 +67,4 @@ public class BeaconService {
         return geometryFactory.createPoint(new Coordinate(x, y));
     }
 
-    public List<BeaconResponseDto> findBeacon(String departmentName) {
-        Department department = departmentMapper.findByName(departmentName)
-                .orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
-        return beaconMapper.findByDepartment(department.getId());
-    }
 }

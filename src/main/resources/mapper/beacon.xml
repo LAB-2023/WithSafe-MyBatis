@@ -31,4 +31,20 @@
         <result property="status" column="status"/>
         <result property="indoorMapName" column="indoor_map_name"/>
     </resultMap>
+
+    <select id="findBySearchCondition" resultMap="beaconDtoResultMap">
+        SELECT *, im.name AS indoor_map_name, ST_X(b.coordinate) AS coordinate_x, ST_Y(b.coordinate) AS coordinate_y
+        FROM beacon b
+        JOIN indoor_map im ON im.indoor_map_id = b.indoor_map_id
+        JOIN department d ON im.department_id = d.department_id
+        <where>
+            d.name = #{departmentName}
+            <if test="macAddress != null">
+                AND b.mac_address = #{macAddress}
+            </if>
+            <if test="indoorMapName != null">
+                AND im.name = #{indoorMapName}
+            </if>
+        </where>
+    </select>
 </mapper>

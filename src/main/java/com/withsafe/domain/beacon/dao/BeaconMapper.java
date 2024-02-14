@@ -2,7 +2,7 @@ package com.withsafe.domain.beacon.dao;
 
 import com.withsafe.domain.beacon.domain.Beacon;
 import com.withsafe.domain.beacon.dto.BeaconResponseDto;
-import com.withsafe.domain.restrictArea.domain.RestrictArea;
+import com.withsafe.domain.beacon.dto.SearchCondition;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -27,12 +27,13 @@ public interface BeaconMapper {
     @ResultMap("beaconResultMap")
     Optional<Beacon> findByMacAddress(String macAddress);
 
-    @Select("SELECT *, im.name AS indoor_map_name, " +
-            "ST_X(b.coordinate) AS coordinate_x, ST_Y(b.coordinate) AS coordinate_y " +
-            "FROM beacon b " +
-            "JOIN indoor_map im ON im.indoor_map_id = b.indoor_map_id " +
-            "JOIN department d ON im.department_id = d.department_id " +
-            "WHERE d.department_id = #{departmentId}")
-    @ResultMap("beaconDtoResultMap")
-    List<BeaconResponseDto> findByDepartment(Long departmentId);
+    @Select("SELECT b.beacon_id AS beacon_id " +
+            "FROM beacon b WHERE b.beacon_id = #{beaconId}")
+    @ResultMap("beaconResultMap")
+    Optional<Beacon> findById(Long beaconId);
+
+    @Delete("DELETE FROM beacon b WHERE b.beacon_id = #{beaconId}")
+    void deleteById(Long beaconId);
+
+    List<BeaconResponseDto> findBySearchCondition(SearchCondition searchCondition);
 }

@@ -28,7 +28,7 @@
         </association>
     </resultMap>
 
-    <resultMap id="watchListDtoMap" type="com.withsafe.domain.watch.dto.WatchListDto">
+    <resultMap id="watchListDtoMap" type="com.withsafe.domain.watch.dto.WatchFindDto">
         <result property="deviceNum" column="device_num"/>
         <result property="is_used" column="is_used"/>
         <result property="model" column="model"/>
@@ -37,4 +37,20 @@
         <result property="watchId" column="watch_id" />
     </resultMap>
     <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
+    <select id="findAllBySearchCondition" resultMap="watchListDtoMap">
+        SELECT
+            w.watch_id AS watch_id, w.*, m.name AS userName
+        FROM watch w
+        JOIN department AS d ON w.department_id = d.department_id
+        LEFT JOIN member m ON m.user_id = w.user_id
+        <where>
+            d.name = #{departmentName}
+            <if test="serialNum != null">
+                AND w.serial_num = #{serialNum}
+            </if>
+            <if test="username != null">
+                AND m.name = #{username}
+            </if>
+        </where>
+    </select>
 </mapper>

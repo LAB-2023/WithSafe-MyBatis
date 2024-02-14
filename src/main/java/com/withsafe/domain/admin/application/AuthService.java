@@ -54,7 +54,7 @@ public class AuthService {
             String departmentName;
             if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
                 List<String> excepts = Arrays.asList("MASTER", "SBSystems");
-                List<Department> departments = departmentMapper.findAllExceptDepartments(excepts);
+                List<Department> departments = departmentMapper.findAllExceptDepartments(excepts, null);
                 departmentName = departments.get(0).getName();
             }else{
                 Department department = departmentMapper.findById(admin.getDepartment().getId())

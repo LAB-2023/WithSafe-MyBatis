@@ -1,9 +1,12 @@
 package com.withsafe.domain.beacon.api;
 
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.beacon.application.BeaconService;
 import com.withsafe.domain.beacon.dto.BeaconDto;
 import com.withsafe.domain.beacon.dto.BeaconResponseDto;
+import com.withsafe.domain.beacon.dto.SearchCondition;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +27,16 @@ public class BeaconController {
     }
 
     @GetMapping
-    public List<BeaconResponseDto> responseDto(@RequestParam String departmentName) {
-        return beaconService.findBeacon(departmentName);
+    public ResponseEntity<PageInfo> findBeacon(@RequestParam("page") int page,
+                                               @RequestParam("size") int size, @RequestParam String departmentName,
+                                               @RequestParam(value = "macAddress", required = false) String macAddress,
+                                               @RequestParam(value = "indoorMapName", required = false) String indoorMapName) {
+        SearchCondition searchCondition = SearchCondition.toSearchCondition(departmentName, macAddress, indoorMapName);
+        return ResponseEntity.ok(beaconService.findBeacon(page, size, searchCondition));
+    }
+
+    @DeleteMapping
+    public Long deleteBeacon(@RequestParam("beaconId") Long beaconId) {
+        return beaconService.deleteBeacon(beaconId);
     }
 }

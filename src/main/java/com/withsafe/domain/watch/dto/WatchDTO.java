@@ -52,45 +52,6 @@ public class WatchDTO {
         }
     }
 
-    //Watch List 조회시 사용
-    @Getter @Setter
-    @NoArgsConstructor
-    public static class FindRequest {
-        private String serialNum;
-        private String model;
-        private Boolean is_used;
-        private Integer deviceNum;
-        private String userName;
-        private Long watchId;
-        @Builder
-        public FindRequest(String serialNum, String model, Boolean is_used, Integer deviceNum, String userName, Long watchId) {
-            this.serialNum = serialNum;
-            this.model = model;
-            this.is_used = is_used;
-            this.deviceNum = deviceNum;
-            this.userName = userName;
-            this.watchId = watchId;
-        }
-        public static Watch toEntity(Watch watch){
-            return Watch.builder()
-                    .serialNum(watch.getSerialNum())
-                    .model(watch.getModel())
-                    .is_used(watch.getIs_used())
-                    .deviceNum(watch.getDeviceNum())
-                    .build();
-        }
-      
-        public static FindRequest toFindRequest(Watch watch, String username){
-            return FindRequest.builder().
-                    deviceNum(watch.getDeviceNum())
-                    .model(watch.getModel())
-                    .is_used(watch.getIs_used())
-                    .serialNum(watch.getSerialNum())
-                    .userName(username)
-                    .watchId(watch.getId())
-                    .build();
-        }
-    }
     @Getter @Setter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class StartRequest{

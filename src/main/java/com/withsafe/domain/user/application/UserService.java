@@ -1,5 +1,7 @@
 package com.withsafe.domain.user.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.bioData.dao.BioDataMapper;
 import com.withsafe.domain.bioData.dto.BioDataFindDto;
 import com.withsafe.domain.department.dao.DepartmentMapper;
@@ -72,7 +74,8 @@ public class UserService {
     }
 
     //이름으로 조회
-    public List<FindRequest> findUser(String username, String departmentName) {
+    public PageInfo<FindRequest> findUser(int page, int size, String username, String departmentName) {
+        PageHelper.startPage(page, size);
         List<User> byName = userMapper.findByName(username, departmentName);
         List<FindRequest> result = byName
                 .stream()
@@ -82,11 +85,12 @@ public class UserService {
         if (result.isEmpty()) {
             throw new NoSuchElementException("해당 이름의 사용자를 찾지 못했습니다.");
         }
-        return result;
+        return new PageInfo<>(result);
     }
 
-    public List<FindRequest> findAll(String departmentName){
-        return userMapper.findAll(departmentName)
+    public PageInfo<FindRequest> findAll(int page, int size, String departmentName){
+        PageHelper.startPage(page, size);
+        List<FindRequest> result = userMapper.findAll(departmentName)
                 .stream()
                 .map(user -> FindRequest.builder()
                         .id(user.getId())
@@ -107,5 +111,6 @@ public class UserService {
                         .heartDisease(user.getHeartDisease())
                         .build())
                 .collect(Collectors.toList());
+        return new PageInfo<>(result);
     }
 }

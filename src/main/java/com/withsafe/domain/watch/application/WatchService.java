@@ -1,5 +1,7 @@
 package com.withsafe.domain.watch.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.helmet.dao.HelmetMapper;
@@ -8,17 +10,15 @@ import com.withsafe.domain.user.dao.UserMapper;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.watch.dao.WatchMapper;
 import com.withsafe.domain.watch.domain.Watch;
-import com.withsafe.domain.watch.dto.StartRequestDto;
+import com.withsafe.domain.watch.dto.SearchCondition;
 import com.withsafe.domain.watch.dto.WatchDTO.SaveRequest;
-import com.withsafe.domain.watch.dto.WatchListDto;
+import com.withsafe.domain.watch.dto.WatchFindDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -46,11 +46,11 @@ public class WatchService {
         watchMapper.save(savedWatch);
         return savedWatch.getId();
     }
-    //전체 워치 조회
-    @Transactional
-    public List<WatchListDto> findAllWatch(String departmentName) {
-        return watchMapper.findByDepartmentName(departmentName);
-    }
+//    //전체 워치 조회
+//    @Transactional
+//    public List<WatchFindDto> findAllWatch(String departmentName) {
+//        return watchMapper.findByDepartmentName(departmentName);
+//    }
 
     //워치에 유저 매핑
     @Transactional
@@ -80,6 +80,13 @@ public class WatchService {
         helmetMapper.update(helmet);
         return watch.getId();
     }
+
+    public PageInfo<WatchFindDto> findWatchBySearchCondition(int page, int size, SearchCondition searchCondition) {
+        PageHelper.startPage(page, size);
+        return new PageInfo<>(watchMapper.findAllBySearchCondition(searchCondition));
+    }
+
+
 //
 //    @Transactional
 //    public StartRequestDto initializeWatch(@RequestParam String SerialNum) {

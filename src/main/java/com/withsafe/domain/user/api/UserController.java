@@ -1,9 +1,11 @@
 package com.withsafe.domain.user.api;
 
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.user.application.UserService;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,14 +30,18 @@ public class UserController {
 
     //유저 조회
     @GetMapping
-    public List<FindRequest> findUser(@RequestParam("username") String username,
-                                      @RequestParam("departmentName") String departmentName) {
-        return userService.findUser(username, departmentName);
+    public ResponseEntity<PageInfo> findUser(@RequestParam("page") int page,
+                                             @RequestParam("size") int size,
+                                             @RequestParam("username") String username,
+                                             @RequestParam("departmentName") String departmentName) {
+        return ResponseEntity.ok(userService.findUser(page, size, username, departmentName));
     }
 
     @GetMapping("/all")
-    public List<FindRequest> findAllUser(@RequestParam("departmentName") String departmentName){
-        return userService.findAll(departmentName);
+    public ResponseEntity<PageInfo> findAllUser(@RequestParam("page") int page,
+                                                @RequestParam("size") int size,
+                                                @RequestParam("departmentName") String departmentName){
+        return ResponseEntity.ok(userService.findAll(page, size, departmentName));
     }
 
     @PutMapping

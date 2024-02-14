@@ -1,8 +1,10 @@
 package com.withsafe.domain.department.api;
 
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.department.application.DepartmentService;
 import com.withsafe.domain.department.dto.DepartmentDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,9 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public List<String> allDepartmentName(){
-        return departmentService.findAllDepartmentName();
+    public ResponseEntity<PageInfo> findDepartment(@RequestParam("page") int page,
+                                                   @RequestParam("size") int size,
+                                                   @RequestParam("departmentName") String department){
+        return ResponseEntity.ok(departmentService.findAllDepartmentName(page, size, department));
     }
 }

@@ -1,5 +1,7 @@
 package com.withsafe.domain.department.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.department.domain.DepartmentJpa;
@@ -48,12 +50,14 @@ public class DepartmentService {
     //유저 삭제
 
     //모든 부서 이름 받기
-    public List<String> findAllDepartmentName(){
+    public PageInfo<String> findAllDepartmentName(int page, int size, String departmentName){
+        PageHelper.startPage(page, size);
         List<String> excepts = Arrays.asList("MASTER", "SBSystems");
-        return departmentMapper.findAllExceptDepartments(excepts)
+        List<String> result = departmentMapper.findAllExceptDepartments(excepts, departmentName)
                 .stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());
+        return new PageInfo<>(result);
     }
 }
 

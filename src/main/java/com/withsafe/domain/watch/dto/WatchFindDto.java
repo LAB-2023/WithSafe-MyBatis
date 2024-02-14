@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class WatchListDto {
+public class WatchFindDto {
     private String serialNum;
     private String model;
     private Boolean is_used;
@@ -15,7 +15,7 @@ public class WatchListDto {
     private String username;
     private Long watchId;
     @Builder
-    public WatchListDto(String serialNum, String model, Boolean is_used, Integer deviceNum, String username, Long watchId) {
+    public WatchFindDto(String serialNum, String model, Boolean is_used, Integer deviceNum, String username, Long watchId) {
         this.serialNum = serialNum;
         this.model = model;
         this.is_used = is_used;
@@ -32,8 +32,8 @@ public class WatchListDto {
                 .build();
     }
 
-    public static WatchListDto toFindRequest(Watch watch, String username){
-        return WatchListDto.builder().
+    public static WatchFindDto toFindRequest(Watch watch, String username){
+        return WatchFindDto.builder().
                 deviceNum(watch.getDeviceNum())
                 .model(watch.getModel())
                 .is_used(watch.getIs_used())
