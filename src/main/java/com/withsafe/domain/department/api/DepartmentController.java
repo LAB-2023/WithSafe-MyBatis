@@ -27,7 +27,7 @@ public class DepartmentController {
     @GetMapping
     public ResponseEntity<PageInfo> findDepartment(@RequestParam("page") int page,
                                                    @RequestParam("size") int size,
-                                                   @RequestParam("departmentName") String department){
+                                                   @RequestParam(value = "departmentName", required = false) String department){
         return ResponseEntity.ok(departmentService.findAllDepartmentName(page, size, department));
     }
 }
