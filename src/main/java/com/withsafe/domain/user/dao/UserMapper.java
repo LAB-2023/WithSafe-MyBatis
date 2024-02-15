@@ -3,6 +3,8 @@ package com.withsafe.domain.user.dao;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.domain.Sex;
 import com.withsafe.domain.user.domain.User;
+import com.withsafe.domain.user.dto.UserDTO;
+import com.withsafe.domain.user.dto.UserFindDto;
 import com.withsafe.domain.watch.domain.Watch;
 import com.withsafe.domain.watch.domain.WatchJpa;
 import org.apache.ibatis.annotations.*;
@@ -10,6 +12,8 @@ import org.apache.ibatis.annotations.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.withsafe.domain.user.dto.UserDTO.*;
 
 @Mapper
 public interface UserMapper {
@@ -36,13 +40,13 @@ public interface UserMapper {
 
     @Select("SELECT *, m.name AS mm, d.name AS dn FROM member AS m JOIN department AS d ON m.department_id = d.department_id " +
             "WHERE m.name = #{username} AND d.name = #{departmentName}")
-    @ResultMap("userResultMap")
-    List<User> findByName(@Param("username") String username, @Param("departmentName") String departmentName);
+    @ResultMap("userFindDtoResultMap")
+    List<UserFindDto> findByName(@Param("username") String username, @Param("departmentName") String departmentName);
 
     @Select("SELECT *, m.name AS mm FROM member m JOIN department d ON m.department_id = d.department_id " +
             "WHERE d.name = #{departmentName}")
-    @ResultMap("userResultMap")
-    List<User> findAll(String departmentName);
+    @ResultMap("userFindDtoResultMap")
+    List<UserFindDto> findAll(String departmentName);
 
     @Select("SELECT COUNT(*) FROM member JOIN department ON member.department_id = department.department_id " +
             "WHERE department.name = #{department}")

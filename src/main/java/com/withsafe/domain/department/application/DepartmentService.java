@@ -50,7 +50,7 @@ public class DepartmentService {
     //유저 삭제
 
     //모든 부서 이름 받기
-    public PageInfo<String> findAllDepartmentName(int page, int size, String departmentName){
+    public PageInfo<String>  findAllDepartmentName(int page, int size, String departmentName){
         PageHelper.startPage(page, size);
         List<String> excepts = Arrays.asList("MASTER", "SBSystems");
         List<String> result = departmentMapper.findAllExceptDepartments(excepts, departmentName)

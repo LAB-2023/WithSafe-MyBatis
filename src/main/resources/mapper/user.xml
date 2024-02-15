@@ -30,5 +30,30 @@
             <!-- 다른 Department 필드 매핑 -->
         </association>
     </resultMap>
+
+    <resultMap id="userFindDtoResultMap" type="com.withsafe.domain.user.dto.UserFindDto">
+        <id property="id" column="user_id" />
+        <result property="name" column="mm"/>
+        <result property="age" column="age" />
+        <result property="phoneNum" column="phone_num" />
+        <result property="emergency_contact" column="emergency_contact" />
+        <result property="emergency_relation" column="emergency_relation" />
+        <result property="heartRate_threshold" column="heart_rate_threshold" />
+        <result property="oxygen_threshold" column="oxygen_threshold" />
+        <result property="walk_threshold" column="walk_threshold" />
+        <result property="height" column="height" />
+        <result property="weight" column="weight" />
+        <result property="sex" column="sex" javaType="com.withsafe.domain.user.domain.Sex"/>
+        <result property="bloodPressure_high" column="blood_pressure_high" />
+        <result property="bloodPressure_low" column="blood_pressure_low" />
+        <result property="diabetes" column="diabetes" />
+        <result property="heartDisease" column="heart_disease" />
+        <!-- department 열에 매핑되어야 합니다. -->
+<!--        <association property="department" column="department_id" javaType="com.withsafe.domain.department.domain.Department">-->
+<!--            <id property="id" column="department_id" />-->
+<!--            <result property="name" column="dn"/>-->
+<!--            &lt;!&ndash; 다른 Department 필드 매핑 &ndash;&gt;-->
+<!--        </association>-->
+    </resultMap>
     <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
 </mapper>

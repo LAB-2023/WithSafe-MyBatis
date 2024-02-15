@@ -7,6 +7,7 @@ import com.withsafe.domain.bioData.dto.BioDataFindDto;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.user.dao.UserMapper;
+import com.withsafe.domain.user.dto.UserFindDto;
 import com.withsafe.domain.user.exception.PhoneNumberDuplicateException;
 import com.withsafe.domain.user.domain.User;
 import com.withsafe.domain.user.dto.UserDTO.SaveRequest;
@@ -74,43 +75,18 @@ public class UserService {
     }
 
     //이름으로 조회
-    public PageInfo<FindRequest> findUser(int page, int size, String username, String departmentName) {
+    public PageInfo<UserFindDto> findUser(int page, int size, String username, String departmentName) {
         PageHelper.startPage(page, size);
-        List<User> byName = userMapper.findByName(username, departmentName);
-        List<FindRequest> result = byName
-                .stream()
-                .map(User::toUserFindRequestDTO)
-                .collect(Collectors.toList());
-
+        List<UserFindDto> result = userMapper.findByName(username, departmentName);
         if (result.isEmpty()) {
             throw new NoSuchElementException("해당 이름의 사용자를 찾지 못했습니다.");
         }
         return new PageInfo<>(result);
     }
 
-    public PageInfo<FindRequest> findAll(int page, int size, String departmentName){
+    public PageInfo<UserFindDto> findAll(int page, int size, String departmentName){
         PageHelper.startPage(page, size);
-        List<FindRequest> result = userMapper.findAll(departmentName)
-                .stream()
-                .map(user -> FindRequest.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .age(user.getAge())
-                        .phoneNum(user.getPhoneNum())
-                        .emergency_contact(user.getEmergency_contact())
-                        .emergency_relation(user.getEmergency_relation())
-                        .heartRate_threshold(user.getHeartRate_threshold())
-                        .oxygen_threshold(user.getOxygen_threshold())
-                        .walk_threshold(user.getWalk_threshold())
-                        .height(user.getHeight())
-                        .weight(user.getWeight())
-                        .sex(user.getSex())
-                        .bloodPressure_high(user.getBloodPressure_high())
-                        .bloodPressure_low(user.getBloodPressure_low())
-                        .diabetes(user.getDiabetes())
-                        .heartDisease(user.getHeartDisease())
-                        .build())
-                .collect(Collectors.toList());
+        List<UserFindDto> result = userMapper.findAll(departmentName);
         return new PageInfo<>(result);
     }
 }
