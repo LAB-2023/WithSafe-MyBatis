@@ -6,6 +6,7 @@ import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.admin.dto.TokenDto;
 import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
+import com.withsafe.domain.department.dto.DepartmentFindDto;
 import com.withsafe.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -54,8 +55,8 @@ public class AuthService {
             String departmentName;
             if(admin.getAuthority().equals(Authority.ROLE_MASTER)){
                 List<String> excepts = Arrays.asList("MASTER", "SBSystems");
-                List<Department> departments = departmentMapper.findAllExceptDepartments(excepts, null);
-                departmentName = departments.get(0).getName();
+                List<DepartmentFindDto> departments = departmentMapper.findAllExceptDepartments(excepts, null);
+                departmentName = departments.get(0).getDepartmentName();
             }else{
                 Department department = departmentMapper.findById(admin.getDepartment().getId())
                         .orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));

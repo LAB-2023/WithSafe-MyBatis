@@ -6,6 +6,7 @@ import com.withsafe.domain.department.dao.DepartmentMapper;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.department.domain.DepartmentJpa;
 import com.withsafe.domain.department.dto.DepartmentDTO;
+import com.withsafe.domain.department.dto.DepartmentFindDto;
 import com.withsafe.domain.department.exception.DepartmentAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,13 +51,10 @@ public class DepartmentService {
     //유저 삭제
 
     //모든 부서 이름 받기
-    public PageInfo<String>  findAllDepartmentName(int page, int size, String departmentName){
+    public PageInfo<DepartmentFindDto>  findAllDepartmentName(int page, int size, String departmentName){
         PageHelper.startPage(page, size);
         List<String> excepts = Arrays.asList("MASTER", "SBSystems");
-        List<String> result = departmentMapper.findAllExceptDepartments(excepts, departmentName)
-                .stream()
-                .map(Department::getName)
-                .collect(Collectors.toList());
+        List<DepartmentFindDto> result = departmentMapper.findAllExceptDepartments(excepts, departmentName);
         return new PageInfo<>(result);
     }
 }
