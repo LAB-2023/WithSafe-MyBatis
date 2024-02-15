@@ -1,7 +1,6 @@
 package com.withsafe.domain.department.dao;
 
 import com.withsafe.domain.department.domain.Department;
-import com.withsafe.domain.department.dto.DepartmentFindDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,5 +25,5 @@ public interface DepartmentMapper {
     @ResultMap("departmentResultMap")
     Optional<Department> findById(Long id);
 
-    List<DepartmentFindDto> findAllExceptDepartments(@Param("excepts") List<String> excepts, String departmentName);
+    List<String> findAllExceptDepartments(@Param("excepts") List<String> excepts, String departmentName);
 }
