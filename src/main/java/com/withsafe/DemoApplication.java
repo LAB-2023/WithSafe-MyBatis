@@ -1,5 +1,6 @@
 package com.withsafe;
 
+import com.withsafe.global.util.Aes256;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.ParseException;
@@ -11,11 +12,19 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Random;
 
 @SpringBootApplication
 @EnableJpaAuditing // JPA Auditing 활성화
 public class DemoApplication {
 	public static void main(String[] args) {
+//        byte[] arr = new byte[8];
+//        new Random().nextBytes(arr);
+//        StringBuilder result = new StringBuilder();
+//        for (byte temp : arr) {
+//            result.append(String.format("%02x", temp));
+//        }
+//        System.out.println("Bytes to Hex: " + result);
 //		SecureRandom secureRandom = new SecureRandom();
 //		byte[] keyBytes = new byte[64];
 //		secureRandom.nextBytes(keyBytes);
@@ -34,7 +43,22 @@ public class DemoApplication {
 //		} catch (ParseException e) {
 //			e.printStackTrace();
 //		}
-		SpringApplication.run(DemoApplication.class, args);
+//		Aes256 aes256 = new Aes256();
+//		String pwd = "1234";
+//		System.out.println("pwdO = " + pwd);
+//        try {
+//            pwd = aes256.encrypt(pwd);
+//			System.out.println("pwdE = "+ pwd);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            pwd = aes256.decrypt(pwd);
+//            System.out.println("pwdD = " + pwd);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        SpringApplication.run(DemoApplication.class, args);
 	}
 
 }
