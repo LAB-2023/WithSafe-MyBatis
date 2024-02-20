@@ -4,6 +4,7 @@ import com.withsafe.domain.admin.domain.Admin;
 import com.withsafe.domain.admin.domain.Authority;
 import com.withsafe.domain.department.domain.Department;
 import com.withsafe.domain.department.domain.DepartmentJpa;
+import com.withsafe.global.util.Aes256;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,8 +57,17 @@ public class AdminDto {
             this.loginPassword = loginPassword;
         }
 
-        public UsernamePasswordAuthenticationToken toAuthentication(){
-            return new UsernamePasswordAuthenticationToken(loginId, loginPassword);
+        public UsernamePasswordAuthenticationToken toAuthentication() {
+            Aes256 aes256 = new Aes256();
+            String decodeId = null;
+            String decodePw = null;
+            try {
+                decodeId = aes256.decrypt(loginId);
+                decodePw = aes256.decrypt(loginPassword);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return new UsernamePasswordAuthenticationToken(decodeId, decodePw);
         }
     }
 
