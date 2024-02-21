@@ -9,6 +9,7 @@ import com.withsafe.domain.user.dao.UserRepository;
 import com.withsafe.domain.warning.dao.WarningMessageRepository;
 import com.withsafe.domain.watch.dao.WatchRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,8 @@ public class NoticeController {
     public ResponseEntity<PageInfo> noticeList(@RequestParam int page,
                                                @RequestParam int size,
                                                @RequestParam(required = false) String username,
-                                               @RequestParam(required = false) LocalDateTime startDate,
-                                               @RequestParam(required = false) LocalDateTime endDate,
+                                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+                                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate,
                                                @RequestParam String departmentName){
 
         return ResponseEntity.ok(
