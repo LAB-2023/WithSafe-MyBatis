@@ -2,6 +2,7 @@ package com.withsafe.domain.admin.api;
 
 import com.withsafe.domain.admin.application.AuthService;
 import com.withsafe.domain.admin.dto.TokenDto;
+import com.withsafe.global.util.Aes256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class AuthController {
 
     //로그인
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto loginRequestDto){
+    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         return ok(authService.login(loginRequestDto));
     }
 }

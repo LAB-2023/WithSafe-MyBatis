@@ -44,16 +44,22 @@ public class DemoApplication {
 //			e.printStackTrace();
 //		}
 //		Aes256 aes256 = new Aes256();
+//		String id = "youngchan";
 //		String pwd = "1234";
+//		System.out.println("id = " + id);
 //		System.out.println("pwdO = " + pwd);
 //        try {
+//			id = aes256.encrypt(id);
 //            pwd = aes256.encrypt(pwd);
+//			System.out.println("id = " + id);
 //			System.out.println("pwdE = "+ pwd);
 //        } catch (Exception e) {
 //            throw new RuntimeException(e);
 //        }
 //        try {
+//			id = aes256.decrypt(id);
 //            pwd = aes256.decrypt(pwd);
+//			System.out.println("id = " + id);
 //            System.out.println("pwdD = " + pwd);
 //        } catch (Exception e) {
 //            throw new RuntimeException(e);
