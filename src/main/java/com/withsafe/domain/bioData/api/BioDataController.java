@@ -47,6 +47,21 @@ public class BioDataController {
 //            bioDataService.saveBioData(request, userId);
 //        }
 //    }
+
+//    @PostMapping("/test50")
+//    public void test(@RequestParam Long userId){
+//        for(int i=0;i<50;i++) {
+//            Integer heartRate = 100;
+//            Double temperature = 100d;
+//            Integer walkCount = 100;
+//            Double oxygen = 100d;
+//            Integer calorie = 100;
+//            Boolean isFall = false;
+//            BioDataSaveDto request = BioDataSaveDto.builder().heartRate(heartRate).temperature(temperature)
+//                    .walkCount(walkCount).oxygen(oxygen).calorie(calorie).isFall(isFall).build();
+//            bioDataService.saveBioData(request, userId);
+//        }
+//    }
 //    @RequestMapping(value = "/{userId}",method = RequestMethod.GET)
 //    public List<FindRequest> findBioData(@PathVariable Long userId, @RequestBody FindRequest request){
 //        List<FindRequest> findRequestList = bioDataService.findWeekBioData(userId, request);

@@ -33,8 +33,10 @@
     <!-- 삽입, 조회, 업데이트, 삭제 등의 SQL 매핑 -->
 
     <select id="findUserBioData" resultMap="bioDataFindDtoResultMap">
-        SELECT heart_rate, temperature, walk_count, oxygen, calorie, is_fall, created_date
-        FROM bio_data
+        SELECT heart_rate, temperature, walk_count, oxygen, calorie, is_fall, bd.created_date
+        FROM bio_data bd
+        JOIN member m ON m.user_id = bd.user_id
+        WHERE m.user_id = #{userId}
         ORDER BY created_date DESC
         LIMIT 10
     </select>
