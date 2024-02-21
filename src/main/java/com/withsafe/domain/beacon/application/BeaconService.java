@@ -60,11 +60,18 @@ public class BeaconService {
         return beacon.getId();
     }
 
+    @Transactional
+    public Long update(Long beaconId, RequestSave request) {
+        Beacon beacon = beaconMapper.findById(beaconId).orElseThrow(() -> new IllegalArgumentException("해당 비콘이 없습니다."));
+        beacon.update(request);
+        beaconMapper.update(beacon);
+        return beacon.getId();
+    }
+
     //point형으로 변환
     private Point getPoint(double x, double y){
         GeometryFactory geometryFactory;
         geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new Coordinate(x, y));
     }
-
 }

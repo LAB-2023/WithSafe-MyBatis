@@ -36,4 +36,9 @@ public interface BeaconMapper {
     void deleteById(Long beaconId);
 
     List<BeaconResponseDto> findBySearchCondition(SearchCondition searchCondition);
+
+    @Update("UPDATE beacon set modified_date = #{modifiedDate}, beacon_type = #{beaconType}, " +
+            "coordinate = (ST_SetSRID(#{coordinate}::geometry, 4326)), mac_address = #{macAddress}, status = #{status} " +
+            "WHERE beacon_id = #{id}")
+    void update(Beacon beacon);
 }

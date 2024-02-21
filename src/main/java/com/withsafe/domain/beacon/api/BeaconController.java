@@ -39,4 +39,9 @@ public class BeaconController {
     public Long deleteBeacon(@RequestParam("beaconId") Long beaconId) {
         return beaconService.deleteBeacon(beaconId);
     }
+
+    @PutMapping
+    public Long updateBeacon(@RequestParam("beaconId") Long beaconId, @RequestBody RequestSave request) {
+        return beaconService.update(beaconId, request);
+    }
 }

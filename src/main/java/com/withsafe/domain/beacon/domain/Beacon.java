@@ -1,5 +1,6 @@
 package com.withsafe.domain.beacon.domain;
 
+import com.withsafe.domain.beacon.dto.BeaconDto;
 import com.withsafe.domain.beacon.dto.BeaconResponseDto;
 import com.withsafe.domain.indoorEntrance.domain.IndoorEntrance;
 import com.withsafe.domain.indoorMap.domain.IndoorMap;
@@ -72,5 +73,13 @@ public class Beacon extends BaseTimeDomain {
         GeometryFactory geometryFactory;
         geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new Coordinate(x, y));
+    }
+
+    public void update(BeaconDto.RequestSave request) {
+        Point point = getPoint(request.getCoordinate_x(), request.getCoordinate_y());
+        this.status = request.getStatus();
+        this.beaconType = request.getBeaconType();
+        this.coordinate = point;
+        this.macAddress = request.getMacAddress();
     }
 }
