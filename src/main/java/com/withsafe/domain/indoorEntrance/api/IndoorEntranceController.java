@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,8 @@ public class IndoorEntranceController {
     public ResponseEntity<PageInfo> getIndoorEntranceList(@RequestParam int page,
                                                           @RequestParam int size,
                                                           @RequestParam(required = false) String username,
-                                                          @RequestParam(required = false) LocalDateTime startDate,
-                                                          @RequestParam(required = false) LocalDateTime endDate){
+                                                          @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+                                                          @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate){
 
         SearchCondition searchCondition = SearchCondition.toSearchCondition(username,startDate,endDate);
 
